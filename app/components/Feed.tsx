@@ -1,20 +1,20 @@
-import Stories from './Stories'
+import Post from "./Posts";
+import Stories from "./Stories";
 
 export default function Feed() {
   return (
     <main>
-        <section>
+      <section>
         {/*  stories */}
-         <Stories/>
+        <Stories />
         {/* post */}
+        <Post />
+      </section>
 
-        </section>
-
-        <section>
-            {/* mini profile */}
-            {/* suggestions */}
-        </section>
+      <section>
+        {/* mini profile */}
+        {/* suggestions */}
+      </section>
     </main>
-  )
+  );
 }
-

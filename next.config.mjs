@@ -46,6 +46,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "cdn.vectorstock.com",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
   eslint: {

@@ -15,7 +15,7 @@ export default function Story({ imgSrc, username }) {
       </div>
       <div>
         <p className="text-xs text-center w-20 truncate">{username}</p>
-      </div> 
+      </div>
     </div>
   );
 }
