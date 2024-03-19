@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/solid";
 
 interface PostsProps {
-  userImg: string; 
+  userImg: string;
   postImg: string;
   caption: string;
   username: string;
@@ -34,6 +34,7 @@ const Posts: React.FC<PostsProps> = ({
         <p className="font-bold flex-1">{username}</p>
         <EllipsisHorizontalIcon className="h-5" />
       </div>
+
       {/* Users post image */}
       <Image
         src={postImg}
@@ -48,10 +49,31 @@ const Posts: React.FC<PostsProps> = ({
           <HeartIcon className="h-7 hover:scale-125 transition-transform duration-100 ease-out cursor-pointer" />
           <ChatBubbleOvalLeftEllipsisIcon className="h-7 hover:scale-125 transition-transform duration-100 ease-out cursor-pointer" />
         </div>
-        <div>
-          <BookmarkIcon className="h-7 hover:scale-125 transition-transform duration-100 ease-out cursor-pointer" />
-        </div>
+        <BookmarkIcon className="h-7 hover:scale-125 transition-transform duration-100 ease-out cursor-pointer" />
       </div>
+      
+      <p className="p-5 truncate"><span className="font-bold mr-2">{username}</span>{caption}</p>
+    
+      {/* post commnets section  */}
+    
+      <form className="flex items-center p-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <input className="border-none w-2 flex-1 focus:ring-0" type="text" placeholder="Comment..." />
+        <button className="font-bold text-blue-400">Post</button>
+      </form>
     </div>
   );
 };
