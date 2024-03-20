@@ -14,7 +14,7 @@ interface PostsProps {
   id: string;
 }
 
-const Posts: React.FC<PostsProps> = ({
+const Post: React.FC<PostsProps> = ({
   userImg,
   postImg,
   caption,
@@ -22,7 +22,8 @@ const Posts: React.FC<PostsProps> = ({
   id,
 }) => {
   return (
-    <div className="bg-white my-7 rounded-md">
+    <div className="bg-white m-7 my-7 rounded-md">
+      {/* post header */}
       <div className="flex items-center p-5">
         <Image
           src={userImg}
@@ -36,26 +37,34 @@ const Posts: React.FC<PostsProps> = ({
       </div>
 
       {/* Users post image */}
-      <Image
-        src={postImg}
-        alt="postImage"
-        width={2000}
-        height={400}
-        className="w-full"
-      />
+      <div className="post-image-container ">
+        <Image
+          src={postImg}
+          alt="postImage"
+          width={100}
+          height={100}
+          layout="responsive"
+          objectFit="cover"
+          className="rounded-sm md:w-50 md:h-50 "
+        />
+      </div>
+
       {/*  buttons*/}
       <div className="flex justify-between items-center px-4 pt-4">
         <div className="flex space-x-4 ">
-          <HeartIcon className="h-7 hover:scale-125 transition-transform duration-100 ease-out cursor-pointer" />
-          <ChatBubbleOvalLeftEllipsisIcon className="h-7 hover:scale-125 transition-transform duration-100 ease-out cursor-pointer" />
+          <HeartIcon className="h-7 hover:scale-125 transition-transform duration-200 ease-out cursor-pointer" />
+          <ChatBubbleOvalLeftEllipsisIcon className="h-7 hover:scale-125 transition-transform duration-200 ease-out cursor-pointer" />
         </div>
-        <BookmarkIcon className="h-7 hover:scale-125 transition-transform duration-100 ease-out cursor-pointer" />
+        <BookmarkIcon className="h-7 hover:scale-125 transition-transform duration-200 ease-out cursor-pointer" />
       </div>
-      
-      <p className="p-5 truncate"><span className="font-bold mr-2">{username}</span>{caption}</p>
-    
-      {/* post commnets section  */}
-    
+
+      <p className="p-5 truncate">
+        <span className="font-bold mr-2">{username}</span>
+        {caption}
+      </p>
+
+      {/* post comments section  */}
+
       <form className="flex items-center p-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -71,11 +80,16 @@ const Posts: React.FC<PostsProps> = ({
             d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <input className="border-none w-2 flex-1 focus:ring-0" type="text" placeholder="Comment..." />
+        <input
+          className="border-none w-2 flex-1 focus:ring-0"
+          type="text"
+          placeholder="Comment..."
+        />
         <button className="font-bold text-blue-400">Post</button>
       </form>
+
     </div>
   );
 };
 
-export default Posts;
+export default Post;

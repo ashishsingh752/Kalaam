@@ -1,5 +1,5 @@
 import React from "react";
-import Posts from "./Post";
+import Post from "./Post";
 
 interface Post {
   id: string;
@@ -9,7 +9,7 @@ interface Post {
   caption: string;
 }
 
-const Post: React.FC = () => {
+const Posts: React.FC = () => {
   const posts: Post[] = [
     {
       id: "1",
@@ -52,7 +52,7 @@ const Post: React.FC = () => {
   return (
     <div>
       {posts.map((post) => (
-        <Posts
+        <Post
           key={post.id}
           id={post.id}
           username={post.username}
@@ -65,4 +65,4 @@ const Post: React.FC = () => {
   );
 };
 
-export default Post;
+export default Posts;

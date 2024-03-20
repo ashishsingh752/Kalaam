@@ -14,7 +14,7 @@ export default function Header() {
         {/* left side */}
 
         {/* logo for the lg screen */}
-          <div className="cursor-pointer  relative hidden lg:inline-grid">
+          <div className="cursor-pointer h-24 w-24 relative hidden lg:inline-grid">
             <Image
               src={Kalaam_Logo}
               className=" m-3"
