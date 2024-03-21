@@ -1,6 +1,7 @@
 import MiniProfile from "./MiniProfile";
 import Posts from "./Posts";
 import Stories from "./Stories";
+import Suggestions from "./Suggestions";
 
 export default function Feed() {
   return (
@@ -9,20 +10,15 @@ export default function Feed() {
         <section className="md:col-span-2">
           {/* story of the poets */}
           <Stories />
-
           {/* new posts of the poets */}
           <Posts />
         </section>
-
         <section className=" hidden  md:inline-grid md:col-span-1">
-           {/* user profile */}
-          <div>
-            <MiniProfile/>
-          </div>
-
-          {/* name of poests to see */}
-          <div>
-
+          <div className=" w-[385px]">
+            {/* user profile */}
+            <MiniProfile />
+            {/* name of poests to see */}
+            <Suggestions />
           </div>
         </section>
       </main>
