@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import {
   MagnifyingGlassIcon,
@@ -5,15 +6,18 @@ import {
   PlusIcon,
 } from "@heroicons/react/24/solid";
 import Kalaam_Logo from "@/public/Kalaam_Logo.png";
+import { signIn, useSession } from "next-auth/react";
 
 export default function Header() {
+  const { data: session } = useSession();
+
   return (
     <>
       <div className="bg-white z-30 sticky border-b top-0 shadow-sm">
         <div className="flex items-center justify-between max-w-6xl mx-4 xl:mx-auto">
-        {/* left side */}
+          {/* left side */}
 
-        {/* logo for the lg screen */}
+          {/* logo for the lg screen */}
           <div className="cursor-pointer h-24 w-24 relative hidden lg:inline-grid">
             <Image
               src={Kalaam_Logo}
@@ -23,8 +27,8 @@ export default function Header() {
               height={100}
             />
           </div>
-           
-           {/* Logo  for the small and medium screen */}
+
+          {/* Logo  for the small and medium screen */}
           <div className="cursor-pointer h-24 w-24 relative lg:hidden">
             <Image
               src={
@@ -49,20 +53,29 @@ export default function Header() {
             />
           </div>
 
-          {/* Right-side */}
           <div className="flex justify-center items-center gap-4">
-            <HomeIcon className="h-8 hidden md:inline-flex cursor-pointer hover:scale-125 transition-transform duration-200 ease-out" />
-            <PlusIcon className="h-6 font-bold outline rounded-full outline-gray-400 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out" />
-            <Image
-              src={
-                "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-              }
-              alt="userProfile"
-              className="cursor-pointer"
-              width={70}
-              height={70}
-            />
-          </div>
+          <HomeIcon className="h-8 hidden md:inline-flex cursor-pointer hover:scale-125 transition-transform duration-200 ease-out" />
+          {session ? (
+            <>
+              {/* Right-side */}
+                <PlusIcon className="h-6 font-bold outline rounded-full outline-gray-400 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out" />
+                <Image
+                  src={
+                    session?.user?.image ||
+                    "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                  }
+                  alt="userProfile"
+                  className="cursor-pointer rounded-full h-12 w-12 border p-[2px]"
+                  width={70}
+                  height={70}
+                />
+            </>
+          ) : (
+            <button onClick={() => signIn()}
+            className="  bg-blue-500 text-white px-4 py-2 rounded-md font-medium text-base hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition ease-in-out duration-150
+            mr-2">Sign in</button>
+            )}
+            </div>
         </div>
       </div>
     </>

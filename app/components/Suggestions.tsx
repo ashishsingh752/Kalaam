@@ -10,7 +10,7 @@ interface User {
   username: string;
   img: string;
   id: number;
-  jobtitle:string;
+  jobtitle: string;
 }
 
 const user = [
