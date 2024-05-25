@@ -6,7 +6,7 @@ export default function MiniProfile() {
   const { data: session } = useSession();
 
   return (
-    <div className="flex  items-center justify-between mt-14 bg-white p-2">
+    <div className="flex  items-center justify-between mt-7 bg-white p-2">
       <Image
         src={
           session?.user?.image ||
@@ -16,7 +16,7 @@ export default function MiniProfile() {
         height={100}
         alt="userprofile"
         objectFit="cover"
-        className="rounded-full h-14 w-14 border p-[2px]"
+        className="rounded-full h-14 w-14 border p-[1px]"
       />
       <div className="flex-1 ml-4">
         {session ? (
@@ -38,7 +38,7 @@ export default function MiniProfile() {
       {session ? (
         <button
           onClick={() => signOut()}
-          className="  bg-red-500 text-white px-4 py-2 rounded-md font-medium text-base hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition ease-in-out duration-150  /* Improved focus styles */
+          className=" bg-red-500 text-white px-4 py-2 rounded-md font-medium text-base hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition ease-in-out duration-150  /* Improved focus styles */
           "
         >
           Sign Out

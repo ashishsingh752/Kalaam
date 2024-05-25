@@ -1,6 +1,6 @@
 import MiniProfile from "./MiniProfile";
 import Posts from "./Posts";
-import SidebarMannager from "./SidebarMannager";
+import SidebarMannager from "./SidebarManager";
 import Stories from "./Stories";
 import Suggestions from "./Suggestions";
 
@@ -18,9 +18,11 @@ export default function Feed() {
           <Posts />
         </section>
         <section className=" hidden  md:inline-grid md:col-span-1">
-          <div className=" w-[385px]">
+          <div className="  w-[385px]">
             {/* user profile */}
-            <MiniProfile />
+            <div className="">
+              <MiniProfile />
+            </div>
             {/* name of poests to see */}
             <Suggestions />
           </div>
