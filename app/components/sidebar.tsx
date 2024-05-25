@@ -15,7 +15,9 @@ import {
   FaInstagram,
   FaTwitter,
 } from "react-icons/fa";
-import Logo from "./Logo";  
+import Logo from "./Logo";
+import { useRouter } from "next/navigation";
+import { useAsyncPaginate } from "react-select-async-paginate";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -23,7 +25,13 @@ interface SidebarProps {
   onMouseLeave: (event: React.MouseEvent) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, onMouseEnter, onMouseLeave }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  isOpen,
+  onMouseEnter,
+  onMouseLeave,
+}) => {
+  const router = useRouter();
+
   return (
     <div
       id="sidebar"
@@ -37,10 +45,19 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onMouseEnter, onMouseLeave })
       style={{ width: "16rem" }}
     >
       <div className="cursor-pointer">
-        <Logo content="Home" icon={<FaHome />} />
-        <Logo content="Explore" icon={<FaUser />} />
-        <Logo content="Learn" icon={<FaBook />} />
-        <Logo content="Achieve" icon={<FaTrophy />} />
+        <div onClick={() => router.replace("/")}>
+          <Logo content="Home" icon={<FaHome />} />
+        </div>
+        <div onClick={() => router.push('/poets')}>
+          <Logo content="Explore" icon={<FaUser />} />
+        </div>
+        <div onClick={() => router.push("/events")}>
+          <Logo content="Events" icon={<FaBook />} />
+        </div>
+        <div onClick={() => router.replace("/poets")}>
+          <Logo content="Achieve" icon={<FaTrophy />} />
+
+        </div>
         <Logo content="Practice" icon={<FaLightbulb />} />
         <Logo content="Project" icon={<FaProjectDiagram />} />
         <Logo content="Career" icon={<FaBriefcase />} />

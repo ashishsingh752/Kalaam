@@ -25,6 +25,7 @@ const Suggestion: React.FC<SuggestionProps> = ({
           className="rounded-full h-14 w-14 border p-[2px]"
         />
       </div>
+      
       <div className="flex-1 ml-4">
         <h2 className="font-bold">{username}</h2>
         <h3 className="text-gray-400 text-sm w-[165px] truncate">{jobtitle}</h3>
