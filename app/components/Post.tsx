@@ -22,7 +22,7 @@ const Post: React.FC<PostsProps> = ({
   id,
 }) => {
   return (
-    <div className="bg-white m-7 my-7 rounded-md">
+    <div className="bg-white md:m-7 my-7 rounded-md">
       {/* post header */}
       <div className="flex items-center p-5">
         <Image

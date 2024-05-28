@@ -35,7 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   return (
     <div
       id="sidebar"
-      className={`fixed top-20 h-[calc(100vh-5rem)] bg-white shadow-lg rounded-lg transition-transform duration-300 ${
+      className={`fixed  top-20 sm:mt-1 h-[calc(100vh-5rem)] bg-white shadow-lg rounded-lg transition-transform duration-300 ${
         isOpen
           ? "translate-x-0 overflow-y-scroll scrollbar-none"
           : "-translate-x-full "
@@ -54,16 +54,15 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div onClick={() => router.push("/events")}>
           <Logo content="Events" icon={<FaBook />} />
         </div>
-        <div onClick={() => router.replace("/poets")}>
+        <div onClick={() => router.replace("/executive-body")}>
           <Logo content="Achieve" icon={<FaTrophy />} />
-
         </div>
-        <Logo content="Practice" icon={<FaLightbulb />} />
-        <Logo content="Project" icon={<FaProjectDiagram />} />
         <Logo content="Career" icon={<FaBriefcase />} />
-        {/* <Logo content="Mentorship" icon={<FaHandshake />} />
-        <Logo content="Blog" icon={<FaPen />} /> */}
-        <Logo content="Community" icon={<FaUsers />} />
+        <Logo content="Mentorship" icon={<FaHandshake />} />
+        <Logo content="Blog" icon={<FaPen />} />
+        <div onClick={() => router.replace("/executive-body")}>
+        <Logo content="Executive Body" icon={<FaUsers />} />
+        </div>
       </div>
       <div className="mt-16 bg-slate-200 p-4 rounded-lg">
         <h3 className="text-center font-semibold">Connect With Us</h3>

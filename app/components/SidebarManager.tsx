@@ -10,7 +10,7 @@ export default function SidebarMannager() {
     setSidebarOpen(true);
   }, []);
 
-  const handleMouseLeave = useCallback((e: MouseEvent) => {
+  const handleMouseLeave = useCallback((e: React.MouseEvent) => {
     const sidebarElement = document.getElementById("sidebar");
     const relatedTarget = e.relatedTarget as Node | null;
 
@@ -22,8 +22,9 @@ export default function SidebarMannager() {
       setSidebarOpen(false);
     }
   }, []);
+
   return (
-    <div className='mt-10 shadow-sm  min-w-full  z-30 border-b'>
+    <div className='shadow-sm border-b'>
       {/* <FaChevronRight  className='z-50' /> */}
       <div className="flex min-h-screen">
         <div
@@ -40,7 +41,7 @@ export default function SidebarMannager() {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         />
-    </div>
+      </div>
     </div>
   )
 }

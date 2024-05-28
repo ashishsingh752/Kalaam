@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { CrossButton } from "./Button";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
@@ -25,7 +24,7 @@ const UserDropdown: React.FC<UserProps> = () => {
     await supabase.auth.signOut();
     router.refresh();
     setUser(null);
-    router.replace("http://localhost:3000/");
+    router.replace("/");
   };
 
   const handleOnClickAccount = function () {
@@ -48,7 +47,7 @@ const UserDropdown: React.FC<UserProps> = () => {
           />
           <div className="flex-1 ml-4">
             <div className="flex justify-between items-center">
-              <div className="name font-bold text-xl">Ashish Singh</div>
+              <div className="name font-bold text-xl">{session?.user?.name}</div>
             </div>
             <div className="overflow-hidden">{session?.user?.email}</div>
           </div>
@@ -74,7 +73,7 @@ const UserDropdown: React.FC<UserProps> = () => {
           <hr />
           <div className="flex items-center text-sm text-gray-500 hover:text-white   hover:bg-red-400 p-2 rounded-lg">
             <label htmlFor="displayName">
-              <button className="text-md " onClick={signOut}>
+              <button className="text-md " onClick={()=>signOut()}>
                 Log Out
               </button>
             </label>

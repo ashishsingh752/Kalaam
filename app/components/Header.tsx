@@ -1,20 +1,18 @@
 "use client";
 import Image from "next/image";
-import {
-  MagnifyingGlassIcon,
-  HomeIcon,
-  PlusIcon,
-} from "@heroicons/react/24/solid";
+import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import Kalaam_Logo from "@/public/Kalaam_Logo.png";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import UserProfile from "./UserProfile";
+import SidebarMannager from "./SidebarManager";
+import { HandleLoginButtom, HomeButton } from "./Button";
 
 export default function Header() {
   const { data: session } = useSession();
 
   return (
     <header className="bg-white w-full shadow-sm sticky min-w-full top-0 z-30 border-b">
-      <div className="container min-w-full  flex items-center justify-between py-3 px-6">
+      <div className="container min-w-full  flex items-center justify-around py-3 px-6">
         {/* Left side */}
         <div className="flex items-center">
           {/* Logo for large screens */}
@@ -39,44 +37,37 @@ export default function Header() {
         </div>
 
         {/* Middle - Search bar */}
-        <div className="flex min-w-1 border items-center flex-grow max-w-lg mx-2  rounded-full p-1 relative">
+        <div className="flex min-w-1  items-center flex-grow max-w-lg mx-2 rounded-full p-1 relative">
           <input
             type="text"
-            className="flex-grow min-w-1 bg-transparent p-2  rounded-full border-none"
-            placeholder="Search Poem"
+            className="flex-grow min-w-1 outline outline-slate-500 bg-transparent p-2 rounded-full border-none"
+            placeholder={"Search by writer's name..."}
           />
-          <MagnifyingGlassIcon className="text-gray-500 w-8 h-8 relative right-2" />
+          <MagnifyingGlassIcon className="text-gray-500 hidden sm:block w-8 h-8 absolute right-2" />
         </div>
 
         {/* Right side */}
         <div className="flex items-center space-x-4">
-          <HomeIcon className="h-8 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out hidden md:inline-block" />
+          <HomeButton />
           {session ? (
             <>
               <PlusIcon className="h-6 w-6 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out" />
-
               {/* add user profile dropdowm */}
-              <UserProfile />
-              {/* <Image
-                src={
-                  session.user.image ||
-                  "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-                }
-                alt="User Profile"
-                className="rounded-full h-10 w-10 border p-1 cursor-pointer"
-                width={40}
-                height={40}
-              /> */}
+              <div className="ml-10">
+                <UserProfile />
+              </div>
             </>
           ) : (
-            <button
-              onClick={() => signIn()}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition ease-in-out duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Login
-            </button>
+            <>
+              {/* login button */}
+              <HandleLoginButtom />
+            </>
           )}
         </div>
+      </div>
+      <div className="max-w-0 max-h-0">
+        {/* sidebar to be available in all  pages  */}
+        <SidebarMannager />
       </div>
     </header>
   );
