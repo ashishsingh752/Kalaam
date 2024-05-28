@@ -4,7 +4,7 @@ import "minifaker/locales/en";
 import { useEffect, useState } from "react";
 // import Story from "./Story";
 import "tailwind-scrollbar";
-import Suggestion from "../components/Poet";
+import Suggestion from "../components/poets/Poet";
 
 interface User {
   username: string;

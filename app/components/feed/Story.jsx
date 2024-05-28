@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Stories from "./Stories";
+import Stories from "./feed/Stories";
 
 export default function Story({ imgSrc, username }) {
   return (

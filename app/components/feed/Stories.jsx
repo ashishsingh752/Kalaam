@@ -2,7 +2,7 @@
 import minifaker, { arrayElement } from "minifaker";
 import "minifaker/locales/en";
 import { useEffect, useState } from "react";
-import Story from "./Story";
+import Story from "../Story";
 import "tailwind-scrollbar";
 
 const users = [

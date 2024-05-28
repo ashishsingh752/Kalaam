@@ -1,8 +1,7 @@
 "use client";
 import { useCallback, useState } from "react";
 import { FaChevronRight } from "react-icons/fa";
-import Sidebar from "./sidebar";
-
+import Sidebar from "./Sidebar";
 export default function SidebarMannager() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 

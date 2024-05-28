@@ -1,8 +1,8 @@
 import React from "react";
-import Home from "./Home";
+import { HomeButton } from "../buttons/Button";  
 import MiniProfile from "./MiniProfile";
 import Posts from "./Posts";
-import SidebarMannager from "./SidebarManager";
+import SidebarMannager from "../static/SidebarManager";
 import Stories from "./Stories";
 import Suggestions from "./Suggestions";
 
