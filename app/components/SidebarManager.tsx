@@ -1,7 +1,7 @@
-'use client'
-import { useCallback, useState } from 'react'
-import { FaChevronRight } from 'react-icons/fa'
-import Sidebar from './sidebar';
+"use client";
+import { useCallback, useState } from "react";
+import { FaChevronRight } from "react-icons/fa";
+import Sidebar from "./sidebar";
 
 export default function SidebarMannager() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -24,7 +24,7 @@ export default function SidebarMannager() {
   }, []);
 
   return (
-    <div className='shadow-sm border-b'>
+    <div className="shadow-sm border-b">
       {/* <FaChevronRight  className='z-50' /> */}
       <div className="flex min-h-screen">
         <div
@@ -43,5 +43,5 @@ export default function SidebarMannager() {
         />
       </div>
     </div>
-  )
+  );
 }

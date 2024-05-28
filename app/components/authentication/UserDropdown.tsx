@@ -38,7 +38,7 @@ const UserDropdown: React.FC<UserProps> = () => {
           <Image
             className="rounded-full w-14 h-14 p-[1px]"
             src={
-              session.user.image ||
+              session?.user?.image ||
               "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
             }
             width={40}
@@ -47,7 +47,9 @@ const UserDropdown: React.FC<UserProps> = () => {
           />
           <div className="flex-1 ml-4">
             <div className="flex justify-between items-center">
-              <div className="name font-bold text-xl">{session?.user?.name}</div>
+              <div className="name font-bold text-xl">
+                {session?.user?.name}
+              </div>
             </div>
             <div className="overflow-hidden">{session?.user?.email}</div>
           </div>
@@ -73,7 +75,7 @@ const UserDropdown: React.FC<UserProps> = () => {
           <hr />
           <div className="flex items-center text-sm text-gray-500 hover:text-white   hover:bg-red-400 p-2 rounded-lg">
             <label htmlFor="displayName">
-              <button className="text-md " onClick={()=>signOut()}>
+              <button className="text-md " onClick={() => signOut()}>
                 Log Out
               </button>
             </label>

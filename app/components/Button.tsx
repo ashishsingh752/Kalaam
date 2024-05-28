@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { HomeIcon } from "@heroicons/react/24/solid";
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
@@ -42,10 +42,10 @@ const ClearButton: React.FC = () => {
 
 const HomeButton: React.FC = () => {
   const router = useRouter();
- 
+
   return (
     <HomeIcon
-      onClick={()=>router.replace("/")}
+      onClick={() => router.replace("/")}
       className="h-8 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out hidden md:inline-block"
     />
   );
@@ -138,14 +138,19 @@ const HandleOnClickHeaderDirectToHome: React.FC = () => {
   const handleClick = () => {
     router.replace("/");
   };
-  return <button onClick={()=>router.replace('/maya')} className="w-full">da</button>;
+  return (
+    <button onClick={() => router.replace("/maya")} className="w-full">
+      da
+    </button>
+  );
 };
 
 const HandleLoginButtom: React.FC = () => {
+  const router = useRouter();
   return (
     <div
-      onClick={() => signIn()}
-      className="bg-blue-500 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition ease-in-out duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      onClick={() => router.push("/signin")}
+      className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition ease-in-out duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
     >
       Login
     </div>
@@ -176,5 +181,5 @@ export {
   HandleOnClickDirectToHome,
   HandleLoginButtom,
   HandleOnClickHeaderDirectToHome,
-  HandleSignOutButtom
+  HandleSignOutButtom,
 };

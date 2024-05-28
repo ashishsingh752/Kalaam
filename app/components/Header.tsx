@@ -3,7 +3,7 @@ import Image from "next/image";
 import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import Kalaam_Logo from "@/public/Kalaam_Logo.png";
 import { useSession } from "next-auth/react";
-import UserProfile from "./UserProfile";
+import UserProfile from "./authentication/UserProfile";
 import SidebarMannager from "./SidebarManager";
 import { HandleLoginButtom, HomeButton } from "./Button";
 

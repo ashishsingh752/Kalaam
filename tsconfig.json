@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/Stories.jsx", "app/components/Story.jsx", "app/components/Posts.tsx", "app/components/Post.tsx", "app/components/Suggestions.tsx", "app/components/Feed.tsx", "app/components/UserDropdown.tsx", "app/components/UserProfile.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/Stories.jsx", "app/components/Story.jsx", "app/components/Posts.tsx", "app/components/Post.tsx", "app/components/Suggestions.tsx", "app/components/Feed.tsx", "app/components/authentication/UserDropdown.tsx", "app/components/authentication/UserProfile.jsx"],
   "exclude": ["node_modules"]
 }
