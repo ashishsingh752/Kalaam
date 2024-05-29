@@ -1,11 +1,12 @@
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const requestUrl = new URL(request.url)
-  const formData = await request.formData()
+  const formData = await request.formData();
+  const data = await request.json();
   const email = String(formData.get('email'))
   const password = String(formData.get('password'))
   const cookieStore = cookies()

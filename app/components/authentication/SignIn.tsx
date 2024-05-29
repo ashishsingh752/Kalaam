@@ -12,6 +12,10 @@ export default function SignIn() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const session = useSession();
+  const [authState, setAuthState] = useState({
+    email: "",
+    password: "",
+  });
 
   useEffect(() => {
     async function getUser() {
@@ -25,6 +29,11 @@ export default function SignIn() {
       ...formData,
       [e.target.id]: e.target.value,
     });
+  };
+
+  const handleFormSubmit = (event:React.FormEvent) => {
+    event.preventDefault(); 
+    console.log("Hi Ashish You hit the submit button ")
   };
 
   if (loading) {
@@ -48,7 +57,9 @@ export default function SignIn() {
   return (
     <div className="flex  h-[calc(100vh-5rem)]  bg-gray-200 items-center justify-center b">
       <div className="w-full max-w-sm px-8 py-6 bg-white rounded-lg shadow-md">
-        <h3 className="text-2xl font-semibold text-center">Kalaam: The Poetry Club</h3>
+        <h3 className="text-2xl font-semibold text-center">
+          Kalaam: The Poetry Club
+        </h3>
 
         <button
           onClick={() => signIn()}
@@ -67,7 +78,7 @@ export default function SignIn() {
           <span className="text-xl font-semibold px-2">Sign In</span>
         </div>
 
-        <form className="flex flex-col gap-2 mt-6">
+        <form onSubmit={handleFormSubmit} className="flex flex-col gap-2 mt-6">
           <label
             className="text-sm text-gray-700 font-medium block"
             htmlFor="email"
