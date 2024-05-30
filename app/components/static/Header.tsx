@@ -6,7 +6,8 @@ import SidebarMannager from "./SidebarManager";
 import { HandleLoginButtom, HomeButton } from "../buttons/Button";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
-
+import CreateNewPost from "../post/CreateNewPost";
+import CreateNewPostButton from "../post/CreateNewPostButton";
 
 export default async function Header() {
   const session = await getServerSession(authOptions);
@@ -52,9 +53,10 @@ export default async function Header() {
           <HomeButton />
           {session ? (
             <>
-              <PlusIcon className="h-6 w-6 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out" />
               {/* add user profile dropdowm */}
-              <div className="ml-10">
+                <CreateNewPostButton/>
+              <div className="ml-10 ">
+              {/* <PlusIcon className="h-6 w-6 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out" /> */}
                 <UserProfile />
               </div>
             </>
@@ -70,7 +72,6 @@ export default async function Header() {
         {/* sidebar to be available in all  pages  */}
         <SidebarMannager />
       </div>
-
     </header>
   );
 }

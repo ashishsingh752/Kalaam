@@ -26,9 +26,7 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json({
         status: 404,
-        errors: {
-          email: "Wrong Credential! check email or password",
-        },
+        message: "Wrong Credential! check email or password",
       });
     }
 
@@ -41,15 +39,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         user,
         status: 200,
-        message: "User logged in successfully df!",
+        message: "User logged in successfully !",
       });
     }
 
     return NextResponse.json({
       status: 404,
-      errors: {
-        email: "Wrong Credential! check email or password",
-      },
+      message: "Wrong Credential! password not matched",
     });
   } catch (error: any) {
     if (error instanceof errors.E_VALIDATION_ERROR) {

@@ -41,6 +41,7 @@ export default function SignUp() {
       const response = res.data;
       if (response.status === 200) {
         router.push(`/signin?message=${response.message}`);
+        alert(response.message);
         setLoading(false);
       } else if (response.status === 400) {
         setErrors(response.error);

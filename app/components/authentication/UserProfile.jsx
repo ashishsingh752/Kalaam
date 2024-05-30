@@ -18,28 +18,29 @@ export default function UserProfile() {
 
   return (
     <div className="relative">
-      {session && session.user ? (
-        <Image
-          src={session.user.image || defaultImageUrl}
-          alt="User Profile"
-          width={100}
-          height={100}
-          className="rounded-full p-1 w-12 h-12"
-          onClick={() => setIsOpen(!isOpen)}
-        />
-      ) : (
-        <Image
-          src={defaultImageUrl}
-          alt="Default Profile"
-          className="rounded-full p-1 w-12 h-12"
-          width={100}
-          height={100}
-        />
-      )}
-      <div ref={menuRef} className="absolute mt-6 pl-5 right-80 ">
+      <div>
+        {session && session.user ? (
+          <Image
+            src={session.user.image || defaultImageUrl}
+            alt="User Profile"
+            width={100}
+            height={100}
+            className="rounded-full p-1 w-12 h-12"
+            onClick={() => setIsOpen(!isOpen)}
+          />
+        ) : (
+          <Image
+            src={defaultImageUrl}
+            alt="Default Profile"
+            className="rounded-full p-1 w-12 h-12"
+            width={100}
+            height={100}
+          />
+        )}
+      </div>
+      <div ref={menuRef} className="absolute mt-5  pl-5 right-80 ">
         {isOpen && <UserDropdown />}
       </div>
-      <div></div>
     </div>
   );
 }

@@ -18,9 +18,6 @@ export default function SignIn() {
     password: "",
   });
 
-
-
-
   useEffect(() => {
     async function getUser() {
       if (session) setLoading(false);
@@ -34,12 +31,11 @@ export default function SignIn() {
       [e.target.id]: e.target.value,
     });
   };
-  
 
   const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setLoading(true);
     try {
+      setLoading(true);
       const res = await axios.post("/api/auth/login", authState);
       const response = res.data;
       if (response.status === 200) {
@@ -49,8 +45,10 @@ export default function SignIn() {
           callbackUrl: "/",
           redirect: true,
         });
-      } else if (response.status === 400) {
+      } else if (response.status === 404) {
         setErrors(response.error);
+        // console.log(response.error);
+        alert(response.message)
         setLoading(false);
       }
     } catch (error) {
