@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Stories from "./feed/Stories";
 
-export default function Story({ imgSrc, username }) {
+export default function Story({ imgSrc, name }) {
   return (
     <div className="flex flex-col justify-center items-center">
       <div>
@@ -14,7 +14,7 @@ export default function Story({ imgSrc, username }) {
         />
       </div>
       <div>
-        <p className="text-xs text-center w-20 truncate">{username}</p>
+        <p className="text-xs text-center w-20 truncate">{name}</p>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import Post from "./Post";
 
 interface Post {
   id: string;
-  username: string;
+  name: string;
   userImg: string;
   postImg: string;
   caption: string;
@@ -13,7 +13,7 @@ const Posts: React.FC = () => {
   const posts: Post[] = [
     {
       id: "1",
-      username: "Ashish singh",
+      name: "Ashish singh",
       userImg:
         "https://images.unsplash.com/photo-1497316730643-415fac54a2af?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
       postImg:
@@ -22,7 +22,7 @@ const Posts: React.FC = () => {
     },
     {
       id: "2",
-      username: "Ashish singh",
+      name: "Ashish singh",
       userImg:
         "https://images.unsplash.com/photo-1497316730643-415fac54a2af?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
       postImg:
@@ -31,7 +31,7 @@ const Posts: React.FC = () => {
     },
     {
       id: "3",
-      username: "Ashish singh",
+      name: "Ashish singh",
       userImg:
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       postImg:
@@ -40,7 +40,7 @@ const Posts: React.FC = () => {
     },
     {
       id: "4",
-      username: "Ashish singh",
+      name: "Ashish singh",
       userImg:
         "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
       postImg:
@@ -55,7 +55,7 @@ const Posts: React.FC = () => {
         <Post
           key={post.id}
           id={post.id}
-          username={post.username}
+          name={post.name}
           userImg={post.userImg}
           postImg={post.postImg}
           caption={post.caption}

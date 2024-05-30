@@ -5,17 +5,21 @@ import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { signIn, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import Image from "next/image";
+import axios from "axios";
+import Google from "next-auth/providers/google";
 
 export default function SignIn() {
-  const [formData, setFormData] = useState({});
   const [isOpen, setIsOpen] = useState(false);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [errors, setErrors] = useState<AuthErrorType>({});
+  const [loading, setLoading] = useState(false);
   const session = useSession();
   const [authState, setAuthState] = useState({
-    email: "",
+    roll_number: "",
     password: "",
   });
+
+
+
 
   useEffect(() => {
     async function getUser() {
@@ -25,15 +29,34 @@ export default function SignIn() {
   }, []);
 
   const handleChange = (e: any) => {
-    setFormData({
-      ...formData,
+    setAuthState({
+      ...authState,
       [e.target.id]: e.target.value,
     });
   };
+  
 
-  const handleFormSubmit = (event:React.FormEvent) => {
-    event.preventDefault(); 
-    console.log("Hi Ashish You hit the submit button ")
+  const handleFormSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setLoading(true);
+    try {
+      const res = await axios.post("/api/auth/login", authState);
+      const response = res.data;
+      if (response.status === 200) {
+        signIn("credentials", {
+          roll_number: authState.roll_number,
+          password: authState.password,
+          callbackUrl: "/",
+          redirect: true,
+        });
+      } else if (response.status === 400) {
+        setErrors(response.error);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log("error happened", error);
+      setLoading(false);
+    }
   };
 
   if (loading) {
@@ -62,7 +85,7 @@ export default function SignIn() {
         </h3>
 
         <button
-          onClick={() => signIn()}
+          onClick={() => signIn("google")}
           className="w-full rounded-md flex justify-center mt-6 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           Continue With Google
@@ -78,26 +101,29 @@ export default function SignIn() {
           <span className="text-xl font-semibold px-2">Sign In</span>
         </div>
 
-        <form onSubmit={handleFormSubmit} className="flex flex-col gap-2 mt-6">
+        <form onSubmit={handleFormSubmit} className="flex flex-col gap-1 mt-6">
           <label
             className="text-sm text-gray-700 font-medium block"
-            htmlFor="email"
+            htmlFor="roll_number"
           >
-            Enter email *
+            roll number *
           </label>
           <input
-            id="email"
-            type="email"
-            placeholder="Email"
+            id="roll_number"
+            type="roll_number"
+            placeholder="Enter Your Institute Roll Number"
             onChange={handleChange}
-            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+            className="w-full px-4 py-1 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
           />
+          <span className="text-red-400 font-semibold">
+            {errors?.roll_number}
+          </span>
 
           <label
             className="text-sm text-gray-700 font-medium block"
             htmlFor="password"
           >
-            Enter password *
+            password *
           </label>
           <div className="relative w-full">
             <input
@@ -105,7 +131,7 @@ export default function SignIn() {
               type={isOpen ? "text" : "password"}
               placeholder="Password"
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+              className="w-full px-4 text-sm py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
             />
             <div
               className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
@@ -114,14 +140,17 @@ export default function SignIn() {
               {isOpen ? <FaRegEye /> : <FaEyeSlash />}
             </div>
           </div>
+          <span className="text-red-400 font-semibold">
+            {errors?.roll_number}
+          </span>
 
           <button
             type="submit"
-            className="w-full rounded-md flex justify-center mt-4 items-center py-3 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="w-full rounded-md flex justify-center mt-4 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
-            {loading ? "Loading..." : "Rubmit"}
+            {loading ? "Loading..." : "Submit"}
           </button>
-          {error && <p className="text-red-500 mt-2">{error}</p>}
+          {errors && <p className="text-red-500 mt-2">{errors?.password}</p>}
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-500">

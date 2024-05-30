@@ -3,44 +3,58 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { signIn, useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Image from "next/image";
+import axios from "axios";
 
 export default function SignUp() {
-  const [formData, setFormData] = useState({});
   const [isOpen, setIsOpen] = useState(false);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [authState, setAuthState] = useState({
+  const [errors, setErrors] = useState<AuthErrorType>({});
+  const [loading, setLoading] = useState(false);
+  const [authState, setAuthState] = useState<AuthStateType>({
+    name: "",
     email: "",
     password: "",
+    roll_number: "",
   });
+  const router = useRouter();
+  const { data: session } = useSession();
 
   useEffect(() => {
-    async function getUser() {
-      if (session) setLoading(false);
+    if (session) {
+      setLoading(false);
     }
-    getUser();
-  }, []);
-
-  const session = useSession();
+  }, [session]);
 
   const handleChange = (e: any) => {
-    setFormData({
-      ...formData,
+    setAuthState({
+      ...authState,
       [e.target.id]: e.target.value,
     });
   };
 
-  const handleFormSubmit = (event: React.FormEvent) => {
+  const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Hi Ashish You hit the submit button ");
+    setLoading(true);
+    try {
+      const res = await axios.post("/api/auth/signup", authState);
+      const response = res.data;
+      if (response.status === 200) {
+        router.push(`/signin?message=${response.message}`);
+        setLoading(false);
+      } else if (response.status === 400) {
+        setErrors(response.error);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log("error happened", error);
+      setLoading(false);
+    }
   };
 
-  if (session && session?.data) {
+  if (session) {
     redirect("/");
   }
-
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -63,56 +77,79 @@ export default function SignUp() {
         </h3>
         <div className="w-full mt-5 mb-0.5">
           <button
-            onClick={() => signIn()}
+            onClick={() => signIn("google")}
             className="w-full rounded-md flex justify-center mt-6 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Continue With Google
           </button>
         </div>
-        <div className="w-full flex items-center justify-between mt-2 mb-2">
+        <div className="w-full flex items-center justify-between mt-2 ">
           <hr className="w-full bg-gray-300 border-0" />
           <span className="text-sm text-gray-500 px-2">OR</span>
           <hr className="w-full bg-gray-300 border-0" />
         </div>
 
-        <div className="w-full flex items-center justify-center mt-1 mb-1">
+        <div className="w-full flex items-center justify-center  mb-1">
           <span className="text-xl font-semibold px-2">Register</span>
         </div>
 
-        <form onSubmit={handleFormSubmit} className="flex flex-col gap-2 mt-6">
+        <form onSubmit={handleFormSubmit} className="flex flex-col gap-1 mt-6">
+          {/* name */}
           <label
             className="text-sm text-gray-700 font-medium block"
-            htmlFor="email"
+            htmlFor="name"
           >
-            Enter Username*
+            name*
           </label>
           <input
-            id="username"
+            id="name"
             type="text"
-            placeholder="username"
+            placeholder="name"
             onChange={handleChange}
-            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+            className="w-full px-4 text-sm py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
           />
+          <span className="text-red-400 font-semibold">{errors?.name}</span>
 
+          {/* roll_number */}
+          <label
+            className="text-sm text-gray-700 font-medium block"
+            htmlFor="name"
+          >
+            roll number*
+          </label>
+          <input
+            id="roll_number"
+            type="text"
+            placeholder="00XX0000"
+            onChange={handleChange}
+            className="w-full px-4 py-1 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+          />
+          <span className="text-red-400 font-semibold">
+            {errors?.roll_number}
+          </span>
+
+          {/* email  */}
           <label
             className="text-sm text-gray-700 font-medium block"
             htmlFor="email"
           >
-            Enter email *
+            email *
           </label>
           <input
             id="email"
             type="email"
             placeholder="Email"
             onChange={handleChange}
-            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+            className="w-full px-4 py-1  text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
           />
+          <span className="text-red-400 font-semibold">{errors?.email}</span>
 
+          {/* password section */}
           <label
             className="text-sm text-gray-700 font-medium block"
             htmlFor="password"
           >
-            Enter password *
+            password *
           </label>
           <div className="relative w-full">
             <input
@@ -120,23 +157,42 @@ export default function SignUp() {
               type={isOpen ? "text" : "password"}
               placeholder="Password"
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+              className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
             />
             <div
-              className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
+              className="absolute text-sm inset-y-0 right-0 pr-3 flex items-center  leading-5 cursor-pointer"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <FaRegEye /> : <FaEyeSlash />}
             </div>
           </div>
+          <span className="text-red-400 font-semibold">{errors?.password}</span>
+
+          {/* password__confirmation
+          <label
+            className="text-sm text-gray-700 font-medium block"
+            htmlFor="password"
+          >
+            password confirmation *
+          </label>
+          <div className="relative w-full">
+            <input
+              id="password__confirmation"
+              type="password"
+              placeholder="Enter Password Again"
+              onChange={handleChange}
+              className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+            />
+          </div> */}
 
           <button
+            disabled={loading}
             type="submit"
             className="w-full rounded-md flex justify-center mt-4 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             {loading ? "Loading..." : "Submit"}
           </button>
-          {error && <p className="text-red-500 mt-2">{error}</p>}
+          {/* {errors && <p className="text-red-500 mt-2">{errors}</p>} */}
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-500">

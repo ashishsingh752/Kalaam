@@ -19,6 +19,7 @@ const UserDropdown: React.FC<UserProps> = () => {
   const supabase = createClientComponentClient();
   const router = useRouter();
   const { data: session } = useSession();
+  console.log(session)
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();

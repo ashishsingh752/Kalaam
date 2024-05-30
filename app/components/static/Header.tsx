@@ -1,14 +1,15 @@
-"use client";
 import Image from "next/image";
 import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import Kalaam_Logo from "@/public/Kalaam_Logo.png";
-import { useSession } from "next-auth/react";
 import UserProfile from "../authentication/UserProfile";
 import SidebarMannager from "./SidebarManager";
 import { HandleLoginButtom, HomeButton } from "../buttons/Button";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth";
 
-export default function Header() {
-  const { data: session } = useSession();
+
+export default async function Header() {
+  const session = await getServerSession(authOptions);
 
   return (
     <header className="bg-white w-full shadow-sm sticky min-w-full top-0 z-30 border-b">
@@ -69,6 +70,7 @@ export default function Header() {
         {/* sidebar to be available in all  pages  */}
         <SidebarMannager />
       </div>
+
     </header>
   );
 }

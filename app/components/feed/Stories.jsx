@@ -7,7 +7,7 @@ import "tailwind-scrollbar";
 
 const users = [
   {
-    username: 'Ashish Singh',
+    name: 'Ashish Singh',
     imageSrc: 'https://images.unsplash.com/photo-1682686581221-c126206d12f0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxMjZ8fHxlbnwwfHx8fHw%3D',
   },
 ];
@@ -19,7 +19,7 @@ export default function Stories() {
   const [storyUsers, setStoryUsers] = useState([]);
   useEffect(() => {
     const storyUsers = minifaker.array(20, (i) => ({
-      username: minifaker.username({ local: "en" }),
+      name: minifaker.name({ local: "en" }),
       img: `https://i.pravatar.cc/150?img=${Math.ceil(Math.random() * 70)}`,
       id: i,
     }));
@@ -34,7 +34,7 @@ export default function Stories() {
           key={user.id}
           id={user.id}
           imgSrc={user.img}
-          username={user.username}
+          name={user.name}
         />
       ))}
     </div>

@@ -10,7 +10,7 @@ interface PostsProps {
   userImg: string;
   postImg: string;
   caption: string;
-  username: string;
+  name: string;
   id: string;
 }
 
@@ -18,7 +18,7 @@ const Post: React.FC<PostsProps> = ({
   userImg,
   postImg,
   caption,
-  username,
+  name,
   id,
 }) => {
   return (
@@ -27,12 +27,12 @@ const Post: React.FC<PostsProps> = ({
       <div className="flex items-center p-5">
         <Image
           src={userImg}
-          alt={username}
+          alt={name}
           width={100}
           height={90}
           className="rounded-full p-1 w-12 mr-3 h-12 object-cover border"
         />
-        <p className="font-bold flex-1">{username}</p>
+        <p className="font-bold flex-1">{name}</p>
         <EllipsisHorizontalIcon className="h-5" />
       </div>
 
@@ -59,7 +59,7 @@ const Post: React.FC<PostsProps> = ({
       </div>
 
       <p className="p-5 truncate">
-        <span className="font-bold mr-2">{username}</span>
+        <span className="font-bold mr-2">{name}</span>
         {caption}
       </p>
 

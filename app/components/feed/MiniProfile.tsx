@@ -4,20 +4,28 @@ import Image from "next/image";
 
 export default function MiniProfile() {
   const { data: session } = useSession();
+  const defaultImageUrl =
+    "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=";
 
   return (
     <div className="flex  items-center justify-between mt-7 bg-white p-2">
-      <Image
-        src={
-          session?.user?.image ||
-          "https://images.unsplash.com/photo-1497316730643-415fac54a2af?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"
-        }
-        width={100}
-        height={100}
-        alt="userprofile"
-        objectFit="cover"
-        className="rounded-full h-14 w-14 border p-[1px]"
-      />
+      {session && session.user ? (
+        <Image
+          src={session.user.image || defaultImageUrl}
+          alt="User Profile"
+          width={100}
+          height={100}
+          className="rounded-full p-1 w-14 h-14"
+        />
+      ) : (
+        <Image
+          src={defaultImageUrl}
+          alt="Default Profile"
+          className="rounded-full  w-14 h-14"
+          width={100}
+          height={100}
+        />
+      )}
       <div className="flex-1 ml-4">
         {session ? (
           <>

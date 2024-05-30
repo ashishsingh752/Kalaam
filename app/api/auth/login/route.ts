@@ -1,23 +1,60 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
-import { NextRequest, NextResponse } from 'next/server'
-
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
+import vine, { errors } from "@vinejs/vine";
+import type { Database } from "@firebase/database";
+import { CustomErrorReporter } from "@/app/validator/customErrorReportor";
+import bcryptjs from "bcryptjs";
+import prisma from "@/db";
+import { loginSchema } from "@/app/validator/loginSchema";
 
 export async function POST(request: NextRequest) {
-  const requestUrl = new URL(request.url)
-  const formData = await request.formData();
-  const data = await request.json();
-  const email = String(formData.get('email'))
-  const password = String(formData.get('password'))
-  const cookieStore = cookies()
-  const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
+  try {
+    // console.log("hi Ashish you hit this route");
+    const data = await request.json();
+    console.log(data);
 
-  await supabase.auth.signInWithPassword({
-    email,
-    password,
-  })
+    vine.errorReporter = () => new CustomErrorReporter();
 
-  return NextResponse.redirect(requestUrl.origin, {
-    status: 301,
-  })
+    const validator = vine.compile(loginSchema);
+    const payload = await validator.validate(data);
+
+    const user = await prisma.user.findUnique({
+      where: { roll_number: payload.roll_number },
+    });
+
+    if (!user) {
+      return NextResponse.json({
+        status: 404,
+        errors: {
+          email: "Wrong Credential! check email or password",
+        },
+      });
+    }
+
+    const validPassword = bcryptjs.compareSync(
+      payload.password,
+      user.password!
+    );
+
+    if (validPassword) {
+      return NextResponse.json({
+        user,
+        status: 200,
+        message: "User logged in successfully df!",
+      });
+    }
+
+    return NextResponse.json({
+      status: 404,
+      errors: {
+        email: "Wrong Credential! check email or password",
+      },
+    });
+  } catch (error: any) {
+    if (error instanceof errors.E_VALIDATION_ERROR) {
+      console.log(error);
+      return NextResponse.json({ status: 400, error: error });
+    }
+  }
 }

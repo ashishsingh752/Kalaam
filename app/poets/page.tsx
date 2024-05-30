@@ -7,7 +7,7 @@ import "tailwind-scrollbar";
 import Suggestion from "../components/poets/Poet";
 
 interface User {
-  username: string;
+  name: string;
   img: string;
   id: number;
   jobtitle: string;
@@ -15,7 +15,7 @@ interface User {
 
 const user = [
   {
-    username: "Ashish singh",
+    name: "Ashish singh",
     imgSrc:
       "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZSUyMGltYWdlfGVufDB8fDB8fHww",
     id: 1,
@@ -26,7 +26,7 @@ export default function Suggestions() {
   const [storyUsers, setStoryUsers] = useState<User[]>([]);
   useEffect(() => {
     const storyUsers: User[] = minifaker.array(15, (i: number) => ({
-      username: minifaker.username({ local: "en" }),
+      name: minifaker.name({ local: "en" }),
       img: `https://i.pravatar.cc/150?img=${Math.ceil(Math.random() * 70)}`,
       id: i,
       jobtitle: minifaker.jobTitle(),
@@ -49,7 +49,7 @@ export default function Suggestions() {
             <Suggestion
               key={user.id}
               imgSrc={user.img}
-              username={user.username}
+              name={user.name}
               jobtitle={user.jobtitle}
             />
           </div>
