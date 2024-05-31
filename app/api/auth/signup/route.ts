@@ -59,7 +59,8 @@ export async function POST(request: NextRequest) {
       message: "User created successfully!",
       user: userWithoutPassword,
     });
-  } catch (error: any) {
+  }
+  catch (error: any) {
     if (error instanceof errors.E_VALIDATION_ERROR) {
       console.log("Validation Error: ", error.messages);
       return NextResponse.json({ status: 400, error: error.messages });
