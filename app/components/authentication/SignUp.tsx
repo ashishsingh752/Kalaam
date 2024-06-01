@@ -9,6 +9,7 @@ import axios from "axios";
 
 export default function SignUp() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenConfirm, setIsOpenConfirm] = useState(false);
   const [errors, setErrors] = useState<AuthErrorType>({});
   const [loading, setLoading] = useState(false);
   const [authState, setAuthState] = useState<AuthStateType>({
@@ -79,7 +80,7 @@ export default function SignUp() {
         <div className="w-full mt-5 mb-0.5">
           <button
             onClick={() => signIn("google")}
-            className="w-full rounded-md flex justify-center mt-6 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="w-full rounded-md flex justify-center mt-6 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-blue-400"
           >
             Continue With Google
           </button>
@@ -96,69 +97,49 @@ export default function SignUp() {
 
         <form onSubmit={handleFormSubmit} className="flex flex-col gap-1 mt-6">
           {/* name */}
-          <label
-            className="text-sm text-gray-700 font-medium block"
-            htmlFor="name"
-          >
-            name*
-          </label>
+
           <input
             id="name"
             type="text"
-            placeholder="name"
+            placeholder="Name"
             onChange={handleChange}
-            className="w-full px-4 text-sm py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+            className="w-full px-4 text-sm py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
           />
           <span className="text-red-400 font-semibold">{errors?.name}</span>
 
           {/* roll_number */}
-          <label
-            className="text-sm text-gray-700 font-medium block"
-            htmlFor="name"
-          >
-            roll number*
-          </label>
+
           <input
             id="roll_number"
             type="text"
-            placeholder="00XX0000"
+            placeholder="Roll Number"
             onChange={handleChange}
-            className="w-full px-4 py-1 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+            className="w-full px-4 py-1 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
           />
           <span className="text-red-400 font-semibold">
             {errors?.roll_number}
           </span>
 
           {/* email  */}
-          <label
-            className="text-sm text-gray-700 font-medium block"
-            htmlFor="email"
-          >
-            email *
-          </label>
+
           <input
             id="email"
             type="email"
             placeholder="Email"
             onChange={handleChange}
-            className="w-full px-4 py-1  text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+            className="w-full px-4 py-1  text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
           />
           <span className="text-red-400 font-semibold">{errors?.email}</span>
 
           {/* password section */}
-          <label
-            className="text-sm text-gray-700 font-medium block"
-            htmlFor="password"
-          >
-            password *
-          </label>
+
           <div className="relative w-full">
             <input
               id="password"
               type={isOpen ? "text" : "password"}
               placeholder="Password"
               onChange={handleChange}
-              className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+              className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
             />
             <div
               className="absolute text-sm inset-y-0 right-0 pr-3 flex items-center  leading-5 cursor-pointer"
@@ -168,28 +149,28 @@ export default function SignUp() {
             </div>
           </div>
           <span className="text-red-400 font-semibold">{errors?.password}</span>
-
-          {/* password__confirmation
-          <label
-            className="text-sm text-gray-700 font-medium block"
-            htmlFor="password"
-          >
-            password confirmation *
-          </label>
           <div className="relative w-full">
             <input
-              id="password__confirmation"
-              type="password"
-              placeholder="Enter Password Again"
+              id="password"
+              type={isOpenConfirm ? "text" : "password"}
+              placeholder="Confirm Password"
               onChange={handleChange}
-              className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+              className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
             />
-          </div> */}
+            <div
+              className="absolute text-sm inset-y-0 right-0 pr-3 flex items-center  leading-5 cursor-pointer"
+              onClick={() => setIsOpenConfirm(!isOpenConfirm)}
+            >
+              {isOpenConfirm ? <FaRegEye /> : <FaEyeSlash />}
+            </div>
+          </div>
+          {/* <span className="text-red-400 font-semibold">{errors?.confirm_password}</span> */}
+
 
           <button
             disabled={loading}
             type="submit"
-            className="w-full rounded-md flex justify-center mt-4 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="w-full rounded-md flex justify-center mt-4 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-blue-400"
           >
             {loading ? "Loading..." : "Submit"}
           </button>

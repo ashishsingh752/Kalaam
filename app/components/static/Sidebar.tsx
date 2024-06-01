@@ -17,7 +17,6 @@ import {
 } from "react-icons/fa";
 import Logo from "./Logo";
 import { useRouter } from "next/navigation";
-import { useAsyncPaginate } from "react-select-async-paginate";
 
 interface SidebarProps {
   isOpen: boolean;

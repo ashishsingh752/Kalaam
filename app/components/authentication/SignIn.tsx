@@ -84,7 +84,7 @@ export default function SignIn() {
 
         <button
           onClick={() => signIn("google")}
-          className="w-full rounded-md flex justify-center mt-6 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="w-full rounded-md flex justify-center mt-6 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-blue-400"
         >
           Continue With Google
         </button>
@@ -99,37 +99,27 @@ export default function SignIn() {
           <span className="text-xl font-semibold px-2">Sign In</span>
         </div>
 
-        <form onSubmit={handleFormSubmit} className="flex flex-col gap-1 mt-6">
-          <label
-            className="text-sm text-gray-700 font-medium block"
-            htmlFor="roll_number"
-          >
-            roll number *
-          </label>
+        <form onSubmit={handleFormSubmit} className="flex flex-col gap-2 mt-6">
+  
           <input
             id="roll_number"
             type="roll_number"
             placeholder="Enter Your Institute Roll Number"
             onChange={handleChange}
-            className="w-full px-4 py-1 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+            className="w-full px-4 py-1 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
           />
           <span className="text-red-400 font-semibold">
             {errors?.roll_number}
           </span>
 
-          <label
-            className="text-sm text-gray-700 font-medium block"
-            htmlFor="password"
-          >
-            password *
-          </label>
+
           <div className="relative w-full">
             <input
               id="password"
               type={isOpen ? "text" : "password"}
               placeholder="Password"
               onChange={handleChange}
-              className="w-full px-4 text-sm py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-0"
+              className="w-full px-4 text-sm py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
             />
             <div
               className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
@@ -144,7 +134,7 @@ export default function SignIn() {
 
           <button
             type="submit"
-            className="w-full rounded-md flex justify-center mt-4 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="w-full rounded-md flex justify-center mt-4 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-blue-400"
           >
             {loading ? "Loading..." : "Submit"}
           </button>

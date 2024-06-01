@@ -32,15 +32,27 @@ const PrevPost: React.FC<PrevPostProps> = ({
       )}
 
       {/* post image */}
-      <div className="h-auto">
+      <div className="h-screen flex">
         <div
-          className="max-w-screen   flex justify-center items-center w-full h-screen bg-no-repeat bg-center bg-cover "
+          className={`${
+            readContent ? "w-1/2" : "w-full"
+          }  flex justify-center items-center  h-screen bg-no-repeat bg-center bg-cover`}
           style={{
             backgroundImage: `url(${image})`,
           }}
         ></div>
+        {readContent && (
+          <div className={`${readContent ? "w-1/2" : ""} overflow-auto pt-0 p-4 `}>
+            {creation}
+            <div
+              onClick={() => setReadContent(!readContent)}
+              className="text-right mr-2 cursor-pointer"
+            >
+              {readContent ? "close" : "read"}
+            </div>
+          </div>
+        )}
       </div>
-      <div className="">{creation}</div>
     </div>
   );
 };

@@ -32,7 +32,7 @@ export default function CreateNewPost() {
   };
 
   return (
-    <div className="h-screen pb-5 md:h-full bg-gray-200 flex flex-col justify-center items-center">
+    <div className="min-h-screen pb-5 md:h-full bg-gray-200 flex flex-col justify-center items-center">
       <div className="bg-gray-300 sm:mt-5 w-full p-5 md:w-[calc(100vw-25rem)] justify-center items-center">
         {/* title for the content */}
         <textarea
