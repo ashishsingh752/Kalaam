@@ -36,6 +36,19 @@ export const authOptions: AuthOptions = {
       session.user = token.user as CustomUser;
       return session;
     },
+    // async signIn({ user, account, profile, email, credentials }) {
+    //   const isAllowedToSignIn = true
+    //   if (isAllowedToSignIn) {
+    //     return true
+    //   } else {
+    //     // Return false to display a default error message
+    //     return false
+    //   }
+    // },
+    
+    async redirect({ url, baseUrl }) {
+      return url.startsWith(baseUrl) ? '/' : "https://kalaam-nitrkl.vercel.app/";
+    },
   },
   providers: [
     CredentialsProvider({
@@ -67,7 +80,6 @@ export const authOptions: AuthOptions = {
     }),
   ],
   pages: {
-    signIn: '/signin',
+    signIn: "/signin",
   },
-  
 };
