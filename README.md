@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# This is the website for the Kalaam: The Poetry club of NIT Rourkela.
 
-## Getting Started
+###  Visite Website 
+https://kalaam-nitrkl.vercel.app/
 
-First, run the development server:
+## Home page: 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Users get suggestions to read works by particular poets.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+  
+![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/51a30ce7-c787-4c5d-a902-0a0c8c0b8604)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Sidebaar 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Available in all the pages 
+- Open on hovering ove ">" icon
+- Closes when the mouse moves out of the sidebar.
+  
+![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/b53e0c4b-f11f-4b4c-83af-ad44b34d56b1)
 
-## Learn More
+## Club member
 
-To learn more about Next.js, take a look at the following resources:
+- Users can see all Kalaam Club members.
+- Users can choose a member to read all of their creations (poems, stories, etc.).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/20b51565-0b36-4cdc-b440-9857d4057397)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Permission to Post 
 
-## Deploy on Vercel
+- Only authenticated users are able to post content.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/e8a8b28e-dba6-42c2-8867-469fd4316dc7)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## User dropdown 
+- Provides functionality for logging out on smaller screens.
+- Allows users to support the club through real-time payment (feature coming soon).
+
+![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/113d1bef-68bb-46e1-8172-5f83b85a865a)
+
+## Post
+- Poets/writers can post their content by adding a title and the content.
+- They must have to upload a image of the related post
+- After adding the image and the content only he the post and preview buttom will be enable 
+
+![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/b9b6052a-973c-4c0b-bcd3-f6d164fe1a64)
+
+## Preview
+
+- On preview, poets can see their post image.
+- On clicking "read," they can see both the content and the image of the post.
+
+![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/6c970908-abf7-40b5-8d07-1ed1f95e1804)
+
+
+
+
