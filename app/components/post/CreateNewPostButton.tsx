@@ -9,7 +9,8 @@ export default function CreateNewPostButton() {
   return (
     <PlusIcon
       onClick={() => router.push("/newpost")}
-      className="h-6 w-6 rounded-full  outline outline-gray-600 font-extrabold cursor-pointer hover:scale-110 transition-transform duration-200 ease-out"
+      className="h-6 w-6 rounded-full  outline outline-gray-600 font-extrabold cursor-pointer hidden md:inline-flex hover:scale-110 transition-transform duration-200 ease-out"
+
     />
   );
 }

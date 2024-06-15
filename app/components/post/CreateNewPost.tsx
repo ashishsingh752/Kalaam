@@ -1,7 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import PrevPost from "./PrevPost";
+import axios from "axios";
 
 export default function CreateNewPost() {
   const imgeRef = useRef<HTMLInputElement | null>(null);
@@ -11,7 +12,18 @@ export default function CreateNewPost() {
   const [showPreview, setShowPreview] = useState(false);
   const [readContent, setReadContent] = useState(false);
   const [content, setContent] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+
+  // Cleanup the object URL when the component unmounts
+  useEffect(() => {
+    return () => {
+      if (preView) {
+        URL.revokeObjectURL(preView);
+      }
+    };
+  }, [preView]);
 
   // function to select the image for the user device
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +33,7 @@ export default function CreateNewPost() {
       const previewImageUrl = URL.createObjectURL(selectedFile);
       setPreView(previewImageUrl);
     }
+    console.log("image is of the type: ", selectedFile);
   };
 
   const handlePostTitle = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -29,6 +42,32 @@ export default function CreateNewPost() {
 
   const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
+  };
+
+  const handleImageUpload = async () => {
+    setLoading(true);
+    setError(null);
+    const formData = new FormData();
+    formData.append("content", content);
+    formData.append("heading", postTitle);
+    if (image) {
+      formData.append("image", image);
+    }
+
+    try {
+      const response = await axios.post("/api/post", formData);
+      setLoading(false);
+      const responseData = response.data;
+      if (responseData.status === 200) {
+        router.push("/");
+      } else {
+        setError("Something went wrong. Please try again later.");
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error("error uploading image: ", error);
+      setError("An error occurred while uploading the image.");
+    }
   };
 
   return (
@@ -72,10 +111,11 @@ export default function CreateNewPost() {
               {!showPreview ? "Preview" : "Hide Preview"}
             </button>
             <button
-              disabled={!image || !postTitle}
+              disabled={!image || !postTitle || !content || loading}
+              onClick={handleImageUpload}
               className="bg-gray-700 outline-none text-white px-4 py-2 rounded-md font-medium hover:bg-gray-950 transition ease-in-out duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
             >
-              Post
+              {loading ? "Posting..." : "Post"}
             </button>
           </div>
         </div>
@@ -92,6 +132,7 @@ export default function CreateNewPost() {
           />
         </div>
       )}
+      {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
   );
 }

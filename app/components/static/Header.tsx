@@ -49,14 +49,16 @@ export default async function Header() {
         </div>
 
         {/* Right side */}
-        <div className="flex items-center space-x-4">
+        <div className="flex  items-center md:space-x-4">
           <HomeButton />
           {session ? (
             <>
               {/* add user profile dropdowm */}
-                <CreateNewPostButton/>
-              <div className="ml-10 ">
-              {/* <PlusIcon className="h-6 w-6 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out" /> */}
+              <div >
+                <CreateNewPostButton />
+              </div>
+              <div className="">
+                {/* <PlusIcon className="h-6 w-6 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out" /> */}
                 <UserProfile />
               </div>
             </>

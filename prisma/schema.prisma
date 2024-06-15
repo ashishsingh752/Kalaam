@@ -30,6 +30,7 @@ model Post {
   user_id   Int
   user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade) // user to create a post 
   content   String
-  image     String?
+  image     String
+  heading   String
   create_at DateTime @default(now())
 }
