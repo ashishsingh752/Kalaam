@@ -33,7 +33,7 @@ export default function CreateNewPost() {
       const previewImageUrl = URL.createObjectURL(selectedFile);
       setPreView(previewImageUrl);
     }
-    console.log("image is of the type: ", selectedFile);
+    // console.log("image is of the type: ", selectedFile);
   };
 
   const handlePostTitle = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -60,6 +60,7 @@ export default function CreateNewPost() {
       const responseData = response.data;
       if (responseData.status === 200) {
         router.push("/");
+        router.refresh();
       } else {
         setError("Something went wrong. Please try again later.");
       }

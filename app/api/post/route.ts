@@ -10,6 +10,32 @@ import { getRandomNumber } from "@/lib/utils";
 import { promises as fsPromises } from "fs";
 import prisma from "@/db";
 
+export async function GET(request: NextRequest) {
+  const session: CustomSession | null = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ status: 401, message: "Un-Authorized" });
+  }
+  const posts = await prisma.post.findMany({
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+    orderBy: {
+      id: "desc",
+    },
+  });
+
+  return NextResponse.json({
+    status: 200,
+    data: posts,
+  });
+}
+
+
 export async function POST(req: NextRequest) {
   try {
     const session: CustomSession | null = await getServerSession(authOptions);
