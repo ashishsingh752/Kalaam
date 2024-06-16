@@ -1,5 +1,5 @@
 "use server";
-import Env from "@/app/config/Env";
+import Env from "../app/config/env";
 import { headers } from "next/headers";
 
 export async function getPost() {
@@ -10,7 +10,7 @@ export async function getPost() {
   console.log("ashish");
   console.log("response is: ", res);
   if (!res.ok) {
-    throw new Error("Failed to fecth posts");
+    throw new Error("Failed to fecth posts"); 
   }
   const response = await res.json();
   return response?.data;

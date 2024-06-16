@@ -1,7 +1,7 @@
 import React from "react";
 import Post from "./Post";
 import { getPost } from "@/lib/serverMethods";
-import Env from "@/app/config/Env";
+import Env from "../../config/env";
 
 interface Post {
   id: string;
