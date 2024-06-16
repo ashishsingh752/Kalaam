@@ -1,10 +1,41 @@
 "use client";
 import { useSession } from "next-auth/react";
-import React from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+
+interface User {
+  name?: string;
+  email?: string;
+  roll_number?: string;
+}
 
 export default function Profile() {
-  const session = useSession();
-  console.log(session);
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/signin");
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Image
+          className="h-40 w-40"
+          src={`https://media.tenor.com/_62bXB8gnzoAAAAj/loading.gif`}
+          width={40}
+          height={40}
+          alt="Loading..."
+        />
+      </div>
+    );
+  }
+
+  const user: User | undefined = session?.user as User | undefined;
+
   return (
     <div className="flex p-6 justify-center items-center bg-gray-200 min-h-screen">
       <div className="mx-10 md:mx-40 bg-white p-8 w-full">
@@ -19,24 +50,24 @@ export default function Profile() {
             <div className="flex flex-col">
               <label className="font-medium">Your Name</label>
               <input
-                defaultValue={`${session?.data?.user?.name}`}
-                placeholder={`username`}
+                defaultValue={user?.name || ""}
+                placeholder="Your name"
                 className="border border-gray-300 rounded-md w-full p-2"
               />
             </div>
             <div className="flex flex-col">
               <label className="font-medium">Your Email</label>
               <input
+                defaultValue={user?.email || ""}
                 placeholder="Your email"
-                defaultValue={`${session?.data?.user?.email}`}
                 className="border border-gray-300 rounded-md w-full p-2"
               />
             </div>
             <div className="flex flex-col">
               <label className="font-medium">Roll Number</label>
               <input
+                defaultValue={user?.roll_number || ""}
                 placeholder="Roll Number"
-                defaultValue={`${session?.data?.user?.roll_number} ` }
                 className="border border-gray-300 rounded-md w-full p-2"
               />
             </div>
@@ -62,7 +93,7 @@ export default function Profile() {
                 <div className="text-xl font-bold">Post Title:</div>
                 <div className="text-sm mt-2">Post Description:</div>
                 <div className="flex mt-2 justify-center items-center">
-                  <div className="bg-red-500  text-white p-2 rounded-md   cursor-pointer">
+                  <div className="bg-red-500 text-white p-2 rounded-md cursor-pointer">
                     Delete Post
                   </div>
                 </div>

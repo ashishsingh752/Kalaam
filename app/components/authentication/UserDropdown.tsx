@@ -19,17 +19,11 @@ const UserDropdown: React.FC<UserProps> = () => {
   const supabase = createClientComponentClient();
   const router = useRouter();
   const { data: session } = useSession();
-  console.log(session)
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    router.refresh();
-    setUser(null);
-    router.replace("/");
-  };
+  console.log(session);
 
   const handleOnClickAccount = function () {
-    return router.replace("account");
+    router.refresh();
+    return router.push("/profile");
   };
 
   return (
@@ -61,7 +55,13 @@ const UserDropdown: React.FC<UserProps> = () => {
         <div className="flex flex-col gap-3">
           <div className="flex items-center hover:bg-gray-100 p-2 rounded-lg">
             <label htmlFor="displayName" className="text-gray-500 text-md  ">
-              <button onClick={handleOnClickAccount}>Account</button>
+              <button
+                onClick={() => {
+                  router.push("/profile");
+                }}
+              >
+                Account
+              </button>
             </label>
           </div>
           <hr />

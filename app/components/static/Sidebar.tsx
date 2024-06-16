@@ -48,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           <Logo content="Home" icon={<FaHome />} />
         </div>
         <div onClick={() => router.push("/poets")}>
-          <Logo content="Explore" icon={<FaUser />} />
+          <Logo content="Members" icon={<FaUsers />} />
         </div>
         <div onClick={() => router.push("/events")}>
           <Logo content="Events" icon={<FaBook />} />
@@ -59,10 +59,13 @@ const Sidebar: React.FC<SidebarProps> = ({
         <Logo content="Career" icon={<FaBriefcase />} />
         <Logo content="Mentorship" icon={<FaHandshake />} />
         <div onClick={() => router.replace("/newpost")}>
-          <Logo content="Blog" icon={<FaPen />} />
+          <Logo content="Post Content" icon={<FaPen />} />
         </div>
         <div onClick={() => router.replace("/executive-body")}>
           <Logo content="Executive Body" icon={<FaUsers />} />
+        </div>
+        <div onClick={() => router.replace("/profile")}>
+          <Logo content="Account" icon={<FaUser />} />
         </div>
       </div>
       <div className="mt-16 bg-slate-200 p-4 rounded-lg">
