@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import UsersPost from "./UsersPost";
+import ProfileImageUpload from "./ProfileImageUpload";
 
 interface User {
   name?: string;
@@ -55,6 +56,10 @@ export default function Profile() {
 
         {/* Profile details */}
         <div>
+          {/* profile image */}
+          <div className="mt-5">
+            <ProfileImageUpload />
+          </div>
           <div className="flex flex-col gap-4">
             <div className="flex flex-col">
               <label className="font-medium">Your Name</label>
@@ -76,6 +81,15 @@ export default function Profile() {
               <label className="font-medium">Roll Number</label>
               <input
                 defaultValue={user?.roll_number || ""}
+                placeholder="Roll Number"
+                className="border border-gray-300 rounded-md w-full p-2"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <label className="font-medium">Role/Position</label>
+              <input
+                defaultValue={"Club Member"}
                 placeholder="Roll Number"
                 className="border border-gray-300 rounded-md w-full p-2"
               />

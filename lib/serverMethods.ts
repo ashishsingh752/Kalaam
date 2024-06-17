@@ -61,3 +61,27 @@ export async function getUser() {
   const response = await res.json();
   return response?.data;
 }
+
+export async function getUserPostsToUpdate(post: { id: number }) {
+  const session: CustomSession | null = await getServerSession(authOptions);
+  try {
+    const posts = await prisma.post.findUnique({
+      where: {
+        id: post.id,  
+        user_id: Number(session?.user?.id),  // Only allow the user to update their own posts
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+    return posts;
+  } catch (error) {
+    console.error("Failed to fetch user posts:", error);
+    throw new Error("Failed to fetch user posts");
+  }
+}

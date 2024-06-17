@@ -18,7 +18,7 @@ const Feed: React.FC = () => {
               <MiniProfile />
             </div>
             {/* name of poets to see */}
-            <Suggestions />
+            {/* <Suggestions /> */}
           </div>
         </section>
       </main>

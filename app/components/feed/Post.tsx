@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { HeartIcon } from "@heroicons/react/24/solid";
-import { getPost } from "@/lib/serverMethods";
 import { useState } from "react";
 
 interface PostsProps {
@@ -18,6 +17,9 @@ interface PostType {
   roll_number: string;
   content: string;
   image?: string;
+  name: string;
+  heading: string;
+  
 }
 
 const Post: React.FC<PostsProps> = ({
@@ -57,12 +59,24 @@ const Post: React.FC<PostsProps> = ({
       <div className="post-image-container">
         {postContent && (
           <div className="p-5 max-h-96 overflow-auto pt-0">
-            {readContent}
             <div
-              className="text-right mr-2 cursor-pointer"
-              onClick={handleRead}
+              className="text-sm ml-2 mt-2"
+              style={{ whiteSpace: "pre-line" }}
+              dangerouslySetInnerHTML={{ __html: readContent }}
+            ></div>
+            <div
+              className="text-right"
+              // onClick={handleRead}
             >
-              {postContent ? "close" : "read"}
+              <div className="flex mt-5 pl-2  justify-between">
+                <div>Thank you for reading this post!</div>
+                <div
+                  className="text-right text-red-500  cursor-pointer"
+                  onClick={handleRead}
+                >
+                  {postContent ? "close" : ""}
+                </div>
+              </div>
             </div>
           </div>
         )}

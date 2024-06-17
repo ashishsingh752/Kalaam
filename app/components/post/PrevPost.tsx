@@ -43,8 +43,12 @@ const PrevPost: React.FC<PrevPostProps> = ({
         ></div>
         {readContent && (
           <div className={`${readContent ? "w-1/2" : ""} overflow-auto pt-0 p-4 `}>
-            {creation}
-            <div
+             <div
+              className="text-sm ml-2 mt-2"
+              style={{ whiteSpace: "pre-line" }}
+              dangerouslySetInnerHTML={{ __html: creation }}
+            ></div>           
+           <div
               onClick={() => setReadContent(!readContent)}
               className="text-right mr-2 cursor-pointer"
             >
