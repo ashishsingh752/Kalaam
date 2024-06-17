@@ -10,8 +10,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // url      = "postgresql://postgres:Postgres123@@localhost:5432/kalaam?schema=public"
-  url      = "postgresql://kalaam%3A%20The%20Poetry%20club:pqkYGOEW7ur3@ep-wild-surf-a1fdeawu.ap-southeast-1.aws.neon.tech/kalaam?sslmode=require"
+  url      = "postgresql://postgres:Postgres123@@localhost:5432/kalaam?schema=public"
+  // url      = "postgresql://kalaam%3A%20The%20Poetry%20club:pqkYGOEW7ur3@ep-wild-surf-a1fdeawu.ap-southeast-1.aws.neon.tech/kalaam?sslmode=require"
 }
 
 model User {

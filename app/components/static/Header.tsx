@@ -6,7 +6,6 @@ import SidebarMannager from "./SidebarManager";
 import { HandleLoginButtom, HomeButton } from "../buttons/Button";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
-import CreateNewPost from "../post/CreateNewPost";
 import CreateNewPostButton from "../post/CreateNewPostButton";
 
 export default async function Header() {
@@ -57,7 +56,7 @@ export default async function Header() {
               <div >
                 <CreateNewPostButton />
               </div>
-              <div className="">
+              <div className="cursor-pointer">
                 {/* <PlusIcon className="h-6 w-6 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out" /> */}
                 <UserProfile />
               </div>

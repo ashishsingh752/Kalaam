@@ -18,13 +18,24 @@ interface PostType {
   content: string;
   heading: string;
   image: string;
+  created_at: Date;
+}
+
+
+// function to suffle the array so that each time on refresh the posts are shown in different order
+function shuffleArray(array: any[]) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
 const Posts: React.FC = async () => {
-  const posts: Post[] = [
+  const placeholderPosts: Post[] = [
     {
       id: "1",
-      name: "Ashish singh",
+      name: "Ashish Singh",
       userImg:
         "https://images.unsplash.com/photo-1497316730643-415fac54a2af?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
       postImg:
@@ -34,7 +45,7 @@ const Posts: React.FC = async () => {
     },
     {
       id: "2",
-      name: "Ashish singh",
+      name: "Ashish Singh",
       userImg:
         "https://images.unsplash.com/photo-1497316730643-415fac54a2af?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
       postImg:
@@ -44,7 +55,7 @@ const Posts: React.FC = async () => {
     },
     {
       id: "3",
-      name: "Ashish singh",
+      name: "Ashish Singh",
       userImg:
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       postImg:
@@ -54,7 +65,7 @@ const Posts: React.FC = async () => {
     },
     {
       id: "4",
-      name: "Ashish singh",
+      name: "Ashish Singh",
       userImg:
         "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
       postImg:
@@ -63,36 +74,34 @@ const Posts: React.FC = async () => {
       heading: "Ashish Singh",
     },
   ];
+
   const newPosts: Array<PostType> | [] = await getPost();
+
+  // Shuffle both fetched and placeholder posts
+  const combinedPosts = shuffleArray([...newPosts, ...placeholderPosts]);
 
   return (
     <div>
-      {posts.map((post) => (
-        <Post
-          key={post.id}
-          id={post.id}
-          name={post.name}
-          userImg={post.userImg}
-          postImg={post.postImg}
-          content={post.content}
-          heading={post.heading}
-        />
-      ))}
-
-      {/* {newPosts.map((post) => (
+      {combinedPosts.map((post) => (
         <Post
           key={post.id}
           id={post.id.toString()}
-          name={post.heading}
+          name={post.heading || post.name}
           userImg={
-            `${Env.APP_URL}uploads/${post.image}` ||
-            `https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=`
+            post.image
+              ? `${Env.APP_URL}uploads/${post.image}`
+              : post.userImg ||
+                "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
           }
-          postImg={`${Env.APP_URL}uploads/${post.image}`}
+          postImg={
+            post.image
+              ? `${Env.APP_URL}uploads/${post.image}`
+              : post.postImg
+          }
           content={post.content}
-          heading={post.heading}
+          heading={post.heading || post.name}
         />
-      ))} */}
+      ))}
     </div>
   );
 };

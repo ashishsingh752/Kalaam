@@ -3,11 +3,20 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
+import UsersPost from "./UsersPost";
 
 interface User {
   name?: string;
   email?: string;
   roll_number?: string;
+}
+
+interface PostType {
+  id: number;
+  roll_number: string;
+  content: string;
+  heading: string;
+  image: string;
 }
 
 export default function Profile() {
@@ -37,8 +46,8 @@ export default function Profile() {
   const user: User | undefined = session?.user as User | undefined;
 
   return (
-    <div className="flex p-6 justify-center items-center bg-gray-200 min-h-screen">
-      <div className="mx-10 md:mx-40 bg-white p-8 w-full">
+    <div className="flex md:p-6 justify-center items-center bg-gray-200 min-h-screen">
+      <div className=" md:mx-40 bg-white p-8 w-full">
         {/* Profile heading */}
         <div className="text-2xl flex justify-center font-bold text-blue-500 mb-5">
           Profile
@@ -75,10 +84,10 @@ export default function Profile() {
 
           {/* Update or delete account */}
           <div className="flex justify-between items-center mt-10 gap-4">
-            <button className="bg-red-500 text-white p-2 rounded-md">
+            <button className="bg-red-500 text-white px-4 py-2 rounded-md font-medium text-base hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition ease-in-out duration-150  ">
               Delete Account
             </button>
-            <button className="bg-blue-500 text-white p-2 rounded-md">
+            <button className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition ease-in-out duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
               Update Account
             </button>
           </div>
@@ -88,17 +97,7 @@ export default function Profile() {
             <div className="text-2xl flex justify-center font-bold text-blue-500 mb-5">
               Your Posts
             </div>
-            <div className="flex justify-center p-5">
-              <div className="border border-gray-300 p-5 rounded-md lg:w-1/2">
-                <div className="text-xl font-bold">Post Title:</div>
-                <div className="text-sm mt-2">Post Description:</div>
-                <div className="flex mt-2 justify-center items-center">
-                  <div className="bg-red-500 text-white p-2 rounded-md cursor-pointer">
-                    Delete Post
-                  </div>
-                </div>
-              </div>
-            </div>
+            <UsersPost />
           </div>
         </div>
       </div>

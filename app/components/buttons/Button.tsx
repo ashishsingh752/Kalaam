@@ -1,14 +1,19 @@
 "use client";
 import { HomeIcon } from "@heroicons/react/24/solid";
+import axios from "axios";
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import React, { use, useState } from "react";
 
 type ButtonProps = {
   onClick: () => void;
   children: React.ReactNode;
 };
+
+interface DeletePostButtonProps {
+  id: number;
+}
 
 const SignInButton: React.FC<ButtonProps> = ({ onClick, children }) => {
   return (
@@ -168,6 +173,29 @@ const HandleSignOutButtom: React.FC = () => {
   );
 };
 
+const DeletePostButton: React.FC<DeletePostButtonProps> = ({ id }) => {
+  const router = useRouter();
+
+  const deletePost = async () => {
+    try {
+      await axios.delete(`/api/post/${id}`);
+      router.refresh();
+      console.log("Post deleted successfully");
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
+
+  return (
+    <button
+      onClick={deletePost}
+      className="bg-red-500 text-white px-4 py-2 cursor-pointer rounded-md font-medium text-base hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition ease-in-out duration-150"
+    >
+      Delete
+    </button>
+  );
+};
+
 export {
   SignInButton,
   GoogleInButton,
@@ -182,4 +210,5 @@ export {
   HandleLoginButtom,
   HandleOnClickHeaderDirectToHome,
   HandleSignOutButtom,
+  DeletePostButton,
 };
