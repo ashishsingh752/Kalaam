@@ -1,9 +1,31 @@
-"use client";
-import minifaker from "minifaker";
-import "minifaker/locales/en";
-import { useEffect, useState } from "react";
+"use server";
 import "tailwind-scrollbar";
 import Suggestion from "../components/poets/Poet";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/options";
+import { shuffleArray } from "@/lib/utils";
+import { getUser } from "@/lib/serverMethods";
+import MembersOfClub from "../components/poets/MembersOfClub";
+
+// ! this is the page to  show the club members
+
+interface MembersOfClubProps {
+  id: number;
+  content: string;
+  heading: string;
+  image: string;
+  name: string;
+  roll_number: string;
+}
+
+interface PostType {
+  id: number;
+  content: string;
+  heading: string;
+  image: string;
+  name: string;
+  roll_number: string;
+}
 
 interface User {
   name: string;
@@ -12,19 +34,13 @@ interface User {
   jobtitle: string;
 }
 
-export default function Suggestions() {
-  const [storyUsers, setStoryUsers] = useState<User[]>([]);
+export default async function Suggestions() {
+  const session = await getServerSession(authOptions);
+  if (!session) return <></>;
 
-  useEffect(() => {
-    const storyUsers: User[] = Array.from({ length: 15 }, (_, i) => ({
-      name: minifaker.name({ locale: "en" }),
-      img: `https://i.pravatar.cc/150?img=${Math.ceil(Math.random() * 70)}`,
-      id: i,
-      jobtitle: minifaker.jobTitle(),
-    }));
-    setStoryUsers(storyUsers);
-    console.log(storyUsers);
-  }, []);
+
+  const users: Array<PostType> = await getUser();
+  const usersInfo = shuffleArray(users);
 
   return (
     <div className="max-w-screen pt-16 md:pl-10 md:pr-10 min-h-screen overflow-auto bg-gray-200 justify-center items-center">
@@ -35,13 +51,16 @@ export default function Suggestions() {
         </div>
       </div>
       <div className="flex mt-8 flex-row pb-2 p-6 gap-2 mb-0 m-3 overflow-auto">
-        {storyUsers.map((user) => (
+        {usersInfo.map((user) => (
           <div key={user.id}>
-            <Suggestion
+            <MembersOfClub
               key={user.id}
-              imgSrc={user.img}
+              id={user.id}
+              image={user.image}
               name={user.name}
-              jobtitle={user.jobtitle}
+              roll_number={user.roll_number}
+              heading={user.heading}
+              content={user.content}
             />
           </div>
         ))}

@@ -135,11 +135,13 @@ export default function CreateNewPost() {
             {/* image selection  */}
             <div className="mt-3 flex flex-wrap md:flex-nowrap gap-2 justify-between items-center">
               <div>
+                
                 <input
                   type="file"
                   className="w-56 cursor-pointer"
                   id="images"
                   accept="image/*"
+
                   onChange={handleImageChange}
                   ref={imgeRef}
                 />

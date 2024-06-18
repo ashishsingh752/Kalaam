@@ -2,15 +2,7 @@ import React from "react";
 import Post from "./Post";
 import { getPost } from "@/lib/serverMethods";
 import Env from "../../config/env";
-
-interface Post {
-  id: string;
-  name: string;
-  userImg: string;
-  postImg: string;
-  content: string;
-  heading: string;
-}
+import { shuffleArray } from "@/lib/utils";
 
 interface PostType {
   id: number;
@@ -21,17 +13,8 @@ interface PostType {
   created_at: Date;
 }
 
-
-// function to suffle the array so that each time on refresh the posts are shown in different order
-function shuffleArray(array: any[]) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
 const Posts: React.FC = async () => {
+  /*
   const placeholderPosts: Post[] = [
     {
       id: "1",
@@ -74,11 +57,11 @@ const Posts: React.FC = async () => {
       heading: "Ashish Singh",
     },
   ];
-
+  */
   const newPosts: Array<PostType> | [] = await getPost();
 
   // Shuffle both fetched and placeholder posts
-  const combinedPosts = shuffleArray([...newPosts, ...placeholderPosts]);
+  const combinedPosts = shuffleArray([...newPosts]);
 
   return (
     <div>
@@ -86,20 +69,18 @@ const Posts: React.FC = async () => {
         <Post
           key={post.id}
           id={post.id.toString()}
-          name={post.heading || post.name}
+          name={post.user.name}
           userImg={
             post.image
               ? `${Env.APP_URL}uploads/${post.image}`
-              : post.userImg ||
+              : post.image ||
                 "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
           }
           postImg={
-            post.image
-              ? `${Env.APP_URL}uploads/${post.image}`
-              : post.postImg
+            post.image ? `${Env.APP_URL}uploads/${post.image}` : post.image
           }
           content={post.content}
-          heading={post.heading || post.name}
+          heading={post.heading}
         />
       ))}
     </div>

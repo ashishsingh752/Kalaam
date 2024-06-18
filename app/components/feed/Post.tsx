@@ -30,12 +30,12 @@ const Post: React.FC<PostsProps> = ({
   id,
   heading,
 }) => {
-  const [postContent, setPostContent] = useState<boolean>(false);
+  const [postContentOpen, setPostContentOpen] = useState<boolean>(false);
   const [readContent, setReadContent] = useState<string>("");
 
   const handleRead = () => {
-    setPostContent(!postContent);
-    setReadContent(postContent ? "" : content);
+    setPostContentOpen(!postContentOpen);
+    setReadContent(postContentOpen ? "" : content);
   };
 
   return (
@@ -49,15 +49,15 @@ const Post: React.FC<PostsProps> = ({
           height={90}
           className="rounded-full p-1 w-12 mr-3 h-12 object-cover border"
         />
-        <p className="font-bold flex-1">{name || heading}</p>
+        <p className="font-bold flex-1">{heading}</p>
         <div className="text-right mr-2 cursor-pointer" onClick={handleRead}>
-          {postContent ? "close" : "read"}
+          {postContentOpen ? "close" : "read"}
         </div>
       </div>
 
       {/* Users post image */}
       <div className="post-image-container">
-        {postContent && (
+        {postContentOpen && (
           <div className="p-5 max-h-96 overflow-auto pt-0">
             <div
               className="text-sm ml-2 mt-2"
@@ -74,13 +74,13 @@ const Post: React.FC<PostsProps> = ({
                   className="text-right text-red-500  cursor-pointer"
                   onClick={handleRead}
                 >
-                  {postContent ? "close" : ""}
+                  {postContentOpen ? "close" : ""}
                 </div>
               </div>
             </div>
           </div>
         )}
-        {!postContent && (
+        {!postContentOpen && (
           <div className="transition-transform duration-6000">
             <Image
               src={postImg}

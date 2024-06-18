@@ -34,6 +34,8 @@ export async function getUserPosts() {
           select: {
             id: true,
             name: true,
+            roll_number: true,
+            email: true,
           },
         },
       },
@@ -67,8 +69,8 @@ export async function getUserPostsToUpdate(post: { id: number }) {
   try {
     const posts = await prisma.post.findUnique({
       where: {
-        id: post.id,  
-        user_id: Number(session?.user?.id),  // Only allow the user to update their own posts
+        id: post.id,
+        user_id: Number(session?.user?.id), // Only allow the user to update their own posts
       },
       include: {
         user: {
@@ -77,6 +79,28 @@ export async function getUserPostsToUpdate(post: { id: number }) {
             name: true,
           },
         },
+      },
+    });
+    return posts;
+  } catch (error) {
+    console.error("Failed to fetch user posts:", error);
+    throw new Error("Failed to fetch user posts");
+  }
+}
+
+export async function getPostsForSuggesstion() {
+  try {
+    const posts = await prisma.post.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+      orderBy: {
+        id: "desc",
       },
     });
     return posts;

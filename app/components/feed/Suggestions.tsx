@@ -1,41 +1,54 @@
-"use client";
-import minifaker from "minifaker";
-import "minifaker/locales/en";
-import { useEffect, useState } from "react";
 import "tailwind-scrollbar";
 import Suggestion from "../poets/Suggestion";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import { getUser, getUserPosts } from "@/lib/serverMethods";
+import MembersOfClub from "../poets/MembersOfClub";
+import { shuffleArray } from "@/lib/utils";
 
-interface User {
-  name: string;
-  img: string;
+interface MembersOfClubProps {
   id: number;
-  jobTitle: string;
+  content: string;
+  heading: string;
+  image: string;
+  name: string;
+  roll_number: string;
 }
 
-export default function Suggestions() {
-  const [storyUsers, setStoryUsers] = useState<User[]>([]);
+interface PostType {
+  id: number;
+  content: string;
+  heading: string;
+  image: string;
+  name: string;
+  roll_number: string;
+}
 
-  useEffect(() => {
-    const storyUsers: User[] = Array.from({ length: 20 }, (_, i) => ({
-      name: minifaker.name({ locale: "en" }),
-      img: `https://i.pravatar.cc/150?img=${Math.ceil(Math.random() * 70)}`,
-      id: i,
-      jobTitle: minifaker.jobTitle(),
-    }));
-    setStoryUsers(storyUsers);
-    console.log(storyUsers);
-  }, []);
+//!  this is the suggestion in the feed ( home page )
+
+export default async function Suggestions() {
+  const session = await getServerSession(authOptions);
+  if (!session) return <></>;
+
+  const users: Array<PostType> = await getUser();
+  const usersInfo = shuffleArray(users);
 
   return (
     <div className="flex h-1/6 overflow-x-scroll scrollbar-none flex-wrap p-6 bg-white mt-4">
       <div>
-        {storyUsers.map((user) => (
-          <Suggestion
-            key={user.id}
-            imgSrc={user.img}
-            name={user.name}
-            jobtitle={user.jobTitle}
-          />
+        {usersInfo.map((user) => (
+          <>
+            <Suggestion
+              key={user.id}
+              id={user.id}
+              image={user.image}
+              name={user.name}
+              roll_number={user.roll_number}
+              heading={user.heading}
+              content={user.content}
+            />
+           
+          </>
         ))}
       </div>
     </div>

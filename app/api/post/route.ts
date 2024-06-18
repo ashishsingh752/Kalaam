@@ -11,25 +11,35 @@ import { promises as fsPromises, rmSync } from "fs";
 import prisma from "@/db";
 
 export async function GET(request: NextRequest) {
-  const posts = await prisma.post.findMany({
-    include: {
-      user: {
-        select: {
-          id: true,
-          name: true,
+  try {
+    const posts = await prisma.post.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            roll_number: true,
+            email: true,
+          },
         },
       },
-    },
-    orderBy: {
-      id: "desc",
-    },
-  });
-  return NextResponse.json({
-    status: 200,
-    data: posts,
-  });
-}
+      orderBy: {
+        id: "desc",
+      },
+    });
 
+    return NextResponse.json({
+      status: 200,
+      data: posts,
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({
+      status: 500,
+      error: "Internal Server Error",
+    });
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -72,7 +82,10 @@ export async function POST(req: NextRequest) {
         data.image = fileName;
       } catch (error) {
         console.error("Error uploading image: ", error);
-        return NextResponse.json({ status: 500, error: "Internal server error" });
+        return NextResponse.json({
+          status: 500,
+          error: "Internal server error",
+        });
       }
     }
 
@@ -85,8 +98,10 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json({ status: 200, message: "Post created successfully" });
-
+    return NextResponse.json({
+      status: 200,
+      message: "Post created successfully",
+    });
   } catch (error) {
     if (error instanceof errors.E_VALIDATION_ERROR) {
       console.log("Validation Error: ", error.messages);
@@ -97,4 +112,3 @@ export async function POST(req: NextRequest) {
     }
   }
 }
-
