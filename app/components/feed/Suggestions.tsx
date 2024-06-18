@@ -47,7 +47,6 @@ export default async function Suggestions() {
               heading={user.heading}
               content={user.content}
             />
-           
           </>
         ))}
       </div>

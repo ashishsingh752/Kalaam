@@ -12,7 +12,7 @@ interface PostType {
   image: string;
 }
 
-export default function CreateNewPost() {
+export default function UpdatePost() {
   const imgeRef = useRef<HTMLInputElement | null>(null);
   const [preView, setPreView] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
@@ -24,10 +24,11 @@ export default function CreateNewPost() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const [userPost, setUserPost] = useState<Array<PostType>>([]);
-  
+
   const searchParams = useSearchParams();
   const postId = searchParams.get("id");
-  
+  console.log("postId is: ", postId);
+
   useEffect(() => {
     const fetchUserPosts = async () => {
       if (postId) {
@@ -76,7 +77,9 @@ export default function CreateNewPost() {
     setPostTitle(event.target.value);
   };
 
-  const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleContentChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setContent(event.target.value);
   };
 
@@ -135,13 +138,11 @@ export default function CreateNewPost() {
             {/* image selection  */}
             <div className="mt-3 flex flex-wrap md:flex-nowrap gap-2 justify-between items-center">
               <div>
-                
                 <input
                   type="file"
                   className="w-56 cursor-pointer"
                   id="images"
                   accept="image/*"
-
                   onChange={handleImageChange}
                   ref={imgeRef}
                 />

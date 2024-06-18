@@ -59,7 +59,7 @@ const Posts: React.FC = async () => {
   ];
   */
   const newPosts: Array<PostType> | [] = await getPost();
-
+  
   // Shuffle both fetched and placeholder posts
   const combinedPosts = shuffleArray([...newPosts]);
 

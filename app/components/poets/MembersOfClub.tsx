@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FC } from "react";
+import { ReadUsersPostButton } from "../buttons/Button";
 
 interface MembersOfClubProps {
   id: number;
@@ -26,6 +27,7 @@ const MembersOfClub: FC<MembersOfClubProps> = ({
   heading,
   content,
   roll_number,
+  id,
 }) => {
   return (
     <div className="flex flex-col items-center rounded-lg justify-center bg-white p-2">
@@ -51,9 +53,9 @@ const MembersOfClub: FC<MembersOfClubProps> = ({
         {roll_number}
       </div>
 
-      <button className="flex justify-center font-semibold text-blue-400 mt-2">
-        Read
-      </button>
+      <div className="flex justify-center font-semibold text-blue-400 mt-1">
+        <ReadUsersPostButton id={id} />
+      </div>
     </div>
   );
 };

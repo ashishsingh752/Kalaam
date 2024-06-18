@@ -48,7 +48,7 @@ export default function SignIn() {
       } else if (response.status === 404) {
         setErrors(response.error);
         // console.log(response.error);
-        alert(response.message)
+        alert(response.message);
         setLoading(false);
       }
     } catch (error) {
@@ -100,7 +100,6 @@ export default function SignIn() {
         </div>
 
         <form onSubmit={handleFormSubmit} className="flex flex-col gap-2 mt-6">
-  
           <input
             id="roll_number"
             type="roll_number"
@@ -111,7 +110,6 @@ export default function SignIn() {
           <span className="text-red-400 font-semibold">
             {errors?.roll_number}
           </span>
-
 
           <div className="relative w-full">
             <input

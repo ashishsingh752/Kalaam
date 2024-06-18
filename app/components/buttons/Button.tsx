@@ -196,6 +196,33 @@ const DeletePostButton: React.FC<DeletePostButtonProps> = ({ id }) => {
   );
 };
 
+const ReadUsersPostButton: React.FC<DeletePostButtonProps> = ({ id }) => {
+  const router = useRouter();
+
+  const readPost = async () => {
+    try {
+      router.push(`/userposts?id=${id}`);
+    } catch (error) {
+      console.error("Error reading post:", error);
+    }
+  };
+
+  return <button onClick={readPost}>Read</button>;
+};
+
+const BackToHome: React.FC = () => {
+  const router = useRouter();
+
+  return (
+    <div
+      onClick={() => router.back()}
+      className=" flex justify-center items-center text-2xl  underline text-blue-500 cursor-pointer"
+    >
+      Back
+    </div>
+  );
+};
+
 export {
   SignInButton,
   GoogleInButton,
@@ -211,4 +238,6 @@ export {
   HandleOnClickHeaderDirectToHome,
   HandleSignOutButtom,
   DeletePostButton,
+  ReadUsersPostButton,
+  BackToHome,
 };

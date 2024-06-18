@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { root } from "postcss";
+import { ReadUsersPostButton } from "../buttons/Button";
 
 interface SuggestionProps {
   id: number;
@@ -27,6 +28,7 @@ const Suggestion: React.FC<SuggestionProps> = ({
   heading,
   content,
   roll_number,
+  id,
 }) => {
   return (
     <div className="flex items-center justify-between bg-white p-2">
@@ -51,7 +53,8 @@ const Suggestion: React.FC<SuggestionProps> = ({
           {roll_number}
         </h3>
       </div>
-      <button className=" font-semibold ml-10 text-blue-400">Read</button>
+      <ReadUsersPostButton id={id}/>
+      {/* <button className=" font-semibold ml-10 text-blue-400">Read</button> */}
     </div>
   );
 };

@@ -88,22 +88,47 @@ export async function getUserPostsToUpdate(post: { id: number }) {
   }
 }
 
-export async function getPostsForSuggesstion() {
+export async function getUsersForSuggestion() {
+  const res = await fetch(`${Env.APP_URL}api/user/members`, {
+    cache: "no-cache",
+    headers: headers(),
+  });
+  console.log("ashish");
+  console.log("response is: ", res);
+  if (!res.ok) {
+    throw new Error("Failed to fecth Users");
+  }
+  const response = await res.json();
+  return response?.data;
+}
+
+export async function getUserPostsToRead(user: { id: number }) {
   try {
-    const posts = await prisma.post.findMany({
-      include: {
-        user: {
+    const userData = await prisma.user.findUnique({
+      where: {
+        id: user.id,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        roll_number: true,
+        Post: {
           select: {
             id: true,
-            name: true,
+            content: true,
+            heading: true,
+            image: true,
           },
         },
       },
-      orderBy: {
-        id: "desc",
-      },
     });
-    return posts;
+
+    if (!userData) {
+      throw new Error(`User with id ${user.id} not found`);
+    }
+
+    return userData;
   } catch (error) {
     console.error("Failed to fetch user posts:", error);
     throw new Error("Failed to fetch user posts");

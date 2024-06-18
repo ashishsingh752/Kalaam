@@ -4,7 +4,7 @@ import Suggestion from "../components/poets/Poet";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/options";
 import { shuffleArray } from "@/lib/utils";
-import { getUser } from "@/lib/serverMethods";
+import { getUser, getUsersForSuggestion } from "@/lib/serverMethods";
 import MembersOfClub from "../components/poets/MembersOfClub";
 
 // ! this is the page to  show the club members
@@ -35,11 +35,7 @@ interface User {
 }
 
 export default async function Suggestions() {
-  const session = await getServerSession(authOptions);
-  if (!session) return <></>;
-
-
-  const users: Array<PostType> = await getUser();
+  const users: Array<PostType> = await getUsersForSuggestion();
   const usersInfo = shuffleArray(users);
 
   return (

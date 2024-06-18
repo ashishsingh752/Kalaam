@@ -19,7 +19,6 @@ interface PostType {
   image?: string;
   name: string;
   heading: string;
-  
 }
 
 const Post: React.FC<PostsProps> = ({

@@ -6,11 +6,7 @@ interface SuggestionProps {
   jobtitle: string;
 }
 
-const Suggestion: React.FC<SuggestionProps> = ({
-  imgSrc,
-  name,
-  jobtitle,
-}) => {
+const Suggestion: React.FC<SuggestionProps> = ({ imgSrc, name, jobtitle }) => {
   return (
     <div className="">
       <div className="flex flex-col  items-center rounded-lg justify-center bg-white p-2">
