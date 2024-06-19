@@ -43,4 +43,5 @@ model Post {
   image     String
   heading   String
   create_at DateTime @default(now())
+  update_at DateTime @updatedAt
 }

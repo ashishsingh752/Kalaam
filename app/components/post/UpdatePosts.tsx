@@ -27,7 +27,7 @@ export default function UpdatePost() {
 
   const searchParams = useSearchParams();
   const postId = searchParams.get("id");
-  console.log("postId is: ", postId);
+  // console.log("postId is: ", postId);
 
   useEffect(() => {
     const fetchUserPosts = async () => {
@@ -83,7 +83,7 @@ export default function UpdatePost() {
     setContent(event.target.value);
   };
 
-  const handleImageUpdate = async () => {
+  const handlePostUpdate = async () => {
     setLoading(true);
     setError(null);
     const formData = new FormData();
@@ -95,7 +95,7 @@ export default function UpdatePost() {
 
     try {
       if (postId) {
-        const response = await axios.put(`/api/post/${postId}`, formData);
+        const response = await axios.post(`/api/post/${postId}`, formData);
         setLoading(false);
         const responseData = response.data;
         if (responseData.status === 200) {
@@ -115,7 +115,7 @@ export default function UpdatePost() {
   return (
     <div className="min-h-screen pb-5 md:h-full bg-gray-200 flex flex-col justify-center items-center">
       {userPost.map((post: PostType) => (
-        <>
+        <div key={post.id}>
           <div className="bg-gray-300 sm:mt-5 w-full p-5 md:w-[calc(100vw-25rem)] justify-center items-center">
             {/* title for the content */}
             <textarea
@@ -126,7 +126,7 @@ export default function UpdatePost() {
               defaultValue={post.heading}
               className="w-full h-20 focus:ring-0 font-semibold text-lg resize-y outline-none scrollbar p-6"
             ></textarea>
-            {/* content  */}
+            {/* content */}
             <textarea
               name="text"
               id="content"
@@ -135,7 +135,7 @@ export default function UpdatePost() {
               defaultValue={post.content}
               className="w-full h-80 focus:ring-0 outline-none resize-y p-6"
             ></textarea>
-            {/* image selection  */}
+            {/* image selection */}
             <div className="mt-3 flex flex-wrap md:flex-nowrap gap-2 justify-between items-center">
               <div>
                 <input
@@ -158,15 +158,15 @@ export default function UpdatePost() {
                 </button>
                 <button
                   disabled={!image || !postTitle || !content || loading}
-                  onClick={handleImageUpdate}
+                  onClick={handlePostUpdate}
                   className="bg-gray-700 outline-none text-white px-4 py-2 rounded-md font-medium hover:bg-gray-950 transition ease-in-out duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
                 >
-                  {loading ? "Posting..." : "Post"}
+                  {loading ? "Updating..." : "Update"}
                 </button>
               </div>
             </div>
           </div>
-          ;{/* preview post */}
+          {/* preview post */}
           {showPreview && image && (
             <div className="bg-gray-300 w-full pt-5 md:w-[calc(100vw-25rem)] justify-center items-center h-auto">
               <PrevPost
@@ -179,7 +179,7 @@ export default function UpdatePost() {
             </div>
           )}
           {error && <p className="text-red-500 mt-4">{error}</p>}
-        </>
+        </div>
       ))}
     </div>
   );

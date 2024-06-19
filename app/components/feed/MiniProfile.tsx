@@ -1,5 +1,5 @@
 "use client";
-import { signIn, signOut, useSession } from "next-auth/react";
+import {signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 
 export default function MiniProfile() {
@@ -36,9 +36,9 @@ export default function MiniProfile() {
           </>
         ) : (
           <>
-            <h2 className="font-bold">You are not Logged in </h2>
+            <h2 className="font-bold">You are not logged in </h2>
             <h3 className="text-gray-400 text-sm">
-              Login for better experience
+              Login for see suggestions.
             </h3>
           </>
         )}

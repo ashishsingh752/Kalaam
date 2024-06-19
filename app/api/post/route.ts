@@ -80,7 +80,9 @@ export async function POST(req: NextRequest) {
         await fsPromises.mkdir(uploadDir, { recursive: true });
         await fsPromises.writeFile(`${uploadDir}/${fileName}`, buffer);
         data.image = fileName;
-      } catch (error) {
+      }
+      
+      catch (error) {
         console.error("Error uploading image: ", error);
         return NextResponse.json({
           status: 500,
@@ -102,7 +104,9 @@ export async function POST(req: NextRequest) {
       status: 200,
       message: "Post created successfully",
     });
-  } catch (error) {
+  } 
+  
+  catch (error) {
     if (error instanceof errors.E_VALIDATION_ERROR) {
       console.log("Validation Error: ", error.messages);
       return NextResponse.json({ status: 400, error: error.messages });
