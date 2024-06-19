@@ -49,10 +49,12 @@ const HomeButton: React.FC = () => {
   const router = useRouter();
 
   return (
-    <HomeIcon
+    <div
       onClick={() => router.replace("/")}
-      className="h-8 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out hidden md:inline-block"
-    />
+      className="cursor-pointer  hover:underline  ease-out hidden md:inline-block"
+    >
+      Home
+    </div>
   );
 };
 
@@ -223,6 +225,47 @@ const BackToHome: React.FC = () => {
   );
 };
 
+const HandleDeleteAccount: React.FC = () => {
+  const router = useRouter();
+
+  const deletePost = async () => {
+    const isConfirmed = confirm(
+      "Are you sure you want to delete your account?"
+    );
+    if (!isConfirmed) {
+      return; // If the user cancels, do nothing
+    }
+
+    try {
+      const response = await axios.delete(`/api/user`);
+      if (response.status === 200) {
+        signOut();
+        alert("User deleted successfully");
+        router.replace("/");
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      alert("Failed to delete user account. Please try again.");
+    }
+  };
+
+  return (
+    <div
+      onClick={deletePost}
+      className="bg-red-500 cursor-pointer text-white px-4 py-2 rounded-md font-medium text-base hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition ease-in-out duration-150"
+    >
+      Delete Account
+    </div>
+  );
+};
+const HandleUpdateAccount = () => {
+  return (
+    <div className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded-md font-medium text-base hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition ease-in-out duration-150  ">
+      Update Account
+    </div>
+  );
+};
+
 export {
   SignInButton,
   GoogleInButton,
@@ -240,4 +283,6 @@ export {
   DeletePostButton,
   ReadUsersPostButton,
   BackToHome,
+  HandleDeleteAccount,
+  HandleUpdateAccount,
 };

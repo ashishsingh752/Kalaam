@@ -42,3 +42,22 @@ export async function GET(request: NextRequest) {
   }
 }
 
+export async function DELETE(request: NextRequest) {
+  const session: CustomSession | null = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ status: 401, message: "Un-Authorized" });
+  }
+
+  try {
+    const users = await prisma.user.delete({
+      where: {
+        id: Number(session.user?.id),
+      },
+    });
+
+    return NextResponse.json({ status: 200, data: users });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ status: 500, message: "Internal Server Error" });
+  }
+}

@@ -56,7 +56,20 @@ const UsersPost = () => {
   }
 
   if (userPost.length === 0) {
-    return <div>No posts found</div>;
+    return (
+      <div className="flex flex-col justify-center items-center">
+        You haven&apos;t posted anything yet.
+        <div className="flex">
+          Wanna Post?{" "}
+          <div
+            onClick={() => router.push("/newpost")}
+            className="cursor-pointer text-blue-500 underline ml-2"
+          >
+            Click here
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

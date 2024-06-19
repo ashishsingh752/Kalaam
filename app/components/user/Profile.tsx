@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import UsersPost from "./UsersPost";
 import ProfileImageUpload from "./ProfileImageUpload";
+import { HandleDeleteAccount, HandleUpdateAccount } from "../buttons/Button";
 
 interface User {
   name?: string;
@@ -98,12 +99,8 @@ export default function Profile() {
 
           {/* Update or delete account */}
           <div className="flex justify-between items-center mt-10 gap-4">
-            <button className="bg-red-500 text-white px-4 py-2 rounded-md font-medium text-base hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition ease-in-out duration-150  ">
-              Delete Account
-            </button>
-            <button className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition ease-in-out duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-              Update Account
-            </button>
+            <HandleDeleteAccount />
+            <HandleUpdateAccount />
           </div>
 
           {/* User's posts */}

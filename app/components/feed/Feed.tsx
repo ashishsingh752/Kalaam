@@ -12,13 +12,15 @@ const Feed: React.FC = () => {
           <Posts />
         </section>
         <section className="hidden md:inline-grid md:col-span-1">
-          <div className="w-[385px]">
+          <div className="w-[385px] ">
             {/* user profile */}
             <div className="">
               <MiniProfile />
             </div>
             {/* name of poets to see */}
-            <Suggestions />
+            <div className="mt-5 bg-white max-h-96 overflow-scroll overflow-x-hidden">
+              <Suggestions />
+            </div>
           </div>
         </section>
       </main>
