@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, ChangeEvent } from "react";
 import PrevPost from "./PrevPost";
 import axios from "axios";
 
@@ -26,7 +26,7 @@ export default function CreateNewPost() {
   }, [preView]);
 
   // function to select the image for the user device
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       setImage(selectedFile);
@@ -36,11 +36,11 @@ export default function CreateNewPost() {
     // console.log("image is of the type: ", selectedFile);
   };
 
-  const handlePostTitle = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handlePostTitle = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setPostTitle(event.target.value);
   };
 
-  const handleContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
   };
 

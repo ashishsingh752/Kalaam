@@ -34,8 +34,8 @@ const UserDropdown: React.FC<UserProps> = () => {
           <Image
             className="rounded-full w-14 h-14 p-[1px]"
             src={
-              `${Env.APP_URL}uploads/${session?.user?.image}` ||
-                "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+              session?.user?.image ||
+              "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
             }
             width={40}
             height={40}

@@ -9,6 +9,7 @@ import { imageValidator } from "@/app/validator/imageValidator";
 import { postSchema } from "@/app/validator/postSchema";
 import { CustomErrorReporter } from "@/app/validator/customErrorReportor";
 import { promises as fsPromises, rmSync } from "fs";
+import { DeleteImage, UploadImage } from "@/public/uploads/upload";
 
 export async function GET(
   request: NextRequest,
@@ -82,7 +83,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: number 
 
     const postId = Number(params.id);
     const userId = Number(session.user?.id);
-    console.log("Post ID: ", postId);
+    // console.log("Post ID: ", postId);
 
     // Find the post and delete the existing image if present
     const findPost = await prisma.post.findFirst({
@@ -96,13 +97,18 @@ export async function POST(req: NextRequest, { params }: { params: { id: number 
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
 
-    if (findPost.image) {
-      const dir = join(process.cwd(), "public", "uploads");
-      const path = join(dir, findPost.image);
-      rmSync(path, { force: true });
+    // to delete the image present in couldinary server
+    const postImage = findPost.public_id;
+    if (postImage) {
+      const result_delete = await DeleteImage(postImage);
     }
 
-    // Get form data
+    // if (findPost.image) {
+    //   const dir = join(process.cwd(), "public", "uploads");
+    //   const path = join(dir, findPost.image);
+    //   rmSync(path, { force: true });
+    // }
+
     const formData = await req.formData();
     const data = {
       content: formData.get("content"),
@@ -111,35 +117,40 @@ export async function POST(req: NextRequest, { params }: { params: { id: number 
     };
     console.log("Data: ", data);
 
+    // Upload the image into the cloudinary
+    const image = formData.get("image") as unknown as File;
+    const updatedImageUrl: any = await UploadImage(image, "kalaam-images");
+
+
     // Validate the data
     vine.errorReporter = () => new CustomErrorReporter();
     const validator = vine.compile(postSchema);
     const payload = await validator.validate(data);
 
     // Handle image upload
-    const image = formData.get("image") as File | null;
-    if (image && image instanceof File) {
-      const isImageNotValid = imageValidator(image.name, image.size);
-      if (isImageNotValid) {
-        return NextResponse.json({ status: 400, errors: { content: "Invalid image file" } });
-      }
+    // const image = formData.get("image") as File | null;
+    // if (image && image instanceof File) {
+    //   const isImageNotValid = imageValidator(image.name, image.size);
+    //   if (isImageNotValid) {
+    //     return NextResponse.json({ status: 400, errors: { content: "Invalid image file" } });
+    //   }
 
-      try {
-        // Save the new image to the uploads folder
-        const buffer = Buffer.from(await image.arrayBuffer());
-        const uploadDir = join(process.cwd(), "public", "uploads");
-        const uniqueName = `${Date.now()}-${getRandomNumber(1, 99999)}`;
-        const imgExt = image.name.split(".").pop();
-        const fileName = `${uniqueName}.${imgExt}`;
+    //   try {
+    //     // Save the new image to the uploads folder
+    //     const buffer = Buffer.from(await image.arrayBuffer());
+    //     const uploadDir = join(process.cwd(), "public", "uploads");
+    //     const uniqueName = `${Date.now()}-${getRandomNumber(1, 99999)}`;
+    //     const imgExt = image.name.split(".").pop();
+    //     const fileName = `${uniqueName}.${imgExt}`;
 
-        await fsPromises.mkdir(uploadDir, { recursive: true });
-        await fsPromises.writeFile(join(uploadDir, fileName), buffer);
-        data.image = fileName;
-      } catch (error) {
-        console.error("Error uploading image: ", error);
-        return NextResponse.json({ status: 500, error: "Internal server error" });
-      }
-    }
+    //     await fsPromises.mkdir(uploadDir, { recursive: true });
+    //     await fsPromises.writeFile(join(uploadDir, fileName), buffer);
+    //     data.image = fileName;
+    //   } catch (error) {
+    //     console.error("Error uploading image: ", error);
+    //     return NextResponse.json({ status: 500, error: "Internal server error" });
+    //   }
+    // }
 
     // Update the post with the new data
     await prisma.post.update({
@@ -151,7 +162,8 @@ export async function POST(req: NextRequest, { params }: { params: { id: number 
         content: payload.content,
         heading: payload.heading,
         user_id: userId,
-        image: data.image,
+        image: updatedImageUrl.secure_url,
+        public_id: updatedImageUrl.public_id,
       },
     });
 

@@ -10,31 +10,22 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:Postgres123@@localhost:5432/kalaam?schema=public"
-  // url      = env("DATABASE_URL")
+  // url      = "postgresql://postgres:Postgres123@@localhost:5432/kalaam?schema=public"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id          Int          @id @default(autoincrement())
-  name        String       @db.VarChar(60)
-  email       String       @unique @db.VarChar(100)
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(60)
+  email       String   @unique @db.VarChar(100)
   password    String?
-  image       String?      @default("https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=")
-  role        String?      @default("User")
-  roll_number String       @unique @db.VarChar(9)
-  create_at   DateTime     @default(now())
-  update_at   DateTime     @updatedAt()
+  image       String?  @default("https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=")
+  public_id   String?
+  role        String?  @default("User")
+  roll_number String   @unique @db.VarChar(9)
+  create_at   DateTime @default(now())
+  update_at   DateTime @updatedAt()
   Post        Post[]
-  Membership  Membership[]
-}
-
-model Membership {
-  id        Int      @id @default(autoincrement())
-  user_id   Int
-  image     String?
-  role      String?  @default("Club Member")
-  create_at DateTime @default(now())
-  user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade) // user to create a post 
 }
 
 // 
@@ -44,6 +35,7 @@ model Post {
   user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade) // user to create a post 
   content   String
   image     String
+  public_id String
   heading   String
   create_at DateTime @default(now())
   update_at DateTime @updatedAt

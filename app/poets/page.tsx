@@ -8,8 +8,7 @@ import { getUser, getUsersForSuggestion } from "@/lib/serverMethods";
 import MembersOfClub from "../components/poets/MembersOfClub";
 import Env from "../config/env";
 
-// ! this is the page to  show the club members
-
+// ! this is the to pass the props in the club memebers page section
 interface MembersOfClubProps {
   id: number;
   content: string;
@@ -53,7 +52,7 @@ export default async function Suggestions() {
             <MembersOfClub
               key={user.id}
               id={user.id}
-              image={`${Env.APP_URL}uploads/${user?.image}`}
+              image={user?.image}
               name={user.name}
               role={user.role}
               roll_number={user.roll_number}

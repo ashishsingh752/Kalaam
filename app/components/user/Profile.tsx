@@ -40,6 +40,7 @@ export default function Profile() {
       setUserEmail(user.email || "");
       setUserRollNumber(user.roll_number || "");
       setUserRole(user.role || "");
+      
     }
   }, [status, router, session]);
 
@@ -106,8 +107,8 @@ export default function Profile() {
           <div className="mt-5">
             <ProfileImageUpload
               imageUrl={
-                `${Env.APP_URL}uploads/${session?.user?.image}` ||
-                session?.user?.image || "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                session?.user?.image ||
+                "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
               }
               onUpload={handleImageUpload}
             />

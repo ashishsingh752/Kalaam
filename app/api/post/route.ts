@@ -9,6 +9,7 @@ import { join } from "path";
 import { getRandomNumber } from "@/lib/utils";
 import { promises as fsPromises, rmSync } from "fs";
 import prisma from "@/db";
+import { UploadImage } from "@/public/uploads/upload";
 
 export async function GET(request: NextRequest) {
   try {
@@ -61,44 +62,56 @@ export async function POST(req: NextRequest) {
     const validator = vine.compile(postSchema);
     const payload = await validator.validate(data);
 
-    const image = formData.get("image") as File | null;
+    // upload the image into the cloudinary
+    const image = formData.get("image") as unknown as File;
 
-    if (image && image instanceof File) {
-      const isImageNotValid = imageValidator(image.name, image.size);
-      if (isImageNotValid) {
-        return NextResponse.json({
-          status: 400,
-          errors: { content: "Invalid image file" },
-        });
-      }
-
-      try {
-        const buffer = Buffer.from(await image.arrayBuffer());
-        const uploadDir = join(process.cwd(), "public", "uploads");
-        const uniqueName = `${Date.now()}-${getRandomNumber(1, 99999)}`;
-        const imgExt = image.name.split(".").pop();
-        const fileName = `${uniqueName}.${imgExt}`;
-
-        await fsPromises.mkdir(uploadDir, { recursive: true });
-        await fsPromises.writeFile(`${uploadDir}/${fileName}`, buffer);
-        data.image = fileName;
-      }
-      
-      catch (error) {
-        console.error("Error uploading image: ", error);
-        return NextResponse.json({
-          status: 500,
-          error: "Internal server error",
-        });
-      }
+    //  check if the image is not found in the request body
+    if (!image) {
+      return NextResponse.json({
+        status: 404,
+        message: "No image found in request body",
+      });
     }
+    const imageUrl: any = await UploadImage(image, "kalaam-images");
+
+    // removed this code to upload the image into the cloudinary
+    // if (image && image instanceof File) {
+    //   const isImageNotValid = imageValidator(image.name, image.size);
+    //   if (isImageNotValid) {
+    //     return NextResponse.json({
+    //       status: 400,
+    //       errors: { content: "Invalid image file" },
+    //     });
+    //   }
+
+    //   try {
+    //     const buffer = Buffer.from(await image.arrayBuffer());
+    //     const uploadDir = join(process.cwd(), "public", "uploads");
+    //     const uniqueName = `${Date.now()}-${getRandomNumber(1, 99999)}`;
+    //     const imgExt = image.name.split(".").pop();
+    //     const fileName = `${uniqueName}.${imgExt}`;
+
+    //     await fsPromises.mkdir(uploadDir, { recursive: true });
+    //     await fsPromises.writeFile(`${uploadDir}/${fileName}`, buffer);
+    //     data.image = fileName;
+    //   }
+
+    //   catch (error) {
+    //     console.error("Error uploading image: ", error);
+    //     return NextResponse.json({
+    //       status: 500,
+    //       error: "Internal server error",
+    //     });
+    //   }
+    // }
 
     await prisma.post.create({
       data: {
         content: payload.content,
         heading: payload.heading,
         user_id: Number(session?.user?.id),
-        image: data.image,
+        image: imageUrl.secure_url,
+        public_id: imageUrl.public_id,
       },
     });
 
@@ -106,9 +119,7 @@ export async function POST(req: NextRequest) {
       status: 200,
       message: "Post created successfully",
     });
-  } 
-  
-  catch (error) {
+  } catch (error) {
     if (error instanceof errors.E_VALIDATION_ERROR) {
       console.log("Validation Error: ", error.messages);
       return NextResponse.json({ status: 400, error: error.messages });

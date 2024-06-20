@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { root } from "postcss";
 import { ReadUsersPostButton } from "../buttons/Button";
 
 interface SuggestionProps {
@@ -23,7 +22,7 @@ interface PostType {
   role: string;
 }
 
-//!   this is the suggestion  in the home page
+//!   this is the for the  suggestion in the home page
 
 const Suggestion: React.FC<SuggestionProps> = ({
   image,
@@ -48,7 +47,7 @@ const Suggestion: React.FC<SuggestionProps> = ({
           width={100}
           height={100}
           objectFit="cover"
-          className="rounded-full h-14 w-14 border p-[2px]"
+          className="rounded-full  w-14 h-14"
         />
       </div>
 

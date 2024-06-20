@@ -16,6 +16,7 @@ export type CustomUser = {
   roll_number?: string | null;
   role?: string | null;
   image?: string | null;
+  public_id?: string | null;
 };
 
 export const authOptions: AuthOptions = {
@@ -69,6 +70,7 @@ export const authOptions: AuthOptions = {
             roll_number: true,
             role:true,
             image: true,
+            public_id: true,
           },
         });
 

@@ -26,7 +26,6 @@ interface PostType {
 }
 
 //!  this is the suggestion in the feed ( home page )
-
 export default async function Suggestions() {
   const session = await getServerSession(authOptions);
   if (!session) return <></>;
@@ -40,9 +39,8 @@ export default async function Suggestions() {
         {usersInfo.map((user) => (
           <>
             <Suggestion
-              key={user.id}
               id={user.id}
-              image={`${Env.APP_URL}uploads/${user?.image}`}
+              image={user.image}
               name={user.name}
               role={user.role}
               heading={user.heading}
