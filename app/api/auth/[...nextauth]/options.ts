@@ -14,6 +14,8 @@ export type CustomUser = {
   name?: string | null;
   email?: string | null;
   roll_number?: string | null;
+  role?: string | null;
+  image?: string | null;
 };
 
 export const authOptions: AuthOptions = {
@@ -65,6 +67,8 @@ export const authOptions: AuthOptions = {
             name: true,
             email: true,
             roll_number: true,
+            role:true,
+            image: true,
           },
         });
 

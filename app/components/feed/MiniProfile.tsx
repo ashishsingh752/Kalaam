@@ -1,4 +1,5 @@
 "use client";
+import Env from "@/app/config/env";
 import {signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 
@@ -11,7 +12,7 @@ export default function MiniProfile() {
     <div className="flex  items-center justify-between mt-7 bg-white p-2">
       {session && session.user ? (
         <Image
-          src={session.user.image || defaultImageUrl}
+          src={`${Env.APP_URL}uploads/${session?.user?.image}` || defaultImageUrl}
           alt="User Profile"
           width={100}
           height={100}

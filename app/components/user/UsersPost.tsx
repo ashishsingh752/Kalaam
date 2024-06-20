@@ -95,7 +95,7 @@ const UsersPost = () => {
                 Update
               </div>
 
-              <DeletePostButton id={post.id} />
+              <DeletePostButton id={post.id}  heading={post.heading} />
             </div>
           </div>
         </div>

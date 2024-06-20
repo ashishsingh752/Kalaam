@@ -3,7 +3,6 @@
 import { HandleDeleteAccount } from "@/app/components/buttons/Button";
 import ProfileImageUpload from "@/app/components/user/ProfileImageUpload";
 import UsersPostWrapper from "@/app/components/user/UsersPost";
-import Env from "@/app/config/env";
 import axios from "axios";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -104,13 +103,7 @@ export default function Profile() {
         <div>
           {/* profile image */}
           <div className="mt-5">
-            <ProfileImageUpload
-              imageUrl={
-                `${Env.APP_URL}uploads/${session?.user?.image}` ||
-                session?.user?.image || "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-              }
-              onUpload={handleImageUpload}
-            />
+            <ProfileImageUpload onUpload={handleImageUpload} />
           </div>
           <div className="flex flex-col gap-4">
             <div className="flex flex-col">

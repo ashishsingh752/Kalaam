@@ -22,6 +22,8 @@ export async function GET(request: NextRequest) {
         name: true,
         email: true,
         roll_number: true,
+        image: true,
+        role: true,
         Post: {
           select: {
             id: true,

@@ -6,6 +6,7 @@ import { authOptions } from "../api/auth/[...nextauth]/options";
 import { shuffleArray } from "@/lib/utils";
 import { getUser, getUsersForSuggestion } from "@/lib/serverMethods";
 import MembersOfClub from "../components/poets/MembersOfClub";
+import Env from "../config/env";
 
 // ! this is the page to  show the club members
 
@@ -24,7 +25,7 @@ interface PostType {
   heading: string;
   image: string;
   name: string;
-  roll_number: string;
+  role: string;
 }
 
 interface User {
@@ -52,8 +53,9 @@ export default async function Suggestions() {
             <MembersOfClub
               key={user.id}
               id={user.id}
-              image={user.image}
+              image={`${Env.APP_URL}uploads/${user?.image}`}
               name={user.name}
+              role={user.role}
               roll_number={user.roll_number}
               heading={user.heading}
               content={user.content}

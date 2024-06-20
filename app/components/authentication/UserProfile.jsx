@@ -3,6 +3,7 @@ import Image from "next/image";
 import UserDropdown from "./UserDropdown";
 import { useSession } from "next-auth/react";
 import { useRef, useState } from "react";
+import Env from "@/app/config/env";
 
 export default function UserProfile() {
   const { data: session } = useSession();
@@ -21,7 +22,7 @@ export default function UserProfile() {
       <div>
         {session && session.user ? (
           <Image
-            src={session.user.image || defaultImageUrl}
+            src={`${Env.APP_URL}uploads/${session?.user?.image}` || defaultImageUrl}
             alt="User Profile"
             width={100}
             height={100}

@@ -13,6 +13,11 @@ type ButtonProps = {
 
 interface DeletePostButtonProps {
   id: number;
+  heading: string;
+}
+
+interface ReadPostButtonProps {
+  id: number;
 }
 
 const SignInButton: React.FC<ButtonProps> = ({ onClick, children }) => {
@@ -175,10 +180,17 @@ const HandleSignOutButtom: React.FC = () => {
   );
 };
 
-const DeletePostButton: React.FC<DeletePostButtonProps> = ({ id }) => {
+const DeletePostButton: React.FC<DeletePostButtonProps> = ({ id, heading }) => {
   const router = useRouter();
 
   const deletePost = async () => {
+    const isConfirmed = confirm(
+      `Are you sure? This is will delete ${heading} post.`
+    );
+    if (!isConfirmed) {
+      return;
+    }
+
     try {
       await axios.delete(`/api/post/${id}`);
       router.refresh();
@@ -198,7 +210,7 @@ const DeletePostButton: React.FC<DeletePostButtonProps> = ({ id }) => {
   );
 };
 
-const ReadUsersPostButton: React.FC<DeletePostButtonProps> = ({ id }) => {
+const ReadUsersPostButton: React.FC<ReadPostButtonProps> = ({ id }) => {
   const router = useRouter();
 
   const readPost = async () => {
@@ -233,7 +245,7 @@ const HandleDeleteAccount: React.FC = () => {
       "Are you sure you want to delete your account?"
     );
     if (!isConfirmed) {
-      return; // If the user cancels, do nothing
+      return;
     }
 
     try {

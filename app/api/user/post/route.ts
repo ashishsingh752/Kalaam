@@ -28,6 +28,10 @@ export async function GET(request: NextRequest) {
         select: {
           id: true,
           name: true,
+          roll_number: true,
+          email: true,
+          image: true,
+          role: true,
         },
       },
     },

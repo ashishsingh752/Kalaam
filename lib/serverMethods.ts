@@ -13,8 +13,8 @@ export async function getPost() {
     cache: "no-cache",
     headers: headers(),
   });
-  console.log("ashish");
-  console.log("response is: ", res);
+  // console.log("ashish");
+  // console.log("response is: ", res);
   if (!res.ok) {
     throw new Error("Failed to fecth posts");
   }
@@ -55,8 +55,8 @@ export async function getUser() {
     cache: "no-cache",
     headers: headers(),
   });
-  console.log("ashish");
-  console.log("response is: ", res);
+  // console.log("ashish");
+  // console.log("response is: ", res);
   if (!res.ok) {
     throw new Error("Failed to fecth Users");
   }
@@ -93,8 +93,8 @@ export async function getUsersForSuggestion() {
     cache: "no-cache",
     headers: headers(),
   });
-  console.log("ashish");
-  console.log("response is: ", res);
+  // console.log("ashish");
+  // console.log("response is: ", res);
   if (!res.ok) {
     throw new Error("Failed to fecth Users");
   }

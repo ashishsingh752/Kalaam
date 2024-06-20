@@ -64,7 +64,7 @@ export default function UpdatePost() {
   }, [preView]);
 
   // Function to select the image from the user's device
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (event: any) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       setImage(selectedFile);
@@ -73,13 +73,11 @@ export default function UpdatePost() {
     }
   };
 
-  const handlePostTitle = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handlePostTitle = (event: any) => {
     setPostTitle(event.target.value);
   };
 
-  const handleContentChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const handleContentChange = (event: any) => {
     setContent(event.target.value);
   };
 
