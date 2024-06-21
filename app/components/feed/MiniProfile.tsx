@@ -3,6 +3,7 @@ import Env from "@/app/config/env";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 
+//! mini profile component for the feed. It will show the user profile image and name. Status: 200 
 export default function MiniProfile() {
   const { data: session } = useSession();
   const defaultImageUrl =

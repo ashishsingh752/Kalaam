@@ -1,50 +1,42 @@
-import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 
 interface ProfileImageUploadProps {
-  imageUrl?: string | null;
   onUpload: (file: File) => void;
+  imageUrl: string;
 }
 
-const ProfileImageUpload: React.FC<ProfileImageUploadProps> = ({
-  imageUrl,
-  onUpload,
-}) => {
-  const [imagePreview, setImagePreview] = useState<string | ArrayBuffer | null>(
-    null
-  );
+// ! this is  for the uploading the profile image of a user in this profile section. Status: 200 ( all good)
 
-  useEffect(() => {
-    if (imageUrl) {
-      setImagePreview(imageUrl);
-    }
-  }, [imageUrl]);
+const ProfileImageUpload: React.FC<ProfileImageUploadProps> = ({ onUpload, imageUrl }) => {
+  const [imagePreview, setImagePreview] = useState<string>(imageUrl);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      onUpload(file); // Call the passed in onUpload function with the selected file
+      onUpload(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreview(reader.result);
+        setImagePreview(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
   };
+
+  useEffect(() => {
+    setImagePreview(imageUrl);
+  }, [imageUrl]);
 
   return (
     <div className="flex flex-col items-center">
       <div className="relative w-32 h-32">
         {imagePreview ? (
           <Image
-            src={
-              (imagePreview as string) ||
-              "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-            }
+            src={imagePreview}
             alt="Profile Preview"
-            height={100}
-            width={100}
-            className="w-full h-full rounded-full object-cover"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-full"
           />
         ) : (
           <div className="w-full h-full rounded-full bg-gray-200 flex items-center justify-center">

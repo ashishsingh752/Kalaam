@@ -1,11 +1,9 @@
 "use client";
-
 import { HandleDeleteAccount } from "@/app/components/buttons/Button";
 import ProfileImageUpload from "@/app/components/user/ProfileImageUpload";
 import UsersPostWrapper from "@/app/components/user/UsersPost";
-import Env from "@/app/config/env";
 import axios from "axios";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -18,6 +16,7 @@ interface User {
   role?: string;
 }
 
+//! user profile component. - Status:200
 export default function Profile() {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -40,7 +39,6 @@ export default function Profile() {
       setUserEmail(user.email || "");
       setUserRollNumber(user.roll_number || "");
       setUserRole(user.role || "");
-      
     }
   }, [status, router, session]);
 
@@ -69,7 +67,7 @@ export default function Profile() {
     formData.append("roll_number", userRollNumber);
     formData.append("role", userRole);
     if (profileImage) {
-      formData.append("profileImage", profileImage);
+      formData.append("image", profileImage);
     }
 
     try {

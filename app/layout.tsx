@@ -9,21 +9,21 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Kalaam: The Poetry Club",
   description:
-    "This website is made for the kalaam club of the NIT Rourkela made by the Ashish Singh and Gaurav Sharma",
+    "This website is made for the Kalaam club of NIT Rourkela by Ashish Singh.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <Header/>
+          <Header />
           {children}
-          </Providers>
+        </Providers>
       </body>
     </html>
   );

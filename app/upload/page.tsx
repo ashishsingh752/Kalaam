@@ -3,6 +3,8 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
+
+//! this was to test the image upload and delete functionality in clouiinary
 export default function Page() {
   const [image, setImage] = useState<File | null>(null);
   const { data: session } = useSession();
@@ -53,7 +55,6 @@ export default function Page() {
         <button className="bg-black p-2 rounded-lg text-white">Upload</button>
       </form>
       <button
-        // onClick={() => deleteImage(session?.user?.)}
         className="bg-black p-2 rounded-lg text-white"
       >
         Delete

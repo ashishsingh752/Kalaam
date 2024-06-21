@@ -1,11 +1,13 @@
-'use client'
+"use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import React from "react";
 
-export default function Signinbutton() {
+
+//  need to check once again
+export default function SignIn() {
   const { data: session } = useSession();
   console.log(session);
-  
+
   if (session && session?.user) {
     return (
       <div className="flex gap-4 ml-14">

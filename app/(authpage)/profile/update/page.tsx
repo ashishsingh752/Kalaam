@@ -1,10 +1,8 @@
 "use client";
 
 import { HandleDeleteAccount } from "@/app/components/buttons/Button";
-import ProfileImageUpload from "@/app/components/user/ProfileImageUpload";
-import UsersPostWrapper from "@/app/components/user/UsersPost";
 import axios from "axios";
-import { signIn, signOut, useSession } from "next-auth/react";
+import {signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -17,6 +15,7 @@ interface User {
   role?: string;
 }
 
+//! this is for the tesking the user profile page. No need anymore 
 export default function Profile() {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -102,9 +101,9 @@ export default function Profile() {
         {/* Profile details */}
         <div>
           {/* profile image */}
-          <div className="mt-5">
+          {/* <div className="mt-5">
             <ProfileImageUpload onUpload={handleImageUpload} />
-          </div>
+          </div> */}
           <div className="flex flex-col gap-4">
             <div className="flex flex-col">
               <label className="font-medium">Your Name</label>
@@ -158,7 +157,7 @@ export default function Profile() {
             <div className="text-2xl flex justify-center font-bold text-blue-500 mb-5">
               Your Posts
             </div>
-            <UsersPostWrapper />
+            {/* <UsersPostWrapper /> */}
           </div>
         </div>
       </div>

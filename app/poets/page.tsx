@@ -1,14 +1,10 @@
 "use server";
 import "tailwind-scrollbar";
-import Suggestion from "../components/poets/Poet";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/options";
 import { shuffleArray } from "@/lib/utils";
-import { getUser, getUsersForSuggestion } from "@/lib/serverMethods";
+import { getUsersForSuggestion } from "@/lib/serverMethods";
 import MembersOfClub from "../components/poets/MembersOfClub";
-import Env from "../config/env";
 
-// ! this is the to pass the props in the club memebers page section
+// Type definitions
 interface MembersOfClubProps {
   id: number;
   content: string;
@@ -16,6 +12,7 @@ interface MembersOfClubProps {
   image: string;
   name: string;
   roll_number: string;
+  role: string;
 }
 
 interface PostType {
@@ -24,6 +21,7 @@ interface PostType {
   heading: string;
   image: string;
   name: string;
+  roll_number: string;
   role: string;
 }
 
@@ -50,9 +48,8 @@ export default async function Suggestions() {
         {usersInfo.map((user) => (
           <div key={user.id}>
             <MembersOfClub
-              key={user.id}
               id={user.id}
-              image={user?.image}
+              image={user.image}
               name={user.name}
               role={user.role}
               roll_number={user.roll_number}

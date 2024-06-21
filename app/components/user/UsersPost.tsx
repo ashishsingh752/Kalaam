@@ -1,4 +1,4 @@
-"use client"; // Use client directive for components using Suspense
+"use client";
 import React, { useState, useEffect } from "react";
 import { getUserPosts } from "@/lib/serverMethods";
 import { DeletePostButton } from "../buttons/Button";
@@ -19,6 +19,8 @@ function truncateText(text: string, wordLimit: number): string {
   return words.slice(0, wordLimit).join(" ") + "...";
 }
 
+
+// ! This is the component to show information of all posts in the profile section. Status: 200
 const UsersPost = () => {
   const [userPost, setUserPost] = useState<Array<PostType>>([]);
   const [loading, setLoading] = useState(true);
@@ -30,6 +32,7 @@ const UsersPost = () => {
       try {
         const posts = await getUserPosts();
         const transformedPosts = posts.map((post) => ({
+          key: post.id,
           id: post.id,
           content: post.content,
           heading: post.heading,

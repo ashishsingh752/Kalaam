@@ -26,7 +26,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/components/feed/Stories.jsx",
     "app/components/Story.jsx",
     "app/components/Posts.tsx",
     "app/components/feed/Post.tsx",

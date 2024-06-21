@@ -1,5 +1,4 @@
 "use client";
-import Env from "@/app/config/env";
 import { getUserPostsToRead } from "@/lib/serverMethods";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -19,14 +18,16 @@ interface UserType {
   name: string;
   email: string;
   roll_number: string;
+  image: string;
   posts: Array<PostType>;
 }
-
+// ! passing the props for the specific user posts
 export default function ReadUsersPost() {
   const [userPosts, setUserPosts] = useState<Array<PostType>>([]);
   const [loading, setLoading] = useState(true);
   const [userName, setUserName] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const [userImage, setUserImage] = useState<string | null>("");
   const searchParams = useSearchParams();
   const userId = searchParams.get("id");
   //   console.log("userId is: ", userId);
@@ -38,6 +39,7 @@ export default function ReadUsersPost() {
         const userPostsResponse = await getUserPostsToRead({
           id: Number(userId),
         });
+        setUserImage(userPostsResponse.image);
         if (userPostsResponse && userPostsResponse.name) {
           setUserName(userPostsResponse.name);
         }
@@ -101,7 +103,7 @@ export default function ReadUsersPost() {
                 id={post.id.toString()}
                 name={userName}
                 userImg={
-                  post.image ||
+                 userImage||
                   "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
                 }
                 postImg={post.image}

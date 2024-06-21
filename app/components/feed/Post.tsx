@@ -21,6 +21,7 @@ interface PostType {
   heading: string;
 }
 
+//! This it to pass the props Post in feed . It will show the user post image and content and Poet info. Status: 200
 const Post: React.FC<PostsProps> = ({
   userImg,
   postImg,
@@ -80,16 +81,15 @@ const Post: React.FC<PostsProps> = ({
           </div>
         )}
         {!postContentOpen && (
-          <div className="transition-transform duration-6000">
-            <Image
-              src={postImg}
-              alt="postImage"
-              width={100}
-              height={100}
-              layout="responsive"
-              objectFit="cover"
-              className="rounded-sm md:w-50 md:h-50"
-            />
+          <div className="transition-transform duration-600">
+            <div className="relative w-full h-64 md:w-50 md:h-50 rounded-sm overflow-hidden">
+              <Image
+                src={postImg}
+                alt="postImage"
+                fill
+                className="rounded-sm object-cover"
+              />
+            </div>
           </div>
         )}
       </div>

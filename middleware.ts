@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 import { NextRequest } from "next/server";
 import type { Database } from "@firebase/database";
-import { request } from "http";
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();

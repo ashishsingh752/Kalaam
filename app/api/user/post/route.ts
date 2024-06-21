@@ -2,10 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { CustomSession, authOptions } from "../../auth/[...nextauth]/options";
 import prisma from "@/db";
-import { join } from "path";
-import { rmSync } from "fs";
 
-//! Fetch all the posts of the user
+//! Fetch all the posts of the user - Status:200
 
 export async function GET(request: NextRequest) {
   const session: CustomSession | null = await getServerSession(authOptions);

@@ -1,10 +1,7 @@
 "use client";
-import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
-import Env from "@/app/config/env";
 
 interface UserProps {
   session: {
@@ -13,19 +10,13 @@ interface UserProps {
       email: string;
     };
   };
-  // onClick: ()=>void;
 }
+
+// ! User Dropdown component - Status:200
 const UserDropdown: React.FC<UserProps> = () => {
-  const [user, setUser] = useState(null);
-  const supabase = createClientComponentClient();
   const router = useRouter();
   const { data: session } = useSession();
   console.log(session);
-
-  const handleOnClickAccount = function () {
-    router.refresh();
-    return router.push("/profile");
-  };
 
   return (
     <div className="flex items-center  w-80 justify-center absolute  h-auto bg-gray-100">
@@ -49,7 +40,6 @@ const UserDropdown: React.FC<UserProps> = () => {
             </div>
             <div className="overflow-hidden">{session?.user?.email}</div>
           </div>
-          {/* <CrossButton /> */}
         </div>
         <br />
         <hr className="my-3" />

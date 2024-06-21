@@ -37,7 +37,7 @@ export default async function Suggestions() {
     <div className="flex h-1/6 overflow-x-scroll scrollbar-none flex-wrap p-6 bg-white mt-4">
       <div>
         {usersInfo.map((user) => (
-          <>
+          <div key={user.id}>
             <Suggestion
               id={user.id}
               image={user.image}
@@ -47,7 +47,7 @@ export default async function Suggestions() {
               content={user.content}
               roll_number={user.roll_number}
             />
-          </>
+          </div>
         ))}
       </div>
     </div>

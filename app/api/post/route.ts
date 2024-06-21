@@ -4,10 +4,6 @@ import { getServerSession } from "next-auth";
 import { postSchema } from "@/app/validator/postSchema";
 import { CustomErrorReporter } from "@/app/validator/customErrorReportor";
 import vine, { errors } from "@vinejs/vine";
-import { imageValidator } from "@/app/validator/imageValidator";
-import { join } from "path";
-import { getRandomNumber } from "@/lib/utils";
-import { promises as fsPromises, rmSync } from "fs";
 import prisma from "@/db";
 import { UploadImage } from "@/public/uploads/upload";
 
@@ -73,37 +69,6 @@ export async function POST(req: NextRequest) {
       });
     }
     const imageUrl: any = await UploadImage(image, "kalaam-images");
-
-    // removed this code to upload the image into the cloudinary
-    // if (image && image instanceof File) {
-    //   const isImageNotValid = imageValidator(image.name, image.size);
-    //   if (isImageNotValid) {
-    //     return NextResponse.json({
-    //       status: 400,
-    //       errors: { content: "Invalid image file" },
-    //     });
-    //   }
-
-    //   try {
-    //     const buffer = Buffer.from(await image.arrayBuffer());
-    //     const uploadDir = join(process.cwd(), "public", "uploads");
-    //     const uniqueName = `${Date.now()}-${getRandomNumber(1, 99999)}`;
-    //     const imgExt = image.name.split(".").pop();
-    //     const fileName = `${uniqueName}.${imgExt}`;
-
-    //     await fsPromises.mkdir(uploadDir, { recursive: true });
-    //     await fsPromises.writeFile(`${uploadDir}/${fileName}`, buffer);
-    //     data.image = fileName;
-    //   }
-
-    //   catch (error) {
-    //     console.error("Error uploading image: ", error);
-    //     return NextResponse.json({
-    //       status: 500,
-    //       error: "Internal server error",
-    //     });
-    //   }
-    // }
 
     await prisma.post.create({
       data: {

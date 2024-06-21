@@ -4,6 +4,8 @@ import React, { useRef, useState, useEffect, ChangeEvent } from "react";
 import PrevPost from "./PrevPost";
 import axios from "axios";
 
+// ! Create new post component - Status:200
+
 export default function CreateNewPost() {
   const imgeRef = useRef<HTMLInputElement | null>(null);
   const [preView, setPreView] = useState<string>("");
@@ -33,7 +35,6 @@ export default function CreateNewPost() {
       const previewImageUrl = URL.createObjectURL(selectedFile);
       setPreView(previewImageUrl);
     }
-    // console.log("image is of the type: ", selectedFile);
   };
 
   const handlePostTitle = (event: ChangeEvent<HTMLTextAreaElement>) => {

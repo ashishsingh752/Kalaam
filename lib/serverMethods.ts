@@ -8,13 +8,14 @@ import {
 } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 
+//! Get all posts 
+//! It works in the production when I change the Env.APP_URL to actual url i.e. https://kalaam-nitrkl.vercel.app/
+
 export async function getPost() {
-  const res = await fetch(`${Env.APP_URL}api/post`, {
+  const res = await fetch(`https://kalaam-nitrkl.vercel.app/api/post`, {
     cache: "no-cache",
     headers: headers(),
   });
-  // console.log("ashish");
-  // console.log("response is: ", res);
   if (!res.ok) {
     throw new Error("Failed to fecth posts");
   }
@@ -50,13 +51,13 @@ export async function getUserPosts() {
   }
 }
 
+
+//! this is not working in the production when I change the Env.APP_URL to actual url i.e. https://kalaam-nitrkl.vercel.app/
 export async function getUser() {
-  const res = await fetch(`${Env.APP_URL}api/user`, {
+  const res = await fetch(`https://kalaam-nitrkl.vercel.app/api/user`, {
     cache: "no-cache",
     headers: headers(),
   });
-  // console.log("ashish");
-  // console.log("response is: ", res);
   if (!res.ok) {
     throw new Error("Failed to fecth Users");
   }
@@ -64,13 +65,15 @@ export async function getUser() {
   return response?.data;
 }
 
+
+//! this is not working in the production when I change the Env.APP_URL to actual url i.e. https://kalaam-nitrkl.vercel.app/
 export async function getUserPostsToUpdate(post: { id: number }) {
   const session: CustomSession | null = await getServerSession(authOptions);
   try {
     const posts = await prisma.post.findUnique({
       where: {
         id: post.id,
-        user_id: Number(session?.user?.id), // Only allow the user to update their own posts
+        user_id: Number(session?.user?.id),
       },
       include: {
         user: {
@@ -89,12 +92,10 @@ export async function getUserPostsToUpdate(post: { id: number }) {
 }
 
 export async function getUsersForSuggestion() {
-  const res = await fetch(`${Env.APP_URL}api/user/members`, {
+  const res = await fetch(`https://kalaam-nitrkl.vercel.app/api/user/members`, {
     cache: "no-cache",
     headers: headers(),
   });
-  // console.log("ashish");
-  // console.log("response is: ", res);
   if (!res.ok) {
     throw new Error("Failed to fecth Users");
   }
@@ -102,6 +103,7 @@ export async function getUsersForSuggestion() {
   return response?.data;
 }
 
+// ! to get all the posts of a specific user to read 
 export async function getUserPostsToRead(user: { id: number }) {
   try {
     const userData = await prisma.user.findUnique({
@@ -113,6 +115,7 @@ export async function getUserPostsToRead(user: { id: number }) {
         name: true,
         email: true,
         roll_number: true,
+        image: true,
         Post: {
           select: {
             id: true,

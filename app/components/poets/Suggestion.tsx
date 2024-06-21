@@ -23,7 +23,6 @@ interface PostType {
 }
 
 //!   this is the for the  suggestion in the home page
-
 const Suggestion: React.FC<SuggestionProps> = ({
   image,
   name,
@@ -37,17 +36,15 @@ const Suggestion: React.FC<SuggestionProps> = ({
     <div className="flex items-center justify-between bg-white p-2">
       {/* <div className="flex justify-center items-center"> */}
 
-      <div>
+      <div className="relative w-14 h-14 rounded-full overflow-hidden">
         <Image
           src={
             image ||
             "https://images.unsplash.com/photo-1682686581221-c126206d12f0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxMjZ8fHxlbnwwfHx8fHw%3D"
           }
           alt="user img"
-          width={100}
-          height={100}
-          objectFit="cover"
-          className="rounded-full  w-14 h-14"
+          fill
+          className="object-cover"
         />
       </div>
 

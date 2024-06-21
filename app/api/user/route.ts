@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { CustomSession, authOptions } from "../auth/[...nextauth]/options";
 import prisma from "@/db";
 import { NextRequest, NextResponse } from "next/server";
+import { DeleteImage } from "@/public/uploads/upload";
 
 export async function GET(request: NextRequest) {
   const session: CustomSession | null = await getServerSession(authOptions);
@@ -48,6 +49,21 @@ export async function DELETE(request: NextRequest) {
   const session: CustomSession | null = await getServerSession(authOptions);
   if (!session) {
     return NextResponse.json({ status: 401, message: "Un-Authorized" });
+  }
+
+  const findUser = await prisma.user.findUnique({
+    where: {
+      id: Number(session.user?.id),
+    },
+  });
+
+  if (!findUser) {
+    return NextResponse.json({ status: 404, message: "User Not Found" });
+  }
+
+  const userProfileImageUrl = findUser.public_id;
+  if (userProfileImageUrl) {
+    const deleteImage = await DeleteImage(userProfileImageUrl);
   }
 
   try {

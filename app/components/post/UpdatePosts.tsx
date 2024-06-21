@@ -12,6 +12,7 @@ interface PostType {
   image: string;
 }
 
+//! Update post component - Status:200  - This is the component to update the post
 export default function UpdatePost() {
   const imgeRef = useRef<HTMLInputElement | null>(null);
   const [preView, setPreView] = useState<string>("");

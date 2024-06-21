@@ -5,21 +5,16 @@ interface SuggestionProps {
   name: string;
   jobtitle: string;
 }
-
+//! now useless component
 const Suggestion: React.FC<SuggestionProps> = ({ imgSrc, name, jobtitle }) => {
   return (
     <div className="">
       <div className="flex flex-col  items-center rounded-lg justify-center bg-white p-2">
         {/* Image of the poet */}
         <div className="w-full">
-          <Image
-            src={imgSrc}
-            alt="user img"
-            width={100}
-            height={100}
-            objectFit="cover"
-            className=" h-32 w-96 border p-[2px]"
-          />
+          <div className="relative h-32 w-96 border p-[2px]">
+            <Image src={imgSrc} alt="user img" fill className="object-cover" />
+          </div>
         </div>
 
         {/* other details of the poet  */}
