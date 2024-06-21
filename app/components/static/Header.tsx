@@ -19,7 +19,7 @@ export default async function Header() {
           {/* Logo for large screens */}
           <div className="hidden lg:flex items-center cursor-pointer">
             <Image
-              src={"https://res.cloudinary.com/dkm6extdv/image/upload/v1718956399/kalaam-images/stjohet4jmwfkp6seorb.png"}
+              src={"https://res.cloudinary.com/dkm6extdv/image/upload/v1718981080/kalaam-images/xgnmihsqctrq7wsvhdlc.png"}
               alt="Kalaam Logo"
               width={100}
               height={100}
