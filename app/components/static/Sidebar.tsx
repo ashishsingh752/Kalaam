@@ -15,16 +15,18 @@ import {
   FaInstagram,
   FaTwitter,
 } from "react-icons/fa";
-import Logo from "./Logo";
+import {Logo} from "./Logo";
 import { useRouter } from "next/navigation";
 
 interface SidebarProps {
   isOpen: boolean;
   onMouseEnter: () => void;
   onMouseLeave: (event: React.MouseEvent) => void;
+  id: string;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
+  id,
   isOpen,
   onMouseEnter,
   onMouseLeave,

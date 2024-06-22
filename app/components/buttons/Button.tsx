@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
@@ -18,39 +19,18 @@ interface ReadPostButtonProps {
   id: number;
 }
 
+
+
 const HomeButton: React.FC = () => {
   const router = useRouter();
+  const handelHome = () => {
+    router.push("/");
+  };
 
   return (
-    <div
-      onClick={() => router.replace("/")}
-      className="cursor-pointer  hover:underline  ease-out hidden md:inline-block"
-    >
-      Home
+    <div onClick={() => router.push("/")} className="flex hover:underline cursor-pointer items-center">
+       Home
     </div>
-  );
-};
-
-const BuyButton: React.FC<ButtonProps> = ({ onClick, children }) => {
-  return (
-    <button
-      onClick={onClick}
-      type="button"
-      className=" p-2 w-full text-white bg-blue-500 border-t-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:bg-blue-600"
-    >
-      {children}
-    </button>
-  );
-};
-
-const CancleButton: React.FC = () => {
-  return (
-    <button
-      type="button"
-      className="p-2 w-full text-black border-t-gray-300 rounded-md outline outline-offset-2 outline-gray-300 hover:bg-gray-200"
-    >
-      Cancel
-    </button>
   );
 };
 

@@ -4,7 +4,7 @@ CREATE TABLE "User" (
     "name" VARCHAR(60) NOT NULL,
     "email" VARCHAR(100) NOT NULL,
     "password" TEXT,
-    "image" TEXT DEFAULT 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=',
+    "image" TEXT DEFAULT 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR_bwZrOyCQJhPMvpxqrv-xmqEBzAJAKJtT-VpWkSQ-4AppODnHxANcPsX-RTiIYlcrXE&usqp=CAU',
     "public_id" TEXT,
     "role" TEXT DEFAULT 'User',
     "roll_number" VARCHAR(9) NOT NULL,

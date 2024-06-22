@@ -1,3 +1,6 @@
+'use client';
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 interface LogoProps {
@@ -14,4 +17,37 @@ const Logo: React.FC<LogoProps> = ({ content, icon }) => {
   );
 };
 
-export default Logo;
+const HeaderLogo: React.FC = () => {
+  const router = useRouter();
+  const handelHome = () => {
+    router.push("/");
+  };
+
+  return (
+    <div onClick={() => handelHome()} className="flex items-center">
+      {/* Logo for large screens */}
+      <div className="hidden lg:flex items-center cursor-pointer">
+        <Image
+          src={
+            "https://res.cloudinary.com/dkm6extdv/image/upload/v1718981080/kalaam-images/xgnmihsqctrq7wsvhdlc.png"
+          }
+          alt="Kalaam Logo"
+          width={100}
+          height={100}
+        />
+      </div>
+      {/* <User/> */}
+      {/* Logo for small and medium screens */}
+      <div className="lg:hidden flex items-center cursor-pointer">
+        <Image
+          src="https://cdn.vectorstock.com/i/preview-1x/78/55/feather-logo-writing-quill-stroke-black-icon-vector-48457855.jpg"
+          alt="Kalaam Logo"
+          width={80}
+          height={80}
+        />
+      </div>
+    </div>
+  );
+};
+
+export { Logo, HeaderLogo };

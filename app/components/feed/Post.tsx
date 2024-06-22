@@ -56,7 +56,7 @@ const Post: React.FC<PostsProps> = ({
       </div>
 
       {/* Users post image */}
-      <div className="post-image-container">
+      <div className="">
         {postContentOpen && (
           <div className="p-5 max-h-96 overflow-auto pt-0">
             <div
@@ -66,7 +66,6 @@ const Post: React.FC<PostsProps> = ({
             ></div>
             <div
               className="text-right"
-              // onClick={handleRead}
             >
               <div className="flex mt-5 pl-2  justify-between">
                 <div>Thank you for reading this post!</div>
@@ -82,7 +81,7 @@ const Post: React.FC<PostsProps> = ({
         )}
         {!postContentOpen && (
           <div className="transition-transform duration-600">
-            <div className="relative w-full h-64 md:w-50 md:h-50 rounded-sm overflow-hidden">
+            <div className="relative w-full h-96 md:w-50 md:h-50 rounded-sm overflow-hidden">
               <Image
                 src={postImg}
                 alt="postImage"

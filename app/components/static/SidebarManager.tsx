@@ -2,7 +2,8 @@
 import { useCallback, useState } from "react";
 import { FaChevronRight } from "react-icons/fa";
 import Sidebar from "./Sidebar";
-export default function SidebarMannager() {
+
+export default function SidebarManager() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const handleMouseEnter = useCallback(() => {
@@ -11,11 +12,11 @@ export default function SidebarMannager() {
 
   const handleMouseLeave = useCallback((e: React.MouseEvent) => {
     const sidebarElement = document.getElementById("sidebar");
-    const relatedTarget = e.relatedTarget as Node | null;
+    const relatedTarget = e.relatedTarget;
 
     if (
       sidebarElement &&
-      relatedTarget &&
+      relatedTarget instanceof Node && 
       !sidebarElement.contains(relatedTarget)
     ) {
       setSidebarOpen(false);
@@ -36,6 +37,7 @@ export default function SidebarMannager() {
         </div>
 
         <Sidebar
+          id="sidebar"
           isOpen={isSidebarOpen}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}

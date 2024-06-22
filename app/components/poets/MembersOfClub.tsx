@@ -39,7 +39,7 @@ const MembersOfClub: FC<MembersOfClubProps> = ({
         <Image
           src={
             image ||
-            "https://images.unsplash.com/photo-1711008995950-2590b21d92a2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTZ8fHxlbnwwfHx8fHw%3D"
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR_bwZrOyCQJhPMvpxqrv-xmqEBzAJAKJtT-VpWkSQ-4AppODnHxANcPsX-RTiIYlcrXE&usqp=CAU"
           }
           alt="user img"
           width={100}

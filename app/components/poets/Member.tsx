@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import "tailwind-scrollbar";
-import Suggestion from "../poets/Suggestion";
+import MembersOfClub from "./MembersOfClub";
 import { shuffleArray } from "@/lib/utils";
 
 interface MembersOfClubProps {
@@ -11,6 +11,7 @@ interface MembersOfClubProps {
   image: string;
   name: string;
   roll_number: string;
+  role: string;
 }
 
 interface PostType {
@@ -19,12 +20,11 @@ interface PostType {
   heading: string;
   image: string;
   name: string;
-  role: string;
   roll_number: string;
+  role: string;
 }
 
-//  suggestion in the home page 
-export default function Suggestions() {
+export default function Member() {
   const [users, setUsers] = useState<Array<PostType>>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -51,30 +51,40 @@ export default function Suggestions() {
   }, []);
 
   if (isLoading) {
-    return <div className="flex h-96 justify-center items-center">Loading...</div>;
+    return (
+      <div className="flex min-h-screen bg-gray-200 justify-center items-center">
+        Loading...
+      </div>
+    );
   }
 
   if (users.length === 0) {
     return (
-      <div className="flex justify-center items-center">
+      <div className="flex min-h-screen bg-gray-200 justify-center items-center">
         No suggestions available
       </div>
     );
   }
 
   return (
-    <div className="flex h-1/6 overflow-x-scroll scrollbar-none flex-wrap p-6 bg-white mt-4">
-      <div>
+    <div className="max-w-screen pt-16 md:pl-10 md:pr-10 min-h-screen overflow-auto bg-gray-200 justify-center items-center">
+      <div className="pl-10 text-7xl md:text-9xl p-2">
+        <div className="pt-2">This is</div>
+        <div className="mt-2">
+          <div className="text-neutral-600 md:flex">Kalaam</div> Family
+        </div>
+      </div>
+      <div className="flex mt-8 flex-row pb-2 p-6 gap-2 mb-0 m-3 overflow-auto">
         {users.map((user) => (
           <div key={user.id}>
-            <Suggestion
+            <MembersOfClub
               id={user.id}
               image={user.image}
               name={user.name}
               role={user.role}
+              roll_number={user.roll_number}
               heading={user.heading}
               content={user.content}
-              roll_number={user.roll_number}
             />
           </div>
         ))}

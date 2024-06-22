@@ -1,6 +1,6 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Post from "./Post";
-import { getPost } from "@/lib/serverMethods";
 import { shuffleArray } from "@/lib/utils";
 
 interface PostType {
@@ -10,17 +10,55 @@ interface PostType {
   heading: string;
   image: string;
   created_at: Date;
+  user: {
+    name: string;
+    image?: string;
+  };
 }
 
-const Posts: React.FC = async () => {
-  const newPosts: Array<PostType> | [] = await getPost();
+// Client-side function to fetch posts
+const fetchPosts = async () => {
+  const res = await fetch(`api/post`, {
+    cache: "no-cache",
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch posts");
+  }
+  const response = await res.json();
+  return response?.data;
+};
 
-  // Shuffle both fetched and placeholder posts
-  const combinedPosts = shuffleArray([...newPosts]);
+const Posts: React.FC = () => {
+  const [posts, setPosts] = useState<Array<PostType>>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        const posts = await fetchPosts();
+        const shuffledPosts = shuffleArray(posts || []);
+        setPosts(shuffledPosts);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        setIsLoading(false);
+      }
+    };
+
+    getPosts();
+  }, []);
+
+  if (isLoading) {
+    return <div className="flex h-screen justify-center items-center">Loading...</div>;
+  }
+
+  if (posts.length === 0) {
+    return <div className="flex justify-center items-center">No posts available</div>;
+  }
 
   return (
     <>
-      {combinedPosts.map((post) => (
+      {posts.map((post) => (
         <div key={post.id}>
           <Post
             id={post.id.toString()}
