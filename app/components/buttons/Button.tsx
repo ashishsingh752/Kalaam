@@ -29,7 +29,7 @@ const HomeButton: React.FC = () => {
   };
 
   return (
-    <div onClick={() => router.push("/")} className="flex hover:underline cursor-pointer items-center">
+    <div onClick={() => handelHome()} className="flex hover:underline cursor-pointer items-center">
        Home
     </div>
   );

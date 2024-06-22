@@ -25,6 +25,7 @@ export default function Profile() {
   const [userRollNumber, setUserRollNumber] = useState<string>("");
   const [userRole, setUserRole] = useState<string>("");
   const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const signOutUser = async () => {
     await signOut();
@@ -71,6 +72,7 @@ export default function Profile() {
     }
 
     try {
+      setLoading(true);
       const res = await axios.post("/api/user/profile", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -78,6 +80,7 @@ export default function Profile() {
       });
 
       if (res.status === 200) {
+        setLoading(false);
         alert(
           "User updated successfully!. Please sign in again to see the changes."
         );
@@ -157,7 +160,7 @@ export default function Profile() {
               onClick={handleUpdate}
               className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded-md font-medium text-base hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition ease-in-out duration-150"
             >
-              Update Account
+              {loading ? "Updating..." : "Update Account"}
             </div>
           </div>
           <div className="pt-10">

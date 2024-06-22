@@ -34,6 +34,7 @@ const HeaderLogo: React.FC = () => {
           alt="Kalaam Logo"
           width={100}
           height={100}
+          onClick={() => handelHome()}
         />
       </div>
       {/* <User/> */}
@@ -44,6 +45,7 @@ const HeaderLogo: React.FC = () => {
           alt="Kalaam Logo"
           width={80}
           height={80}
+          onClick={() => handelHome()}
         />
       </div>
     </div>

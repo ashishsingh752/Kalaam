@@ -91,7 +91,7 @@ export default function SignUp() {
           <hr className="w-full bg-gray-300 border-0" />
         </div>
 
-        <div className="w-full flex items-center justify-center  mb-1">
+        <div className="w-full flex items-center mt-5 justify-center  mb-1">
           <span className="text-xl font-semibold px-2">Register</span>
         </div>
 

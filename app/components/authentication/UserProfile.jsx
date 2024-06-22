@@ -22,7 +22,7 @@ export default function UserProfile() {
             alt="User Profile"
             width={100}
             height={100}
-            className="rounded-full p-0.5 w-14 h-auto"
+            className="rounded-full p-1 w-14 h-14"
             onClick={() => setIsOpen(!isOpen)}
           />
         ) : (

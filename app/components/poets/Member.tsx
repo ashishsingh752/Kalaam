@@ -27,7 +27,7 @@ interface PostType {
 
 const fetchMembers = async () => {
   try {
-    const res = await axios.get(`api/user/members`, {
+    const res = await axios.get(`/api/user/members`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -46,8 +46,8 @@ export default function Member() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const users = await fetchMembers();
-        const shuffledUsers = shuffleArray(users || []);
+        const data = await fetchMembers();
+        const shuffledUsers = shuffleArray(data || []);
         setUsers(shuffledUsers);
         setIsLoading(false);
       } catch (error) {
@@ -66,13 +66,6 @@ export default function Member() {
     );
   }
 
-  if (users.length === 0) {
-    return (
-      <div className="flex min-h-screen bg-gray-200 justify-center items-center">
-        No suggestions available
-      </div>
-    );
-  }
 
   return (
     <div className="max-w-screen pt-16 md:pl-10 md:pr-10 min-h-screen overflow-auto bg-gray-200 justify-center items-center">

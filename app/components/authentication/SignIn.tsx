@@ -77,8 +77,8 @@ export default function SignIn() {
 
   return (
     <div className="flex  h-[calc(100vh-5rem)]  bg-gray-200 items-center justify-center b">
-      <div className="w-full max-w-sm px-8 py-6 bg-white rounded-lg shadow-md">
-        <h3 className="text-2xl font-semibold text-center">
+      <div className="w-full max-w-sm  px-8 py-6 bg-white rounded-lg shadow-md">
+        <h3 className="text-2xl  font-semibold text-center">
           Kalaam: The Poetry Club
         </h3>
         {/* Temporarily disable Google authentication. Will be enabled soon. */}
@@ -95,7 +95,7 @@ export default function SignIn() {
           <hr className="w-full bg-gray-300 border-0" />
         </div>
 
-        <div className="w-full flex items-center justify-center mt-1 mb-1">
+        <div className="w-full flex items-center justify-center mt-5 mb-1">
           <span className="text-xl font-semibold px-2">Sign In</span>
         </div>
 

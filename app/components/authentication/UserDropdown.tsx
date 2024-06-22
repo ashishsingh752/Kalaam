@@ -23,13 +23,13 @@ const UserDropdown: React.FC<UserProps> = () => {
       <div className="w-full max-w-sm p-8 rounded-lg shadow-md bg-white">
         <div className="flex items-center">
           <Image
-            className="rounded-full w-14 h-14 p-[1px]"
+            className="rounded-full p-1 w-14 h-14"
             src={
               session?.user?.image ||
               "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
             }
-            width={40}
-            height={40}
+            width={50}
+            height={50}
             alt="userImg"
           />
           <div className="flex-1 ml-4">
