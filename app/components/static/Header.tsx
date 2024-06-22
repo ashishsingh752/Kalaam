@@ -6,7 +6,6 @@ import { HandleLoginButtom, HomeButton } from "../buttons/Button";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 import CreateNewPostButton from "../post/CreateNewPostButton";
-import { HeaderLogo } from "./Logo";
 
 export default async function Header() {
   const session = await getServerSession(authOptions);
@@ -15,8 +14,26 @@ export default async function Header() {
     <header className="bg-white w-full shadow-sm sticky min-w-full top-0 z-30 border-b">
       <div className="container min-w-full  flex items-center justify-around py-3 px-6">
         {/* Left side */}
-        <div>
-          <HeaderLogo />
+        <div className="flex items-center">
+          {/* Logo for large screens */}
+          <div className="hidden lg:flex items-center cursor-pointer">
+            <Image
+              src={"https://res.cloudinary.com/dkm6extdv/image/upload/v1718956399/kalaam-images/stjohet4jmwfkp6seorb.png"}
+              alt="Kalaam Logo"
+              width={100}
+              height={100}
+            />
+          </div>
+          {/* <User/> */}
+          {/* Logo for small and medium screens */}
+          <div className="lg:hidden flex items-center cursor-pointer">
+            <Image
+              src="https://cdn.vectorstock.com/i/preview-1x/78/55/feather-logo-writing-quill-stroke-black-icon-vector-48457855.jpg"
+              alt="Kalaam Logo"
+              width={80}
+              height={80}
+            />
+          </div>
         </div>
 
         {/* Middle - Search bar */}
