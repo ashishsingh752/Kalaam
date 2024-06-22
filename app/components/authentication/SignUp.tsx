@@ -77,14 +77,16 @@ export default function SignUp() {
         <h3 className="text-2xl font-semibold text-center">
           Kalaam: The Poetry Club
         </h3>
-        <div className="w-full mt-5 mb-0.5">
+
+        {/* Temporarily disable Google authentication. Will be enabled soon. */}
+        {/* <div className="w-full mt-5 mb-0.5">
           <button
             onClick={() => signIn("google")}
             className="w-full rounded-md flex justify-center mt-6 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-blue-400"
           >
             Continue With Google
           </button>
-        </div>
+        </div> */}
         <div className="w-full flex items-center justify-between mt-2 ">
           <hr className="w-full bg-gray-300 border-0" />
           <span className="text-sm text-gray-500 px-2">OR</span>
@@ -165,7 +167,6 @@ export default function SignUp() {
             </div>
           </div>
           {/* <span className="text-red-400 font-semibold">{errors?.confirm_password}</span> */}
-
 
           <button
             disabled={loading}

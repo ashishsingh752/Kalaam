@@ -6,7 +6,6 @@ import { signIn, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
-import Google from "next-auth/providers/google";
 
 export default function SignIn() {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,13 +80,13 @@ export default function SignIn() {
         <h3 className="text-2xl font-semibold text-center">
           Kalaam: The Poetry Club
         </h3>
-
-        <button
+        {/* Temporarily disable Google authentication. Will be enabled soon. */}
+        {/* <button
           onClick={() => signIn("google")}
           className="w-full rounded-md flex justify-center mt-6 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-blue-400"
         >
           Continue With Google
-        </button>
+        </button> */}
 
         <div className="w-full flex items-center justify-between mt-2 mb-2">
           <hr className="w-full bg-gray-300 border-0" />
