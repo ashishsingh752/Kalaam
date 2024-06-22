@@ -77,8 +77,6 @@ export default function SignUp() {
         <h3 className="text-2xl font-semibold text-center">
           Kalaam: The Poetry Club
         </h3>
-
-        {/* Temporarily disable Google authentication. Will be enabled soon. */}
         {/* <div className="w-full mt-5 mb-0.5">
           <button
             onClick={() => signIn("google")}
@@ -89,7 +87,7 @@ export default function SignUp() {
         </div> */}
         <div className="w-full flex items-center justify-between mt-2 ">
           <hr className="w-full bg-gray-300 border-0" />
-          <span className="text-sm text-gray-500 px-2">OR</span>
+          {/* <span className="text-sm text-gray-500 px-2">OR</span> */}
           <hr className="w-full bg-gray-300 border-0" />
         </div>
 
@@ -167,6 +165,7 @@ export default function SignUp() {
             </div>
           </div>
           {/* <span className="text-red-400 font-semibold">{errors?.confirm_password}</span> */}
+
 
           <button
             disabled={loading}

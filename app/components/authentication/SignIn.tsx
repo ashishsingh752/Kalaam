@@ -6,6 +6,7 @@ import { signIn, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
+import Google from "next-auth/providers/google";
 
 export default function SignIn() {
   const [isOpen, setIsOpen] = useState(false);
@@ -90,7 +91,7 @@ export default function SignIn() {
 
         <div className="w-full flex items-center justify-between mt-2 mb-2">
           <hr className="w-full bg-gray-300 border-0" />
-          <span className="text-sm text-gray-500 px-2">OR</span>
+          {/* <span className="text-sm text-gray-500 px-2">OR</span> */}
           <hr className="w-full bg-gray-300 border-0" />
         </div>
 
