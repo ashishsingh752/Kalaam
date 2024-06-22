@@ -19,7 +19,7 @@ model User {
   name        String   @db.VarChar(60)
   email       String   @unique @db.VarChar(100)
   password    String?
-  image       String?  @default("https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=")
+  image       String?  @default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR_bwZrOyCQJhPMvpxqrv-xmqEBzAJAKJtT-VpWkSQ-4AppODnHxANcPsX-RTiIYlcrXE&usqp=CAU")
   public_id   String?
   role        String?  @default("User")
   roll_number String   @unique @db.VarChar(9)
