@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "tailwind-scrollbar";
 import Suggestion from "../poets/Suggestion";
 import { shuffleArray } from "@/lib/utils";
+import axios from "axios";
 
 interface MembersOfClubProps {
   id: number;
@@ -23,41 +24,53 @@ interface PostType {
   roll_number: string;
 }
 
-//  suggestion in the home page 
+
+// ! fetch members to show the suggestion for the logged-in user only
+const fetchMembers = async () => {
+  try {
+    const res = await axios.get('/api/user', {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res.data?.data;
+  } catch (error) {
+    console.error("Error fetching members:", error);
+    throw new Error("Failed to fetch members");
+  }
+};
+
+
+//  suggestion in the home page
 export default function Suggestions() {
   const [users, setUsers] = useState<Array<PostType>>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const getUsers = async () => {
       try {
-        const res = await fetch(`api/user/members`, {
-          cache: "no-cache",
-        });
-        if (!res.ok) {
-          throw new Error("Failed to fetch users");
-        }
-        const response = await res.json();
-        const shuffledUsers = shuffleArray(response?.data || []);
+        const users = await fetchMembers();
+        const shuffledUsers = shuffleArray(users || []);
         setUsers(shuffledUsers);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error("Error fetching posts:", error);
         setIsLoading(false);
       }
     };
-
-    fetchUsers();
+    getUsers();
   }, []);
 
   if (isLoading) {
-    return <div className="flex h-96 justify-center items-center">Loading...</div>;
+    return (
+      <div className="flex h-96 justify-center items-center">Loading...</div>
+    );
   }
 
   if (users.length === 0) {
     return (
       <div className="flex justify-center items-center">
-        No suggestions available
+        Please Login to see the suggestions
       </div>
     );
   }

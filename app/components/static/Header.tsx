@@ -2,7 +2,11 @@ import Image from "next/image";
 import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import UserProfile from "../authentication/UserProfile";
 import SidebarMannager from "./SidebarManager";
-import { HandleLoginButtom, HomeButton } from "../buttons/Button";
+import {
+  HandleLoginButtom,
+  HomeButton,
+  HomeButtonWithIcon,
+} from "../buttons/Button";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 import CreateNewPostButton from "../post/CreateNewPostButton";
@@ -18,7 +22,9 @@ export default async function Header() {
           {/* Logo for large screens */}
           <div className="hidden lg:flex items-center cursor-pointer">
             <Image
-              src={"https://res.cloudinary.com/dkm6extdv/image/upload/v1718981080/kalaam-images/xgnmihsqctrq7wsvhdlc.png"}
+              src={
+                "https://res.cloudinary.com/dkm6extdv/image/upload/v1718981080/kalaam-images/xgnmihsqctrq7wsvhdlc.png"
+              }
               alt="Kalaam Logo"
               width={100}
               height={100}
@@ -48,11 +54,13 @@ export default async function Header() {
 
         {/* Right side */}
         <div className="flex gap-2  items-center md:space-x-4">
-          <HomeButton />
+          <div className="hidden md:block">
+            <HomeButton />
+          </div>
           {session ? (
             <>
               {/* add user profile dropdowm */}
-              <div>
+              <div className="hidden md:block">
                 <CreateNewPostButton />
               </div>
               <div className="cursor-pointer">

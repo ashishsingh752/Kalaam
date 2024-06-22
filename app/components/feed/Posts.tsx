@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Post from "./Post";
 import { shuffleArray } from "@/lib/utils";
+import axios from "axios";
 
 interface PostType {
   id: number;
@@ -18,14 +19,17 @@ interface PostType {
 
 // Client-side function to fetch posts
 const fetchPosts = async () => {
-  const res = await fetch(`api/post`, {
-    cache: "no-cache",
-  });
-  if (!res.ok) {
-    throw new Error("Failed to fetch posts");
+  try {
+    const res = await axios.get(`api/post`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res.data?.data;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    throw new Error("Failed to fetch posts");    
   }
-  const response = await res.json();
-  return response?.data;
 };
 
 const Posts: React.FC = () => {
@@ -49,11 +53,17 @@ const Posts: React.FC = () => {
   }, []);
 
   if (isLoading) {
-    return <div className="flex h-screen justify-center items-center">Loading...</div>;
+    return (
+      <div className="flex h-screen justify-center items-center">
+        Loading...
+      </div>
+    );
   }
 
   if (posts.length === 0) {
-    return <div className="flex justify-center items-center">No posts available</div>;
+    return (
+      <div className="flex justify-center items-center">No posts available</div>
+    );
   }
 
   return (

@@ -1,4 +1,5 @@
 "use client";
+import { HomeModernIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
@@ -30,6 +31,19 @@ const HomeButton: React.FC = () => {
   return (
     <div onClick={() => router.push("/")} className="flex hover:underline cursor-pointer items-center">
        Home
+    </div>
+  );
+};
+
+const HomeButtonWithIcon: React.FC = () => {
+  const router = useRouter();
+  const handelHome = () => {
+    router.push("/");
+  };
+
+  return (
+    <div onClick={() => router.push("/")} className="flex hover:underline cursor-pointer items-center">
+       <HomeModernIcon className=" h-5 w-5 relative"/>
     </div>
   );
 };
@@ -154,4 +168,5 @@ export {
   BackToHome,
   HandleDeleteAccount,
   HandleUpdateAccount,
+  HomeButtonWithIcon,
 };

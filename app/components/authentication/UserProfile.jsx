@@ -22,14 +22,14 @@ export default function UserProfile() {
             alt="User Profile"
             width={100}
             height={100}
-            className="rounded-full p-1 w-12 h-12"
+            className="rounded-full p-0.5 w-14 h-auto"
             onClick={() => setIsOpen(!isOpen)}
           />
         ) : (
           <Image
             src={defaultImageUrl}
             alt="Default Profile"
-            className="rounded-full p-1 w-12 h-12"
+            className="rounded-full p-0.5 w-12 h-12"
             width={100}
             height={100}
           />

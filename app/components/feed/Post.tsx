@@ -46,8 +46,8 @@ const Post: React.FC<PostsProps> = ({
           src={userImg}
           alt={name}
           width={100}
-          height={90}
-          className="rounded-full p-1 w-12 mr-3 h-12 object-cover border"
+          height={100}
+          className="rounded-full p-1 w-12 mr-3 h-12 object-fill border"
         />
         <p className="font-bold flex-1">{heading}</p>
         <div className="text-right mr-2 cursor-pointer" onClick={handleRead}>
@@ -64,9 +64,7 @@ const Post: React.FC<PostsProps> = ({
               style={{ whiteSpace: "pre-line" }}
               dangerouslySetInnerHTML={{ __html: readContent }}
             ></div>
-            <div
-              className="text-right"
-            >
+            <div className="text-right">
               <div className="flex mt-5 pl-2  justify-between">
                 <div>Thank you for reading this post!</div>
                 <div
@@ -81,13 +79,16 @@ const Post: React.FC<PostsProps> = ({
         )}
         {!postContentOpen && (
           <div className="transition-transform duration-600">
-            <div className="relative w-full h-96 md:w-50 md:h-50 rounded-sm overflow-hidden">
-              <Image
-                src={postImg}
-                alt="postImage"
-                fill
-                className="rounded-sm object-cover"
-              />
+            <div className="relative w-full h-96 md:w-50 md:h-50 rounded-sm ">
+              <div className="h-96 w-96">
+                <Image
+                  src={postImg}
+                  alt="postImage"
+                  fill
+                  loading="lazy"
+                  className="rounded-sm h-96 object-fill"
+                />
+              </div>
             </div>
           </div>
         )}

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "tailwind-scrollbar";
 import MembersOfClub from "./MembersOfClub";
 import { shuffleArray } from "@/lib/utils";
+import axios from "axios";
 
 interface MembersOfClubProps {
   id: number;
@@ -24,30 +25,37 @@ interface PostType {
   role: string;
 }
 
+const fetchMembers = async () => {
+  try {
+    const res = await axios.get(`api/user/members`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res.data?.data;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    throw new Error("Failed to fetch posts");
+  }
+};
+
 export default function Member() {
   const [users, setUsers] = useState<Array<PostType>>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const getUsers = async () => {
       try {
-        const res = await fetch(`api/user/members`, {
-          cache: "no-cache",
-        });
-        if (!res.ok) {
-          throw new Error("Failed to fetch users");
-        }
-        const response = await res.json();
-        const shuffledUsers = shuffleArray(response?.data || []);
+        const users = await fetchMembers();
+        const shuffledUsers = shuffleArray(users || []);
         setUsers(shuffledUsers);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error("Error fetching posts:", error);
         setIsLoading(false);
       }
     };
-
-    fetchUsers();
+    getUsers();
   }, []);
 
   if (isLoading) {
