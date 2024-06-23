@@ -1,8 +1,7 @@
 "use client";
-import { HomeModernIcon } from "@heroicons/react/24/solid";
+import { HomeModernIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { signOut } from "next-auth/react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
@@ -20,8 +19,6 @@ interface ReadPostButtonProps {
   id: number;
 }
 
-
-
 const HomeButton: React.FC = () => {
   const router = useRouter();
   const handelHome = () => {
@@ -29,8 +26,11 @@ const HomeButton: React.FC = () => {
   };
 
   return (
-    <div onClick={() => handelHome()} className="flex hover:underline cursor-pointer items-center">
-       Home
+    <div
+      onClick={() => handelHome()}
+      className="flex hover:underline cursor-pointer items-center"
+    >
+      Home
     </div>
   );
 };
@@ -42,8 +42,11 @@ const HomeButtonWithIcon: React.FC = () => {
   };
 
   return (
-    <div onClick={() => router.push("/")} className="flex hover:underline cursor-pointer items-center">
-       <HomeModernIcon className=" h-5 w-5 relative"/>
+    <div
+      onClick={() => router.push("/")}
+      className="flex hover:underline cursor-pointer items-center"
+    >
+      <HomeModernIcon className=" h-5 w-5 relative" />
     </div>
   );
 };
@@ -160,7 +163,19 @@ const HandleUpdateAccount = () => {
   );
 };
 
+const HandleSearchRoute = async () => {
+  const router = useRouter();
+
+  return (
+    <MagnifyingGlassIcon
+      className="cursor-pointer"
+      onClick={() => router.push("/search")}
+    />
+  );
+};
+
 export {
+  HandleSearchRoute,
   HomeButton,
   HandleLoginButtom,
   DeletePostButton,
