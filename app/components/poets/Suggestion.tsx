@@ -26,9 +26,6 @@ interface PostType {
 const Suggestion: React.FC<SuggestionProps> = ({
   image,
   name,
-  heading,
-  content,
-  roll_number,
   role,
   id,
 }) => {

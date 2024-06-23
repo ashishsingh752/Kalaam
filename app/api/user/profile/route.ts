@@ -69,3 +69,37 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
+
+// ! status:200
+export async function GET(request: NextRequest) {
+  try {
+    console.log("fetching data from the data base...");
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        roll_number: true,
+        image: true,
+        role: true,
+        Post: {
+          select: {
+            id: true,
+            content: true,
+            heading: true,
+            image: true,
+          },
+        },
+      },
+      orderBy: {
+        id: "desc",
+      },
+    });
+    console.log("data fetched successfully", users);
+
+    return NextResponse.json({ status: 200, data: users });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ status: 500, message: "Internal Server Error" });
+  }
+}
