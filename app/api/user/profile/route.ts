@@ -30,17 +30,27 @@ export async function POST(req: NextRequest, res: NextResponse) {
       email: formData.get("email") as string,
       roll_number: formData.get("roll_number") as string,
       role: formData.get("role") as string,
+      mobile_number: formData.get("mobile_number") as string,
     };
 
     const image = formData.get("image") as unknown as File;
 
     if (!image) {
-      return NextResponse.json({
-        status: 404,
-        message: "No image found in request body",
-      });
+      return NextResponse.json(
+        {
+          message: "No image found in request body",
+        },
+        { status: 404 }
+      );
     }
-
+    if (profileData.role === "admin" || profileData.role === "Admin") {
+      return NextResponse.json(
+        {
+          message: "Not allowed to take role as admin",
+        },
+        { status: 404 }
+      );
+    }
     // delete the image from the coudinary
     const imageUrl = findUser.public_id;
     if (imageUrl) {
@@ -61,6 +71,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         role: profileData.role,
         image: uploadImage.secure_url,
         public_id: uploadImage.public_id,
+        mobile_number: profileData.mobile_number,
       },
     });
 
@@ -75,6 +86,11 @@ export async function GET(request: NextRequest) {
   try {
     console.log("fetching data from the data base...");
     const users = await prisma.user.findMany({
+      where: {
+        NOT: {
+          approved: false,
+        },
+      },
       select: {
         id: true,
         name: true,

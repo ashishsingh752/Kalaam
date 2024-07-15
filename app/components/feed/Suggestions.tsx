@@ -4,6 +4,7 @@ import "tailwind-scrollbar";
 import Suggestion from "../poets/Suggestion";
 import { shuffleArray } from "@/lib/utils";
 import axios from "axios";
+import Image from "next/image";
 
 interface MembersOfClubProps {
   id: number;
@@ -24,11 +25,10 @@ interface PostType {
   roll_number: string;
 }
 
-
 // ! fetch members to show the suggestion for the logged-in user only
 const fetchMembers = async () => {
   try {
-    const res = await axios.get('/api/user', {
+    const res = await axios.get("/api/user", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -39,7 +39,6 @@ const fetchMembers = async () => {
     throw new Error("Failed to fetch members");
   }
 };
-
 
 //  suggestion in the home page
 export default function Suggestions() {
@@ -63,7 +62,15 @@ export default function Suggestions() {
 
   if (isLoading) {
     return (
-      <div className="flex h-96 justify-center items-center">Loading...</div>
+      <div className="flex h-96 justify-center items-center">
+        <Image
+          className="h-10 w-10"
+          src={`https://media.tenor.com/_62bXB8gnzoAAAAj/loading.gif`}
+          width={40}
+          height={40}
+          alt="Loading..."
+        />
+      </div>
     );
   }
 

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Post from "./Post";
 import { shuffleArray } from "@/lib/utils";
 import axios from "axios";
+import Image from "next/image";
 
 interface PostType {
   id: number;
@@ -55,7 +56,13 @@ const Posts: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex h-screen justify-center items-center">
-        Loading...
+          <Image
+          className="h-10 w-10"
+          src={`https://media.tenor.com/_62bXB8gnzoAAAAj/loading.gif`}
+          width={40}
+          height={40}
+          alt="Loading..."
+        />
       </div>
     );
   }

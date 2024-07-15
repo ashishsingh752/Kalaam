@@ -45,9 +45,12 @@ export async function POST(request: NextRequest) {
     // Encrypt the user's password with bcrypt
     payload.password = bcryptjs.hashSync(payload.password, 10);
 
-    // Store the user details in the database
+    // Store the user details in the database with approved set to false
     const response = await prisma.user.create({
-      data: payload,
+      data: {
+        ...payload,
+        approved: false,
+      },
     });
 
     // Exclude the password from the response
@@ -56,11 +59,10 @@ export async function POST(request: NextRequest) {
     // Return the user data after excluding the password
     return NextResponse.json({
       status: 200,
-      message: "User created successfully!",
+      message: "User created successfully! Awaiting admin approval.",
       user: userWithoutPassword,
     });
-  }
-  catch (error: any) {
+  } catch (error: any) {
     if (error instanceof errors.E_VALIDATION_ERROR) {
       console.log("Validation Error: ", error.messages);
       return NextResponse.json({ status: 400, error: error.messages });

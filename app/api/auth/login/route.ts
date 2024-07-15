@@ -29,7 +29,11 @@ export async function POST(request: NextRequest) {
         message: "Wrong Credential! check email or password",
       });
     }
-
+    if (!user.approved) {
+      return NextResponse.json({
+         status: 403,
+         message: 'Account not approved by admin' });
+    }
     const validPassword = bcryptjs.compareSync(
       payload.password,
       user.password!

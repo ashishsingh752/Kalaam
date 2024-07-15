@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/solid";
 import UserProfile from "../authentication/UserProfile";
 import SidebarMannager from "./SidebarManager";
 import {
@@ -7,13 +6,17 @@ import {
   HandleSearchRoute,
   HomeButton,
 } from "../buttons/Button";
-import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import {
+  authOptions,
+  CustomSession,
+} from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 import CreateNewPostButton from "../post/CreateNewPostButton";
 import { HeaderLogo } from "./Logo";
+import DashboardButton from "../admin/DashboardButton";
 
 export default async function Header() {
-  const session = await getServerSession(authOptions);
+  const session: CustomSession | null = await getServerSession(authOptions);
 
   return (
     <header className="bg-white w-full shadow-sm sticky min-w-full top-0 z-30 border-b">
@@ -46,6 +49,11 @@ export default async function Header() {
               <div className="hidden md:block">
                 <CreateNewPostButton />
               </div>
+              {session && session?.user?.role === "Admin" && (
+                <div className="hidden md:block">
+                  <DashboardButton />
+                </div>
+              )}
               <div className="cursor-pointer">
                 <UserProfile />
               </div>

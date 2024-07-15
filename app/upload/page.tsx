@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, { ChangeEvent, FormEvent, useState } from "react";
+import Dashboard from "../components/admin/Dashboard";
 
 
 //! this was to test the image upload and delete functionality in clouiinary
@@ -47,7 +48,8 @@ export default function Page() {
 
   return (
     <div>
-      <form
+      <Dashboard/>
+      {/* <form
         onSubmit={uploadImage}
         className="flex justify-center items-center min-h-screen"
       >
@@ -58,7 +60,7 @@ export default function Page() {
         className="bg-black p-2 rounded-lg text-white"
       >
         Delete
-      </button>
+      </button> */}
     </div>
   );
 }

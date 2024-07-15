@@ -17,6 +17,7 @@ export type CustomUser = {
   role?: string | null;
   image?: string | null;
   public_id?: string | null;
+  mobile_number?: string | null;
 };
 
 export const authOptions: AuthOptions = {
@@ -71,6 +72,7 @@ export const authOptions: AuthOptions = {
             role:true,
             image: true,
             public_id: true,
+            mobile_number:true,
           },
         });
 

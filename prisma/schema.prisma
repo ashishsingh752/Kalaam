@@ -15,17 +15,19 @@ datasource db {
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
-  name        String   @db.VarChar(60)
-  email       String   @unique @db.VarChar(100)
-  password    String?
-  image       String?  @default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR_bwZrOyCQJhPMvpxqrv-xmqEBzAJAKJtT-VpWkSQ-4AppODnHxANcPsX-RTiIYlcrXE&usqp=CAU")
-  public_id   String?
-  role        String?  @default("User")
-  roll_number String   @unique @db.VarChar(9)
-  create_at   DateTime @default(now())
-  update_at   DateTime @updatedAt()
-  Post        Post[]
+  id            Int      @id @default(autoincrement())
+  name          String   @db.VarChar(60)
+  email         String   @unique @db.VarChar(100)
+  password      String?
+  image         String?  @default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR_bwZrOyCQJhPMvpxqrv-xmqEBzAJAKJtT-VpWkSQ-4AppODnHxANcPsX-RTiIYlcrXE&usqp=CAU")
+  public_id     String?
+  role          String?  @default("User")
+  mobile_number String?  @default("0000000000") @db.VarChar(10)
+  roll_number   String   @unique @db.VarChar(9)
+  approved      Boolean  @default(false)
+  create_at     DateTime @default(now())
+  update_at     DateTime @updatedAt()
+  Post          Post[]
 }
 
 // 

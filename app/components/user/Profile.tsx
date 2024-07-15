@@ -14,6 +14,7 @@ interface User {
   roll_number?: string;
   image?: string;
   role?: string;
+  mobile_number?: string;
 }
 
 //! user profile component. - Status:200
@@ -24,6 +25,7 @@ export default function Profile() {
   const [userEmail, setUserEmail] = useState<string>("");
   const [userRollNumber, setUserRollNumber] = useState<string>("");
   const [userRole, setUserRole] = useState<string>("");
+  const [userContact, setUserContact] = useState<string>("");
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -40,6 +42,7 @@ export default function Profile() {
       setUserEmail(user.email || "");
       setUserRollNumber(user.roll_number || "");
       setUserRole(user.role || "");
+      setUserContact(user.mobile_number || "");
     }
   }, [status, router, session]);
 
@@ -67,6 +70,7 @@ export default function Profile() {
     formData.append("email", userEmail);
     formData.append("roll_number", userRollNumber);
     formData.append("role", userRole);
+    formData.append("mobile_number", userContact);
     if (profileImage) {
       formData.append("image", profileImage);
     }
@@ -93,6 +97,8 @@ export default function Profile() {
       alert("An error occurred while updating the user");
     }
   };
+
+  console.log(session?.user)
 
   return (
     <div className="flex md:p-6 justify-center items-center bg-gray-200 min-h-screen">
@@ -143,6 +149,18 @@ export default function Profile() {
               />
             </div>
             <div className="flex flex-col">
+              <label className="font-medium">Contact Number</label>
+              <div >
+                <div className="mt-2 ml-2 font-semibold mb-1 absolute">+91</div>
+                <input
+                  onChange={(e) => setUserContact(e.target.value)}
+                  value={userContact}
+                  placeholder="8888888888"
+                  className="border pl-10 border-gray-300 rounded-md w-full p-2"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col">
               <label className="font-medium">Role/Position</label>
               <input
                 onChange={(e) => setUserRole(e.target.value)}
@@ -151,6 +169,7 @@ export default function Profile() {
                 className="border border-gray-300 rounded-md w-full p-2"
               />
             </div>
+
           </div>
 
           {/* Update or delete account */}

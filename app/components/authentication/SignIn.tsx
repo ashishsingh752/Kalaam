@@ -45,7 +45,7 @@ export default function SignIn() {
           callbackUrl: "/",
           redirect: true,
         });
-      } else if (response.status === 404) {
+      } else if (response.status === 404 || response.status === 403) {
         setErrors(response.error);
         // console.log(response.error);
         alert(response.message);
@@ -61,7 +61,7 @@ export default function SignIn() {
     return (
       <div className="flex h-screen items-center justify-center">
         <Image
-          className="h-40 w-40"
+          className="h-10 w-10"
           src={`https://media.tenor.com/_62bXB8gnzoAAAAj/loading.gif`}
           width={40}
           height={40}

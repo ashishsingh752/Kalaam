@@ -2,7 +2,7 @@
 import { HomeModernIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
 type ButtonProps = {
@@ -174,6 +174,12 @@ const HandleSearchRoute = async () => {
   );
 };
 
+const HandleNotAdmin = async () => {
+  return (
+    redirect("/")
+  );
+};
+
 export {
   HandleSearchRoute,
   HomeButton,
@@ -184,4 +190,5 @@ export {
   HandleDeleteAccount,
   HandleUpdateAccount,
   HomeButtonWithIcon,
+  HandleNotAdmin,
 };

@@ -61,7 +61,7 @@ export default function SignUp() {
     return (
       <div className="flex h-screen items-center justify-center">
         <Image
-          className="h-40 w-40"
+          className="h-10 w-10"
           src={`https://media.tenor.com/_62bXB8gnzoAAAAj/loading.gif`}
           width={40}
           height={40}

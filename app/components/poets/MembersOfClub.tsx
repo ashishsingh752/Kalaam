@@ -53,7 +53,7 @@ const MembersOfClub: FC<MembersOfClubProps> = ({
       <div className="">
         <div className="flex justify-center items-center font-bold">{name}</div>
         <div className="flex justify-center items-center text-gray-400 text-sm w-[150px]">
-          {roll_number}
+          {role}
         </div>
 
         <div className="flex justify-center font-semibold text-blue-400 mt-1 mb-1">

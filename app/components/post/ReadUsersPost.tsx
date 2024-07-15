@@ -72,6 +72,7 @@ export default function ReadUsersPost() {
           width={100}
           height={100}
           alt="Loading..."
+          className="h-10 w-10"
         />
       </div>
     );
