@@ -83,7 +83,7 @@ export default function Suggestions() {
   }
 
   return (
-    <div className="flex h-1/6 overflow-x-scroll scrollbar-none flex-wrap p-6 bg-white mt-4">
+    <div className="flex h-1/6 overflow-x-scroll scrollbar-none flex-wrap p-2 bg-white mt-4">
       <div>
         {users.map((user) => (
           <div key={user.id}>

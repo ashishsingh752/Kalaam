@@ -39,6 +39,7 @@ const PrevPost: React.FC<PrevPostProps> = ({
           }  flex justify-center items-center  h-screen bg-no-repeat bg-center bg-cover`}
           style={{
             backgroundImage: `url(${image})`,
+            // objectFit: "cover",
           }}
         ></div>
         {readContent && (

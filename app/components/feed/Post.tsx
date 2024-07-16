@@ -58,14 +58,14 @@ const Post: React.FC<PostsProps> = ({
       {/* Users post image */}
       <div className="">
         {postContentOpen && (
-          <div className="p-5 max-h-96 overflow-auto pt-0">
+          <div className="p-5 h-96 overflow-auto pt-0">
             <div
               className="text-sm ml-2 mt-2"
               style={{ whiteSpace: "pre-line" }}
               dangerouslySetInnerHTML={{ __html: readContent }}
             ></div>
-            <div className="text-right">
-              <div className="flex mt-5 pl-2  justify-between">
+            <div className="">
+              <div className="flex  mt-5 pl-2  justify-between">
                 <div>Thank you for reading this post!</div>
                 <div
                   className="text-right text-red-500  cursor-pointer"
@@ -87,6 +87,9 @@ const Post: React.FC<PostsProps> = ({
                   fill
                   loading="lazy"
                   className="rounded-sm h-96 object-fill"
+                  style={{
+                    objectFit: "cover",
+                  }}
                 />
               </div>
             </div>

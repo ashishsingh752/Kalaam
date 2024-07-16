@@ -63,7 +63,7 @@ const UsersPost = () => {
       <div className="flex flex-col justify-center items-center">
         You haven&apos;t posted anything yet.
         <div className="flex">
-          Wanna Post?{" "}
+          Wants to Post?{" "}
           <div
             onClick={() => router.push("/newpost")}
             className="cursor-pointer text-blue-500 underline ml-2"

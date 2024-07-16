@@ -69,7 +69,8 @@ export default function Members() {
 
   return (
     <div>
-      <div className="flex mt-8 flex-row pb-2 p-6 gap-2 mb-0 m-3 overflow-auto">
+      {/* <div className="flex mt-8 flex-row pb-2 p-6 gap-2 mb-0 m-3 overflow-auto"> */}
+      <div className="flex flex-wrap justify-center pb-2 md:p-6 gap-3 pt-24 mb-0 m-3">
         {users.map((user) => (
           <div key={user.id}>
             <MembersOfClub
