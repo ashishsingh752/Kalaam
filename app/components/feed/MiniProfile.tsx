@@ -40,7 +40,7 @@ export default function MiniProfile() {
         ) : (
           <div>
             <h2 className="font-bold">You are not logged in </h2>
-            <h3 className="text-gray-400 text-sm">Login to see suggestions.</h3>
+            {/* <h3 className="text-gray-400 text-sm">Login to see suggestions.</h3> */}
           </div>
         )}
       </div>
