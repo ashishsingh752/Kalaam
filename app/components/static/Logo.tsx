@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -25,8 +25,7 @@ const HeaderLogo: React.FC = () => {
 
   return (
     <div onClick={() => handelHome()} className="flex items-center">
-      {/* Logo for large screens */}
-      <div className="hidden lg:flex items-center cursor-pointer">
+      <div className="flex items-center cursor-pointer">
         <Image
           src={
             "https://res.cloudinary.com/dkm6extdv/image/upload/v1718981080/kalaam-images/xgnmihsqctrq7wsvhdlc.png"
@@ -34,17 +33,6 @@ const HeaderLogo: React.FC = () => {
           alt="Kalaam Logo"
           width={100}
           height={100}
-          onClick={() => handelHome()}
-        />
-      </div>
-      {/* <User/> */}
-      {/* Logo for small and medium screens */}
-      <div className="lg:hidden flex items-center cursor-pointer">
-        <Image
-          src="https://cdn.vectorstock.com/i/preview-1x/78/55/feather-logo-writing-quill-stroke-black-icon-vector-48457855.jpg"
-          alt="Kalaam Logo"
-          width={80}
-          height={80}
           onClick={() => handelHome()}
         />
       </div>

@@ -4,8 +4,6 @@ import {
   FaUser,
   FaBook,
   FaTrophy,
-  FaLightbulb,
-  FaProjectDiagram,
   FaBriefcase,
   FaHandshake,
   FaPen,
@@ -15,8 +13,9 @@ import {
   FaInstagram,
   FaTwitter,
 } from "react-icons/fa";
-import {Logo} from "./Logo";
+import { Logo } from "./Logo";
 import { useRouter } from "next/navigation";
+import AccountOrSighIn from "./AccountOrSighIn";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -36,10 +35,10 @@ const Sidebar: React.FC<SidebarProps> = ({
   return (
     <div
       id="sidebar"
-      className={`fixed  top-20 sm:mt-1 h-[calc(100vh-5rem)] bg-white shadow-lg rounded-lg transition-transform duration-300 ${
+      className={`fixed right-0 top-20 sm:mt-1 h-[calc(100vh-5rem)] bg-white shadow-lg rounded-lg transition-transform duration-300 ${
         isOpen
           ? "translate-x-0 overflow-y-scroll scrollbar-none"
-          : "-translate-x-full "
+          : "translate-x-full "
       }`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -66,9 +65,11 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div onClick={() => router.replace("/executive-body")}>
           <Logo content="Executive Body" icon={<FaUsers />} />
         </div>
-        <div onClick={() => router.replace("/profile")}>
-          <Logo content="Account" icon={<FaUser />} />
+
+        <div>
+          <AccountOrSighIn />
         </div>
+        
       </div>
       <div className="mt-16 bg-slate-200 p-4 rounded-lg">
         <h3 className="text-center font-semibold">Connect With Us</h3>

@@ -84,7 +84,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="container mx-auto py-8 px-10 bg-gray-200 h-[calc(100vh-5rem)]">
+    <div className="container mx-auto py-8 px-10 bg-gray-200 ">
       <h2 className="flex text-2xl justify-center font-bold mb-4">
         Admin Dashboard
       </h2>

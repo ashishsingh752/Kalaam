@@ -4,6 +4,8 @@ import axios from "axios";
 import { signOut } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 import { ReactNode } from "react";
+import { Logo } from "../static/Logo";
+import { FaUser } from "react-icons/fa";
 
 type ButtonProps = {
   onClick: () => void;
@@ -54,12 +56,23 @@ const HomeButtonWithIcon: React.FC = () => {
 const HandleLoginButtom: React.FC = () => {
   const router = useRouter();
   return (
-    <div
-      onClick={() => router.push("/signin")}
-      className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition ease-in-out duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-    >
-      Login
+    <>
+    <div className="flex flex-row gap-1">
+      <div
+        onClick={() => router.push("/signin")}
+        className="cursor-pointer border border-blue-500 text-blue-500 px-4 py-2 rounded-full font-medium hover:bg-blue-500 hover:text-white transition ease-in-out duration-150 focus:outline-1 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      >
+        Login
+      </div>
+      <div
+        onClick={() => router.push("/contact")}
+        className="cursor-pointer border border-blue-500 text-blue-500 px-4 py-2 rounded-full font-medium hover:bg-blue-500 hover:text-white transition ease-in-out duration-150 focus:outline-1 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      >
+        Help
+      </div>
+
     </div>
+    </>
   );
 };
 
@@ -175,8 +188,15 @@ const HandleSearchRoute = async () => {
 };
 
 const HandleNotAdmin = async () => {
+  return redirect("/");
+};
+
+const HandleAccountButton = function () {
+  const router = useRouter();
   return (
-    redirect("/")
+    <div onClick={() => router.push("/profile")}>
+      <Logo content="Account" icon={<FaUser />} />
+    </div>
   );
 };
 
@@ -191,4 +211,5 @@ export {
   HandleUpdateAccount,
   HomeButtonWithIcon,
   HandleNotAdmin,
+  HandleAccountButton,
 };

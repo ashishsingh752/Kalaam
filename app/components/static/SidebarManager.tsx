@@ -1,7 +1,8 @@
 "use client";
 import { useCallback, useState } from "react";
-import { FaChevronRight } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import Sidebar from "./Sidebar";
+import { AiOutlineClose } from "react-icons/ai";
 
 export default function SidebarManager() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -16,24 +17,35 @@ export default function SidebarManager() {
 
     if (
       sidebarElement &&
-      relatedTarget instanceof Node && 
+      relatedTarget instanceof Node &&
       !sidebarElement.contains(relatedTarget)
     ) {
       setSidebarOpen(false);
     }
   }, []);
 
+  const handleIconClick = useCallback(() => {
+    setSidebarOpen((prev) => !prev);
+  }, []);
+
   return (
     <div className="shadow-sm border-b">
-      {/* <FaChevronRight  className='z-50' /> */}
-      <div className="flex min-h-screen">
+      <div className="flex">
         <div
-          className="fixed top-1/3 left-0 flex items-center px-3 h-16 z-50"
+          className="flex items-center cursor-pointer"
           onMouseEnter={handleMouseEnter}
         >
-          <div className="text-2xl cursor-pointer">
-            {!isSidebarOpen && <FaChevronRight />}
-          </div>
+          {isSidebarOpen ? (
+            <AiOutlineClose
+              onClick={handleMouseLeave}
+              className="text-2xl bg-white shadow-none"
+            />
+          ) : (
+            <FaBars
+              onClick={handleIconClick}
+              className="text-2xl bg-white shadow-none"
+            />
+          )}
         </div>
 
         <Sidebar

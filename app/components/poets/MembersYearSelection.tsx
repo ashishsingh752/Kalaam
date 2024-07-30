@@ -34,7 +34,7 @@ export default function MembersYearSelection() {
 
   return (
     <div>
-      <div className="flex flex-row justify-center gap-2 items-center">
+      <div className="flex flex-row justify-center gap-0.5 items-center">
         {Years.map((year) => (
           <div
             key={year.key}
@@ -51,12 +51,12 @@ export default function MembersYearSelection() {
         ))}
       </div>
       {selectedYear && (
-        <div className="flex flex-col items-center font-normal justify-center mt-5">
-          <div className="flex justify-center">
+        <div className="flex flex-col items-center font-normal justify-center ">
+          <div className="flex justify-center mt-5">
             <HandleOnClick year={selectedYear} />
           </div>
-          <div className=" max-w-1/2 flex justify-center">
-            <div>
+          <div className="max-w-1/2  flex justify-center">
+            <div className="mt-0">
               <TeamMembers yearIndex={selectedYearIndex} />
             </div>
           </div>

@@ -72,7 +72,7 @@ export default function TeamMembers({ yearIndex }: TeamMembersProps) {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center pb-2 md:p-6 gap-3 pt-24 mb-0 m-3">
+      <div className="flex flex-wrap justify-center pb-10 md:p-6 gap-3 mb-0 m-3">
         {users.map((user) => (
           <div key={user.id}>
             <MembersOfClub

@@ -58,12 +58,12 @@ const SearchUsers = () => {
               placeholder="Type name to search..."
             />
           </div>
-          {/* <div
+          <div
             onClick={() => setSearchTerm(searchTerm)}
             className="px-4 py-2 cursor-pointer bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
           >
             Search
-          </div> */}
+          </div>
         </div>
       </div>
       <div className="flex flex-wrap justify-center pb-2 md:px-48  gap-3 pt-24 h-auto m-3">

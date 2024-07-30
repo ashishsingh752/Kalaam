@@ -23,6 +23,7 @@
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.2.0",
     "dotenv": "^16.4.5",
+    "font-awesome": "^4.7.0",
     "google-fonts": "^1.0.0",
     "hamburger-react": "^2.5.1",
     "next": "14.1.3",
