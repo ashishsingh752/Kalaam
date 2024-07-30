@@ -7,7 +7,7 @@ export async function GET(
 ) {
   const users = await prisma.user.findMany({
     where: {
-      yearOfStudy: String(params.id),
+      yearOfStudy: params.id,
     },
   });
 
