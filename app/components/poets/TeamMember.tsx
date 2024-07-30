@@ -5,15 +5,8 @@ import MembersOfClub from "./MembersOfClub";
 import { shuffleArray } from "@/lib/utils";
 import axios from "axios";
 
-//! this component is to fetch the members data from the database and then display in the members page 
-interface MembersOfClubProps {
-  id: number;
-  content: string;
-  heading: string;
-  image: string;
-  name: string;
-  roll_number: string;
-  role: string;
+interface TeamMembersProps {
+  yearIndex: string;
 }
 
 interface PostType {
@@ -26,38 +19,38 @@ interface PostType {
   role: string;
 }
 
-const fetchMembers = async () => {
+const fetchTeamMembers = async (yearIndex: string): Promise<PostType[]> => {
   try {
-    const res = await axios.get(`/api/user/profile`, {
+    const res = await axios.get(`/api/user/team/${yearIndex}`, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    return res.data?.data;
+    return res.data?.data || [];
   } catch (error) {
     console.error("Error fetching posts:", error);
     throw new Error("Failed to fetch posts");
   }
 };
 
-export default function Members({ year }: { year: string }) {
+export default function TeamMembers({ yearIndex }: TeamMembersProps) {
   const [users, setUsers] = useState<Array<PostType>>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const data = await fetchMembers();
-        const shuffledUsers = shuffleArray(data || []);
+        const data = await fetchTeamMembers(yearIndex);
+        const shuffledUsers = shuffleArray(data);
         setUsers(shuffledUsers);
-        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching posts:", error);
+      } finally {
         setIsLoading(false);
       }
     };
     getUsers();
-  }, []);
+  }, [yearIndex]);
 
   if (isLoading) {
     return (
@@ -67,9 +60,18 @@ export default function Members({ year }: { year: string }) {
     );
   }
 
+  if(users.length === 0) {
+    return (
+      <div className="w-full h-44 flex justify-center items-center">
+        No members found
+      </div>
+    );
+  }
+
+
+
   return (
     <div>
-      {/* <div className="flex mt-8 flex-row pb-2 p-6 gap-2 mb-0 m-3 overflow-auto"> */}
       <div className="flex flex-wrap justify-center pb-2 md:p-6 gap-3 pt-24 mb-0 m-3">
         {users.map((user) => (
           <div key={user.id}>

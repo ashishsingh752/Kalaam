@@ -1,19 +1,19 @@
 "use client";
 import "tailwind-scrollbar";
-import Members from "./Members";
 import { useState } from "react";
+import TeamMembers from "./TeamMember";
 
 interface YearProps {
-  key: number;
+  key: string;
   year: string;
 }
 
 const Years: YearProps[] = [
-  { key: 5, year: "Our Alumni" },
-  { key: 4, year: "Fourth Year" },
-  { key: 3, year: "Third Year" },
-  { key: 2, year: "Second Year" },
-  { key: 1, year: "First Year" },
+  { key: "5", year: "Our Alumni" },
+  { key: "4", year: "Fourth Year" },
+  { key: "3", year: "Third Year" },
+  { key: "2", year: "Second Year" },
+  { key: "1", year: "First Year" },
 ];
 
 interface HandleOnClickProps {
@@ -30,15 +30,19 @@ function HandleOnClick({ year }: HandleOnClickProps) {
 
 export default function MembersYearSelection() {
   const [selectedYear, setSelectedYear] = useState<string | null>("Our Alumni");
+  const [selectedYearIndex, setSelectedYearIndex] = useState<string>("5");
 
   return (
     <div>
-      <div className="flex flex-row justify-center gap-2  items-center">
+      <div className="flex flex-row justify-center gap-2 items-center">
         {Years.map((year) => (
           <div
             key={year.key}
-            className="text-lg font-normal md:text-2xl h-20 md:h-24 flex items-center justify-center cursor-pointer w-16 md:w-28 bg-blue-400 shadow-xl  hover:bg-blue-300 p-1 md:p-2 rounded-md"
-            onClick={() => setSelectedYear(year.year)}
+            className="text-lg font-normal md:text-2xl h-20 md:h-24 flex items-center justify-center cursor-pointer w-16 md:w-28 bg-blue-400 shadow-xl hover:bg-blue-300 p-1 md:p-2 rounded-md"
+            onClick={() => {
+              setSelectedYear(year.year);
+              setSelectedYearIndex(year.key);
+            }}
           >
             <div className="flex text-center bg-fred-400 justify-center">
               {year.year}
@@ -47,8 +51,15 @@ export default function MembersYearSelection() {
         ))}
       </div>
       {selectedYear && (
-        <div className="flex  font-normal justify-center mt-5">
-          <HandleOnClick year={selectedYear} />
+        <div className="flex flex-col items-center font-normal justify-center mt-5">
+          <div className="flex justify-center">
+            <HandleOnClick year={selectedYear} />
+          </div>
+          <div className=" max-w-1/2 flex justify-center">
+            <div>
+              <TeamMembers yearIndex={selectedYearIndex} />
+            </div>
+          </div>
         </div>
       )}
     </div>

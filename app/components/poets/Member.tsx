@@ -6,7 +6,13 @@ export default function Member() {
   return (
     <>
       <div className="relative max-w-screen pt-16 md:pl-10 md:pr-10 min-h-screen bg-gray-200 justify-center items-center">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/025/043/689/large_2x/old-fashioned-quill-on-parchment-by-candlelight-generative-ai-free-photo.jpg')" }}></div>
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url('https://static.vecteezy.com/system/resources/previews/025/043/689/large_2x/old-fashioned-quill-on-parchment-by-candlelight-generative-ai-free-photo.jpg')",
+          }}
+        ></div>
         <div className="relative pl-10 text-7xl flex justify-center items-center flex-col  md:text-9xl p-2  bg-opacity-70">
           <div className="pt-2 text-gray-100">This is</div>
           <div className="mt-2 text-gray-100">
@@ -21,9 +27,6 @@ export default function Member() {
         </div>
         <div>
           <MembersYearSelection />
-        </div>
-        <div className="md:px-48 min-h-screen max-w-fit flex items-center justify-center">
-          <Members />
         </div>
       </div>
     </>
