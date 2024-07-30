@@ -24,6 +24,7 @@ model User {
   role          String?  @default("User")
   mobile_number String?  @default("0000000000") @db.VarChar(10)
   roll_number   String   @unique @db.VarChar(9)
+  yearOfStudy   String?  @default("1") @db.VarChar(10)
   approved      Boolean  @default(false)
   create_at     DateTime @default(now())
   update_at     DateTime @updatedAt()
