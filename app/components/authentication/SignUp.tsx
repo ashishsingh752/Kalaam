@@ -7,16 +7,25 @@ import { redirect, useRouter } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
 
+interface RegistrationProps {
+  name?: string;
+  email?: string;
+  password?: string;
+  roll_number?: string;
+  yearOfStudy: string;
+}
+
 export default function SignUp() {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenConfirm, setIsOpenConfirm] = useState(false);
   const [errors, setErrors] = useState<AuthErrorType>({});
   const [loading, setLoading] = useState(false);
-  const [authState, setAuthState] = useState<AuthStateType>({
+  const [authState, setAuthState] = useState<RegistrationProps>({
     name: "",
     email: "",
     password: "",
     roll_number: "",
+    yearOfStudy: "",
   });
   const router = useRouter();
   const { data: session } = useSession();
@@ -131,6 +140,27 @@ export default function SignUp() {
           />
           <span className="text-red-400 font-semibold">{errors?.email}</span>
 
+          {/* year of Study */}
+
+          <div className="flex flex-row">
+            <div className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0">
+              <label className="text-sm font-medium">Year of Study</label>
+            </div>
+            <select
+              className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
+              name="yearOfStudy"
+              id="yearOfStudy"
+              onChange={handleChange}
+            >
+              <option value="0">Select Year</option>
+              <option value="1">First Year</option>
+              <option value="2">Second Year</option>
+              <option value="3">Third Year</option>
+              <option value="4">Fourth Year</option>
+              <option value="5">Our Alumni</option>
+            </select>
+          </div>
+
           {/* password section */}
 
           <div className="relative w-full">
@@ -165,7 +195,6 @@ export default function SignUp() {
             </div>
           </div>
           {/* <span className="text-red-400 font-semibold">{errors?.confirm_password}</span> */}
-
 
           <button
             disabled={loading}

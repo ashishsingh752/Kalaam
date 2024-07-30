@@ -7,6 +7,7 @@ const registerSchema = vine.object({
   roll_number: vine.string().fixedLength(9),
   image: vine.string().optional(),
   role: vine.string().optional(),
+  yearOfStudy: vine.string().optional(),
 });
 
 export { registerSchema };
