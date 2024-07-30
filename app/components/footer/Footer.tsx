@@ -1,15 +1,13 @@
-import React from "react";
 
 export default function Footer() {
   return (
     <>
-      <footer className="bg-gray-800 w-auto h-auto items-center text-white text-center p-4">
+      <div className="bg-gray-800 w-auto h-auto items-center text-white text-center p-4">
         <div className="flex flex-col md:flex-row justify-around">
           {/* about us section  */}
           <div>
             <span className="font-semibold text-2xl">About Us</span>
-
-            <div className="text-gray-300 p-4 pt-1">
+            <div className=" flex flex-col  text-gray-300 p-4 pt-1">
               <div>Kalaam: The Poetry Club</div>
               <div>NIT Rourkela</div>
               <div>India</div>
@@ -17,14 +15,14 @@ export default function Footer() {
           </div>
 
           {/* our pioneer section */}
-          <div>
+          <div className="flex flex-col gap-4 justify-center">
             <span className="text-bold font-semibold  text-2xl">
               Our Pioneer
             </span>
-            <div className="flex  flex-row">
-              <div className="w-1/2">
+            <div className="flex flex-col  md:flex-row ">
+              <div className="w-auto">
                 <span className="text-xl ">Faculty Advisor</span>
-                <div className="text-gray-300 p-0.5 pt-1">
+                <div className="text-gray-300 p-4 pt-1">
                   <div>Dr. Sushanta Kumar Panigrahi</div>
                   <div>Assistant Professor</div>
                   <div>Humanities and Social Sciences</div>
@@ -32,9 +30,9 @@ export default function Footer() {
                   <div>NIT Rourkela</div>
                 </div>
               </div>
-              <div className="w-1/2">
+              <div className="w-auto">
                 <span className="text-xl">President</span>
-                <div className="text-gray-300 p-0.5 pt-1 ">
+                <div className="text-gray-300 p-4 pt-1 ">
                   <div>Ashish Singh</div>
                   <div>Electrical Engineering</div>
                   <div>121ee0368@nitrkl.ac.in</div>
@@ -67,7 +65,7 @@ export default function Footer() {
             <p className="text-sm">© 2024 Kalaam: The Poetry Club</p>
           </p>
         </div>
-      </footer>
+      </div>
     </>
   );
 }
