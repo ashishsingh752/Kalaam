@@ -65,10 +65,10 @@ const HandleLoginButtom: React.FC = () => {
         Login
       </div>
       <div
-        onClick={() => router.push("/contact")}
+        onClick={() => router.push("/signup")}
         className="cursor-pointer border border-blue-500 text-blue-500 px-4 py-2 rounded-full font-medium hover:bg-blue-500 hover:text-white transition ease-in-out duration-150 focus:outline-1 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
       >
-        Help
+        Register
       </div>
 
     </div>
