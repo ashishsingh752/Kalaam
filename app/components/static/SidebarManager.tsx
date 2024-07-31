@@ -29,7 +29,7 @@ export default function SidebarManager() {
   }, []);
 
   return (
-    <div className="shadow-sm border-b">
+    <div>
       <div className="flex">
         <div
           className="flex items-center cursor-pointer"
