@@ -36,6 +36,21 @@ const HomeButton: React.FC = () => {
     </div>
   );
 };
+const PostButton = function () {
+  const router = useRouter();
+  const handelPost = () => {
+    router.push("/newpost");
+  };
+
+  return (
+    <div
+      onClick={() => handelPost()}
+      className="flex hover:underline cursor-pointer items-center"
+    >
+      Post
+    </div>
+  );
+};
 
 const HomeButtonWithIcon: React.FC = () => {
   const router = useRouter();
@@ -57,21 +72,20 @@ const HandleLoginButtom: React.FC = () => {
   const router = useRouter();
   return (
     <>
-    <div className="flex flex-row gap-1">
-      <div
-        onClick={() => router.push("/signin")}
-        className="cursor-pointer border border-blue-500 text-blue-500 px-4 py-2 rounded-full font-medium hover:bg-blue-500 hover:text-white transition ease-in-out duration-150 focus:outline-1 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-      >
-        Login
+      <div className="flex flex-row gap-1">
+        <div
+          onClick={() => router.push("/signin")}
+          className="cursor-pointer border border-blue-500 text-blue-500 px-4 py-2 rounded-full font-medium hover:bg-blue-500 hover:text-white transition ease-in-out duration-150 focus:outline-1 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Login
+        </div>
+        <div
+          onClick={() => router.push("/signup")}
+          className="cursor-pointer border border-blue-500 text-blue-500 px-4 py-2 rounded-full font-medium hover:bg-blue-500 hover:text-white transition ease-in-out duration-150 focus:outline-1 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Register
+        </div>
       </div>
-      <div
-        onClick={() => router.push("/signup")}
-        className="cursor-pointer border border-blue-500 text-blue-500 px-4 py-2 rounded-full font-medium hover:bg-blue-500 hover:text-white transition ease-in-out duration-150 focus:outline-1 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-      >
-        Register
-      </div>
-
-    </div>
     </>
   );
 };
@@ -212,4 +226,5 @@ export {
   HomeButtonWithIcon,
   HandleNotAdmin,
   HandleAccountButton,
+  PostButton,
 };

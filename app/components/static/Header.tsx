@@ -1,6 +1,11 @@
 import UserProfile from "../authentication/UserProfile";
 import SidebarMannager from "./SidebarManager";
-import { HandleSearchRoute } from "../buttons/Button";
+import {
+  HandleLoginButtom,
+  HandleSearchRoute,
+  HomeButton,
+  PostButton,
+} from "../buttons/Button";
 import {
   authOptions,
   CustomSession,
@@ -35,18 +40,22 @@ export default async function Header() {
             </div>
           </div>
 
-          <div className="flex gap-1 md:gap-6">
-            <Events />
-            <MembersButton />
-            <Contact />
+          <div className=" hidden md:block ">
+            <div className="flex gap-1 md:gap-6">
+              <HomeButton />
+              {/* <Events /> */}
+              <MembersButton />
+              <Contact />
+              <PostButton />
+            </div>
           </div>
 
           {session ? (
             <>
               {/* add user profile dropdowm */}
-              <div className="hidden md:block">
+              {/* <div className="hidden md:block">
                 <CreateNewPostButton />
-              </div>
+              </div> */}
 
               {/* show dashboard for admin only */}
               {session && session?.user?.role === "Admin" && (
@@ -66,6 +75,7 @@ export default async function Header() {
             </>
           ) : (
             <>
+              <HandleLoginButtom />
               <div className="right-10">
                 <SidebarMannager />
               </div>

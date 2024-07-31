@@ -57,8 +57,8 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div onClick={() => router.replace("/executive-body")}>
           <Logo content="Achieve" icon={<FaTrophy />} />
         </div>
-        <Logo content="Career" icon={<FaBriefcase />} />
-        <Logo content="Mentorship" icon={<FaHandshake />} />
+        {/* <Logo content="Career" icon={<FaBriefcase />} />
+        <Logo content="Mentorship" icon={<FaHandshake />} /> */}
         <div onClick={() => router.replace("/newpost")}>
           <Logo content="Post Content" icon={<FaPen />} />
         </div>
