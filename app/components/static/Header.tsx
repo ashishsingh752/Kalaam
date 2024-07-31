@@ -75,7 +75,9 @@ export default async function Header() {
             </>
           ) : (
             <>
-              <HandleLoginButtom />
+              <div className="hidden md:block">
+                <HandleLoginButtom />
+              </div>
               <div className="right-10">
                 <SidebarMannager />
               </div>
