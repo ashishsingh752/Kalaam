@@ -35,6 +35,7 @@ const fetchTeamMembers = async (yearIndex: string): Promise<PostType[]> => {
 
 export default function TeamMembers({ yearIndex }: TeamMembersProps) {
   const [users, setUsers] = useState<Array<PostType>>([]);
+  const [displayCount, setDisplayCount] = useState(9);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -51,6 +52,10 @@ export default function TeamMembers({ yearIndex }: TeamMembersProps) {
     };
     getUsers();
   }, [yearIndex]);
+
+  const handleShowMore = () => {
+    setDisplayCount(prevCount => prevCount + 9);
+  };
 
   if (isLoading) {
     return (
@@ -69,9 +74,9 @@ export default function TeamMembers({ yearIndex }: TeamMembersProps) {
   }
 
   return (
-    <div className="max-w-3xl min-h-screen">
-      <div className="flex flex-wrap  gap-2 min-h-screen justify-center pb-10 md:p-6 md:gap-3 mb-0 m-3">
-        {users.map((user) => (
+    <div className="max-w-3xl ">
+      <div className="flex flex-wrap gap-2 justify-center pb-10 md:p-6 md:gap-3 mb-0 m-3">
+        {users.slice(0, displayCount).map((user) => (
           <div key={user.id}>
             <MembersOfClub
               id={user.id}
@@ -85,6 +90,16 @@ export default function TeamMembers({ yearIndex }: TeamMembersProps) {
           </div>
         ))}
       </div>
+      {displayCount < users.length && (
+        <div className="flex p-6 justify-center mt-4">
+          <div
+            onClick={handleShowMore}
+            className=" text-blue-500 hover:cursor-pointer"
+          >
+            Show More
+          </div>
+        </div>
+      )}
     </div>
   );
 }
