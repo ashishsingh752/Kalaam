@@ -84,7 +84,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="container mx-auto py-8 px-10 bg-gray-200 ">
+    <div className="mx-auto min-w-screen min-h-screen py-8 px-2 md:px-10 bg-gray-200 ">
       <h2 className="flex text-2xl justify-center font-bold mb-4">
         Admin Dashboard
       </h2>

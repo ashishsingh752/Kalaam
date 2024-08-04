@@ -60,19 +60,17 @@ export default function TeamMembers({ yearIndex }: TeamMembersProps) {
     );
   }
 
-  if(users.length === 0) {
+  if (users.length === 0) {
     return (
-      <div className="w-full h-44 flex justify-center items-center">
-        No members found
+      <div className="w-full h-screen pt-10 flex justify-center ">
+        No members found...
       </div>
     );
   }
 
-
-
   return (
-    <div>
-      <div className="flex flex-wrap justify-center pb-10 md:p-6 gap-3 mb-0 m-3">
+    <div className="max-w-3xl min-h-screen">
+      <div className="flex flex-wrap  gap-2 min-h-screen justify-center pb-10 md:p-6 md:gap-3 mb-0 m-3">
         {users.map((user) => (
           <div key={user.id}>
             <MembersOfClub

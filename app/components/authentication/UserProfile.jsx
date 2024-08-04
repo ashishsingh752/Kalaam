@@ -35,7 +35,7 @@ export default function UserProfile() {
           />
         )}
       </div>
-      <div ref={menuRef} className="absolute mt-5  pl-5 right-80 ">
+      <div ref={menuRef} className="absolute mt-5  pl-44 right-72 md:right-80 ">
         {isOpen && <UserDropdown />}
       </div>
     </div>
