@@ -32,10 +32,10 @@ export default function MiniProfile() {
         {session ? (
           <div className="p-2">
             <h2 className="font-bold">{session?.user?.name}</h2>
-            <h3 className="text-gray-400 flex text-sm">
-              <span>Welcome to </span>
-              <span> Kalaam</span>
-            </h3>{" "}
+            <h3 className="text-gray-400 flex text-sm gap-1">
+              <span>Welcome to</span>
+              <span>Kalaam</span>
+            </h3>
           </div>
         ) : (
           <div>

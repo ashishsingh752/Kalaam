@@ -44,7 +44,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       onMouseLeave={onMouseLeave}
       style={{ width: "16rem" }}
     >
-      <div className="cursor-pointer">
+      <div className="cursor-pointer pt-10">
         <div onClick={() => router.replace("/")}>
           <Logo content="Home" icon={<FaHome />} />
         </div>
@@ -54,19 +54,17 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div onClick={() => router.push("/events")}>
           <Logo content="Events" icon={<FaBook />} />
         </div>
-        <div onClick={() => router.replace("/executive-body")}>
-          <Logo content="Achieve" icon={<FaTrophy />} />
-        </div>
+
         {/* <Logo content="Career" icon={<FaBriefcase />} />
         <Logo content="Mentorship" icon={<FaHandshake />} /> */}
         <div onClick={() => router.replace("/newpost")}>
           <Logo content="Post Content" icon={<FaPen />} />
         </div>
-        <div onClick={() => router.replace("/executive-body")}>
-          <Logo content="Executive Body" icon={<FaUsers />} />
+        <div onClick={() => router.replace("/contact")}>
+          <Logo content="Contact" icon={<FaUsers />} />
         </div>
 
-        <div>
+        <div >
           <AccountOrSighIn />
         </div>
         
