@@ -54,7 +54,7 @@ export default function TeamMembers({ yearIndex }: TeamMembersProps) {
   }, [yearIndex]);
 
   const handleShowMore = () => {
-    setDisplayCount(prevCount => prevCount + 9);
+    setDisplayCount((prevCount) => prevCount + 6);
   };
 
   if (isLoading) {
@@ -91,7 +91,7 @@ export default function TeamMembers({ yearIndex }: TeamMembersProps) {
         ))}
       </div>
       {displayCount < users.length && (
-        <div className="flex p-6 justify-center mt-4">
+        <div className="flex pt-0 mb-6 p-6 justify-center ">
           <div
             onClick={handleShowMore}
             className=" text-blue-500 hover:cursor-pointer"

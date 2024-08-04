@@ -58,7 +58,7 @@ export default async function Header() {
               </div> */}
 
               {/* show dashboard for admin only */}
-              {session && (session?.user?.role === "Admin" || session?.user?.role === "admin")  && (
+              {session && (session?.user?.role === "Admin" || session?.user?.role === "President" )  && (
                 <div className="hidden md:block">
                   <DashboardButton />
                 </div>
