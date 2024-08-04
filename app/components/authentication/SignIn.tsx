@@ -77,10 +77,20 @@ export default function SignIn() {
 
   return (
     <div className="flex  h-[calc(100vh-5rem)]  bg-gray-200 items-center justify-center b">
-      <div className="w-full max-w-sm  px-8 py-6 bg-white rounded-lg shadow-md">
-        <h3 className="text-2xl  font-semibold text-center">
-          Kalaam: The Poetry Club
-        </h3>
+      <div className="w-full max-w-sm m-3 p-6 bg-white rounded-md shadow-md">
+        <h3 className="text-2xl  font-semibold text-center">Kalaam: The Poetry Club</h3>
+        <div className="flex justify-center pt-5 items-center">
+          <Image
+            src={
+              "https://res.cloudinary.com/dkm6extdv/image/upload/v1718981080/kalaam-images/xgnmihsqctrq7wsvhdlc.png"
+            }
+            alt="Kalaam Logo"
+            width={100}
+            height={100}
+            className=" " 
+
+          />
+        </div>
         {/* Temporarily disable Google authentication. Will be enabled soon. */}
         {/* <button
           onClick={() => signIn("google")}
@@ -95,7 +105,7 @@ export default function SignIn() {
           <hr className="w-full bg-gray-300 border-0" />
         </div>
 
-        <div className="w-full flex items-center justify-center mt-5 mb-1">
+        <div className="w-full flex items-center justify-center mt-2 mb-1">
           <span className="text-xl font-semibold px-2">Sign In</span>
         </div>
 

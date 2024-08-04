@@ -1,6 +1,5 @@
 // signup component
 
-
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -85,10 +84,19 @@ export default function SignUp() {
 
   return (
     <div className="flex   h-[calc(100vh-5rem)]  lg:p-10  items-center justify-center bg-gray-200">
-      <div className="w-full max-w-sm  px-8 py-6 bg-white rounded-lg shadow-md">
-        <h3 className="text-2xl font-semibold text-center">
-          Kalaam: The Poetry Club
-        </h3>
+      <div className="w-full max-w-sm m-3  p-6 bg-white rounded-md shadow-md">
+        <h3 className="text-2xl font-semibold text-center">Kalaam: The Poetry Club</h3>
+        <div className="flex justify-center pt-5 items-center">
+          <Image
+            src={
+              "https://res.cloudinary.com/dkm6extdv/image/upload/v1718981080/kalaam-images/xgnmihsqctrq7wsvhdlc.png"
+            }
+            alt="Kalaam Logo"
+            width={100}
+            height={100}
+            className=" "
+          />
+        </div>
         {/* <div className="w-full mt-5 mb-0.5">
           <button
             onClick={() => signIn("google")}
@@ -103,7 +111,7 @@ export default function SignUp() {
           <hr className="w-full bg-gray-300 border-0" />
         </div>
 
-        <div className="w-full flex items-center mt-5 justify-center  mb-1">
+        <div className="w-full flex items-center mt-2 justify-center  mb-1">
           <span className="text-xl font-semibold px-2">Register</span>
         </div>
 
@@ -147,7 +155,7 @@ export default function SignUp() {
 
           <div className="flex flex-row">
             <div className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0">
-              <label className="text-sm font-medium">Year of Study</label>
+              <label className="text-sm text-gray-500 ">Year of Study</label>
             </div>
             <select
               className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
