@@ -33,11 +33,11 @@ export default function SidebarManager() {
       <div className="flex">
         <div
           className="flex items-center cursor-pointer"
-          onMouseEnter={handleMouseEnter}
+          // onMouseEnter={handleMouseEnter}
         >
           {isSidebarOpen ? (
             <AiOutlineClose
-              onClick={handleMouseLeave}
+              onClick={handleIconClick}
               className="text-2xl bg-white shadow-none"
             />
           ) : (

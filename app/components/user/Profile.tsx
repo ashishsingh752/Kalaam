@@ -94,7 +94,8 @@ export default function Profile() {
       }
     } catch (error) {
       console.error(error);
-      alert("An error occurred while updating the user");
+      setLoading(false);
+      alert(`An error occurred while updating the user: ${error}`);
     }
   };
 
@@ -177,7 +178,7 @@ export default function Profile() {
             <HandleDeleteAccount />
             <div
               onClick={handleUpdate}
-              className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded-md font-medium text-base hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition ease-in-out duration-150"
+              className="bg-blue-500 flex text-center cursor-pointer text-white px-4 py-2 rounded-md font-medium text-base hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition ease-in-out duration-150"
             >
               {loading ? "Updating..." : "Update Account"}
             </div>

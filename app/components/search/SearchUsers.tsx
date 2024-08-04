@@ -44,38 +44,36 @@ const SearchUsers = () => {
   };
 
   return (
-    
-    <div className="max-w-screen h-[calc(100vh-5rem)] pt-10 md:pl-10 md:pr-10  overflow-auto bg-gray-200 justify-center items-center">
-      <div className="flex gap-3 flex-col  justify-center items-center">
-        <div className="flex flex-wrap justify-center gap-3">
-          <div>
-            <input
-              onChange={handleInputChange}
-              value={searchTerm}
-              type="text"
-              name="searchTerm"
-              className="p-2 outline-1   border-gray-300 rounded-md focus:outline-none focus:outline-1 focus:border-blue-300"
-              placeholder="Type name to search..."
-            />
-          </div>
-          <div
+    <div className="max-w-screen h-[calc(100vh-5rem)] pt-10 px-4 md:px-10 overflow-auto bg-gray-200 flex flex-col  items-center">
+      <div className="flex flex-col w-full md:w-1/2 gap-3 mb-10">
+        <div className="relative flex items-center">
+          <input
+            onChange={handleInputChange}
+            value={searchTerm}
+            type="text"
+            name="searchTerm"
+            className="p-2 rounded-full w-full border-gray-300 outline-none focus:border-blue-300 focus:ring-1"
+            placeholder="Type name to search..."
+          />
+          <button
             onClick={() => setSearchTerm(searchTerm)}
-            className="px-4 py-2 cursor-pointer bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+            className="absolute right-0 top-0 bottom-0 px-4 bg-blue-500 text-white rounded-r-full hover:bg-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
           >
             Search
-          </div>
+          </button>
         </div>
       </div>
-      <div className="flex flex-wrap justify-center pb-2 md:px-48  gap-3 pt-24 h-auto m-3">
+
+      <div className="flex flex-wrap justify-center gap-3 h-auto w-full md:px-10">
         {isLoading ? (
-          <div className="w-full  flex justify-center items-center">
+          <div className="w-full flex justify-center items-center py-10">
             Loading...
           </div>
         ) : users.length === 0 ? (
-          <div className="flex w-auto justify-center items-center">
-            <div className="text-lg  text-gray-500">
-              {(searchTerm.length > 0 && !isLoading) 
-                ? "No member found" 
+          <div className="w-full flex justify-center items-center py-10">
+            <div className="text-lg text-gray-500">
+              {searchTerm.length > 0 && !isLoading
+                ? "No member found"
                 : "Please type name in Search Box"}
             </div>
           </div>
