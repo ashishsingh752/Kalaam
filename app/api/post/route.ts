@@ -7,9 +7,16 @@ import vine, { errors } from "@vinejs/vine";
 import prisma from "@/db";
 import { UploadImage } from "@/public/uploads/upload";
 
+
 export async function GET(request: NextRequest) {
   try {
+    const url = new URL(request.url);
+    const start = parseInt(url.searchParams.get('start') || '0');
+    const limit = parseInt(url.searchParams.get('limit') || '20');
+    
     const posts = await prisma.post.findMany({
+      skip: start,
+      take: limit,
       include: {
         user: {
           select: {
@@ -21,9 +28,6 @@ export async function GET(request: NextRequest) {
             role: true,
           },
         },
-      },
-      orderBy: {
-        id: "desc",
       },
     });
 
@@ -39,6 +43,7 @@ export async function GET(request: NextRequest) {
     });
   }
 }
+
 
 export async function POST(req: NextRequest) {
   try {

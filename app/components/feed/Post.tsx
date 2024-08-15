@@ -97,14 +97,7 @@ const Post: React.FC<PostsProps> = ({
         )}
       </div>
 
-      {/*  buttons*/}
-      <div className="flex justify-between items-center px-4 pt-4">
-        <div className="flex space-x-4">
-          <HeartIcon className="h-7 hover:scale-125 transition-transform duration-200 ease-out cursor-pointer" />
-        </div>
-      </div>
-
-      <p className="p-5 truncate">
+      <p className="p-5 pt-4 truncate">
         <span className="font-semibold mr-2">Author:</span>
         <span className="font italic">{name}</span>
       </p>
