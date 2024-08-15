@@ -1,11 +1,8 @@
+"use client";
 import React from "react";
 import {
   FaHome,
-  FaUser,
   FaBook,
-  FaTrophy,
-  FaBriefcase,
-  FaHandshake,
   FaPen,
   FaUsers,
   FaWhatsapp,
@@ -54,9 +51,6 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div onClick={() => router.push("/events")}>
           <Logo content="Events" icon={<FaBook />} />
         </div>
-
-        {/* <Logo content="Career" icon={<FaBriefcase />} />
-        <Logo content="Mentorship" icon={<FaHandshake />} /> */}
         <div onClick={() => router.replace("/newpost")}>
           <Logo content="Post Content" icon={<FaPen />} />
         </div>
@@ -64,10 +58,9 @@ const Sidebar: React.FC<SidebarProps> = ({
           <Logo content="Contact" icon={<FaUsers />} />
         </div>
 
-        <div >
+        <div>
           <AccountOrSighIn />
         </div>
-        
       </div>
       <div className="mt-16 bg-slate-200 p-4 rounded-lg">
         <h3 className="text-center font-semibold">Connect With Us</h3>

@@ -42,7 +42,7 @@ const Posts: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [currentStart, setCurrentStart] = useState(0);
-  const limit = 3;
+  const limit = 5;
 
   useEffect(() => {
     const getInitialPosts = async () => {
@@ -106,17 +106,17 @@ const Posts: React.FC = () => {
         next={fetchMorePosts}
         hasMore={hasMore}
         loader={
-          <div className="h-14 flex scrollbar-none items-center justify-center">
+          <div className="flex justify-center items-center py-4">
             <Image
-              className="h-5 p-2"
-              src={`https://media.tenor.com/_62bXB8gnzoAAAAj/loading.gif`}
-              width={10}
-              height={10}
-              alt="Loading..."
+              className="h-8 w-8 animate-spin"
+              src={`https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif`}
+              width={32}
+              height={32}
+              alt="Loading more posts..."
             />
           </div>
         }
-        endMessage={<p style={{ textAlign: "center" }}>You have seen it all</p>}
+        endMessage={<h3 className="p-4 flex justify-center items-center">You reached the End</h3>}
       >
         {posts.map((post) => (
           <div key={post.id}>
