@@ -36,7 +36,28 @@ const ContactPage: NextPage = () => {
     const getUsers = async () => {
       try {
         const data = await fetchMembers();
-        setUsers(data);
+
+        const allowedRoles = [
+          "Faculty Advisor",
+          "President",
+          "Vice President",
+          "Club Coordinator",
+          "Admin",
+          "Treasurer",
+          "Technical Head",
+        ];
+
+        // Filter users by allowed roles
+        const filteredUsers = data.filter((user) =>
+          allowedRoles.includes(user.role)
+        );
+
+        // Sort users based on the order in allowedRoles
+        const sortedUsers = filteredUsers.sort(
+          (a, b) => allowedRoles.indexOf(a.role) - allowedRoles.indexOf(b.role)
+        );
+
+        setUsers(sortedUsers);
       } catch (error) {
         console.error("Error fetching members:", error);
       } finally {
@@ -58,30 +79,16 @@ const ContactPage: NextPage = () => {
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-4xl font-bold mb-6 text-center">Contact Us</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {users
-          .filter((user) => user.role === "President")
-          .map((user) => (
-            <ContactCard
-              key={user.id}
-              name={user.name}
-              image={user.image}
-              mobile_number={user.mobile_number}
-              email={user.email}
-              role={user.role}
-            />
-          ))}
-        {users
-          .filter((user) => user.role === "Admin")
-          .map((user) => (
-            <ContactCard
-              key={user.id}
-              name={user.name}
-              image={user.image}
-              mobile_number={user.mobile_number}
-              email={user.email}
-              role={user.role}
-            />
-          ))}
+        {users.map((user) => (
+          <ContactCard
+            key={user.id}
+            name={user.name}
+            image={user.image}
+            mobile_number={user.mobile_number}
+            email={user.email}
+            role={user.role}
+          />
+        ))}
       </div>
     </div>
   );
