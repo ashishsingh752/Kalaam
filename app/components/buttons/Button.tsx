@@ -8,8 +8,10 @@ import { Logo } from "../static/Logo";
 import { FaUser } from "react-icons/fa";
 
 type ButtonProps = {
+  id: string;
   onClick: () => void;
   children: ReactNode;
+  heading: string;
 };
 
 interface DeletePostButtonProps {
@@ -19,6 +21,10 @@ interface DeletePostButtonProps {
 
 interface ReadPostButtonProps {
   id: string;
+}
+interface ReadUsersPostDashBoardProps {
+  id: string;
+  name: string;
 }
 
 const HomeButton: React.FC = () => {
@@ -133,8 +139,32 @@ const ReadUsersPostButton: React.FC<ReadPostButtonProps> = ({ id }) => {
       console.error("Error reading post:", error);
     }
   };
-
   return <button onClick={readPost}>Read</button>;
+};
+
+const ReadUsersPostDashBoard: React.FC<ReadUsersPostDashBoardProps> = ({
+  name,
+  id,
+}) => {
+  const router = useRouter();
+
+  const readPost = async () => {
+    try {
+      router.push(`/userposts?id=${id}`);
+    } catch (error) {
+      console.error("Error reading post:", error);
+    }
+  };
+
+  return (
+    <div
+      className="relative font-medium text-gray-800 cursor-pointer transition duration-200 ease-in-out hover:text-blue-600"
+      onClick={readPost}
+    >
+      <span className="underline-grow">{name}</span>
+      <span className="absolute left-1/2 bottom-0 w-0 h-[2px] bg-blue-600 transition-all duration-200 ease-in-out transform -translate-x-1/2 hover:w-full"></span>
+    </div>
+  );
 };
 
 const BackToHome: React.FC = () => {
@@ -228,4 +258,5 @@ export {
   HandleNotAdmin,
   HandleAccountButton,
   PostButton,
+  ReadUsersPostDashBoard,
 };

@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import DashboardTableActions from "./DashboardActions";
+import ReadUsersPost from "../post/ReadUsersPost";
+import { ReadUsersPostButton, ReadUsersPostDashBoard } from "../buttons/Button";
 
 interface MembersOfClubProps {
   id: number;
@@ -12,6 +14,7 @@ interface MembersOfClubProps {
   approved: boolean;
   email: string;
   role: string;
+  userId: string;
   mobile_number: string;
 }
 
@@ -52,7 +55,9 @@ const DashboardTableRow: React.FC<UserRowProps> = ({
 
   return (
     <tr className="text-center">
-      <td className="py-2 px-4 border-b">{user.name}</td>
+      <td className="py-2 px-4  border-b">
+        <ReadUsersPostDashBoard id={user.userId} name={user.name} />
+      </td>
       <td className="py-2 px-4 border-b">{user.roll_number}</td>
       <td className="py-2 px-4 border-b">
         <div className="flex items-center justify-center">
