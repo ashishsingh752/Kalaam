@@ -8,6 +8,7 @@ import axios from "axios";
 //! this component is to fetch the members data from the database and then display in the members page 
 interface MembersOfClubProps {
   id: number;
+  userId: string;
   content: string;
   heading: string;
   image: string;
@@ -18,6 +19,7 @@ interface MembersOfClubProps {
 
 interface PostType {
   id: number;
+  userId: string;
   content: string;
   heading: string;
   image: string;
@@ -74,7 +76,7 @@ export default function Members({ year }: { year: string }) {
         {users.map((user) => (
           <div key={user.id}>
             <MembersOfClub
-              id={user.id}
+              id={user.userId}
               image={user.image}
               name={user.name}
               role={user.role}
