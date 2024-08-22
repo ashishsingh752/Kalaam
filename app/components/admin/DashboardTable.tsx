@@ -12,7 +12,15 @@ interface MembersOfClubProps {
   email: string;
   role: string;
   mobile_number: string;
+<<<<<<< HEAD
   userId: string;
+=======
+<<<<<<< HEAD
+  userId: string;
+=======
+  userId:string;
+>>>>>>> 52a05caad013089b094d6366184a7a9337513391
+>>>>>>> a876cde95406cf5ae7317ed86ab90b495ac221e1
 }
 
 interface DashboardTableProps {
