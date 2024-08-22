@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
 import Google from "next-auth/providers/google";
+import { toast, Toaster } from "react-hot-toast";
 
 export default function SignIn() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,10 +36,10 @@ export default function SignIn() {
   const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      setLoading(true);
       const res = await axios.post("/api/auth/login", authState);
       const response = res.data;
       if (response.status === 200) {
+        toast.success("Login successful! Redirecting...");
         signIn("credentials", {
           roll_number: authState.roll_number,
           password: authState.password,
@@ -47,13 +48,12 @@ export default function SignIn() {
         });
       } else if (response.status === 404 || response.status === 403) {
         setErrors(response.error);
-        // console.log(response.error);
-        alert(response.message);
-        setLoading(false);
+        toast.error(
+          response.message || "Login failed. Please check your credentials."
+        );
       }
     } catch (error) {
-      console.log("error happened", error);
-      setLoading(false);
+      toast.error("An unexpected error occurred. Please try again later.");
     }
   };
 
@@ -77,8 +77,11 @@ export default function SignIn() {
 
   return (
     <div className="flex  h-[calc(100vh-5rem)]  bg-gray-200 items-center justify-center b">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="w-full max-w-sm m-3 p-6 bg-white rounded-md shadow-md">
-        <h3 className="text-2xl  font-semibold text-center">Kalaam: The Poetry Club</h3>
+        <h3 className="text-2xl  font-semibold text-center">
+          Kalaam: The Poetry Club
+        </h3>
         <div className="flex justify-center pt-5 items-center">
           <Image
             src={
@@ -87,7 +90,7 @@ export default function SignIn() {
             alt="Kalaam Logo"
             width={100}
             height={100}
-            className=" " 
+            className=" "
 
           />
         </div>
