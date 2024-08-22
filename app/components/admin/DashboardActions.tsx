@@ -17,7 +17,7 @@ const DashboardTableActions: React.FC<DashboardTableActionsProps> = ({
   selectedRole,
   handleRoleChange,
 }) => {
-  const handleApproval = async () => {
+  const handleApproval= async () => {
     try {
       await handleApprove(userId);
 
