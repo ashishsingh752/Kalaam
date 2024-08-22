@@ -58,7 +58,7 @@ export default function SignUp() {
 
       case "email":
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!value.endsWith("nitrkl.ac.in")) errorMsg = "Email do not contains @nitrk.ac.in domain.";
+        if(!value.endsWith("nitrkl.ac.in")) errorMsg = "Email do not contains @nitrkl.ac.in domain.";
         if (!value) errorMsg = "Email is required.";
         else if (!emailRegex.test(value)) errorMsg = "Invalid email address.";
         break;
