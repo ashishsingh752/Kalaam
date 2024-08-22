@@ -67,18 +67,18 @@ export async function getUser() {
 
 
 //! this is not working in the production when I change the Env.APP_URL to actual url i.e. https://kalaam-nitrkl.vercel.app/
-export async function getUserPostsToUpdate(post: { id: number }) {
+export async function getUserPostsToUpdate(post: { id: string }) {
   const session: CustomSession | null = await getServerSession(authOptions);
   try {
     const posts = await prisma.post.findUnique({
       where: {
-        id: post.id,
+        post_id: post.id,
         user_id: Number(session?.user?.id),
       },
       include: {
         user: {
           select: {
-            id: true,
+            userId: true,
             name: true,
           },
         },
@@ -104,11 +104,11 @@ export async function getUsersForSuggestion() {
 }
 
 // ! to get all the posts of a specific user to read 
-export async function getUserPostsToRead(user: { id: number }) {
+export async function getUserPostsToRead(user: { id: string }) {
   try {
     const userData = await prisma.user.findUnique({
       where: {
-        id: user.id,
+        userId: user.id,
       },
       select: {
         id: true,
@@ -118,7 +118,7 @@ export async function getUserPostsToRead(user: { id: number }) {
         image: true,
         Post: {
           select: {
-            id: true,
+            post_id: true,
             content: true,
             heading: true,
             image: true,

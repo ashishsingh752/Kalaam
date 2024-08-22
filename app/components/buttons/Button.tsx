@@ -13,12 +13,12 @@ type ButtonProps = {
 };
 
 interface DeletePostButtonProps {
-  id: number;
+  id: string;
   heading: string;
 }
 
 interface ReadPostButtonProps {
-  id: number;
+  id: string;
 }
 
 const HomeButton: React.FC = () => {
@@ -36,6 +36,7 @@ const HomeButton: React.FC = () => {
     </div>
   );
 };
+
 const PostButton = function () {
   const router = useRouter();
   const handelPost = () => {

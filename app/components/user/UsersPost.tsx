@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 interface PostType {
   id: number;
+  post_id: string;
   content: string;
   heading: string;
   image: string;
@@ -34,6 +35,7 @@ const UsersPost = () => {
         const transformedPosts = posts.map((post) => ({
           key: post.id,
           id: post.id,
+          post_id: post.post_id,
           content: post.content,
           heading: post.heading,
           image: post.image,
@@ -78,7 +80,7 @@ const UsersPost = () => {
   return (
     <div>
       {userPost.map((post: PostType) => (
-        <div key={post.id} className="flex justify-center p-5">
+        <div key={post.post_id} className="flex justify-center p-5">
           <div className="border border-gray-300 p-5 rounded-md lg:w-1/2">
             <div className="flex justify-between items-center">
               <div className="flex items-center">
@@ -92,13 +94,13 @@ const UsersPost = () => {
             </div>
             <div className="flex mt-4 gap-5 justify-center items-center">
               <div
-                onClick={() => router.push(`/updatepost?id=${post.id}`)}
+                onClick={() => router.push(`/updatepost?id=${post.post_id}`)}
                 className="bg-gray-500 text-white px-4 py-2 cursor-pointer rounded-md font-medium text-base hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition ease-in-out duration-150"
               >
                 Update
               </div>
 
-              <DeletePostButton id={post.id}  heading={post.heading} />
+              <DeletePostButton id={post.post_id}  heading={post.heading} />
             </div>
           </div>
         </div>

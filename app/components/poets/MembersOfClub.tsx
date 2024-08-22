@@ -3,7 +3,7 @@ import { FC } from "react";
 import { ReadUsersPostButton } from "../buttons/Button";
 
 interface MembersOfClubProps {
-  id: number;
+  id: string;
   content: string;
   heading: string;
   image: string;

@@ -81,7 +81,7 @@ const SearchUsers = () => {
           users.map((user) => (
             <div className="flex justify-center items-center" key={user.id}>
               <MembersOfClub
-                id={user.id}
+                id={user.userId}
                 image={user.image}
                 name={user.name}
                 role={user.role}

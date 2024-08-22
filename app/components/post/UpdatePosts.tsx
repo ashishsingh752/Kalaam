@@ -6,7 +6,8 @@ import axios from "axios";
 import { getUserPostsToUpdate } from "@/lib/serverMethods";
 
 interface PostType {
-  id: number;
+  id: string;
+  post_id: string;
   content: string;
   heading: string;
   image: string;
@@ -34,10 +35,11 @@ export default function UpdatePost() {
     const fetchUserPosts = async () => {
       if (postId) {
         try {
-          const posts = await getUserPostsToUpdate({ id: Number(postId) });
+          const posts = await getUserPostsToUpdate({ id: (postId) });
           if (posts) {
             const transformedPost: PostType = {
-              id: posts.id,
+              id: posts.post_id,
+              post_id: posts.post_id,
               content: posts.content,
               heading: posts.heading,
               image: posts.image,

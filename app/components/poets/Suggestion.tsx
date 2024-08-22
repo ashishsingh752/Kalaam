@@ -2,7 +2,9 @@ import Image from "next/image";
 import { ReadUsersPostButton } from "../buttons/Button";
 
 interface SuggestionProps {
-  id: number;
+  id: string;
+  userId: string;
+  post_id: string;
   content: string;
   heading: string;
   image: string;
@@ -13,6 +15,8 @@ interface SuggestionProps {
 
 interface PostType {
   id: number;
+  userId: string;
+  post_id: string;
   content: string;
   heading: string;
   image: string;
@@ -28,6 +32,9 @@ const Suggestion: React.FC<SuggestionProps> = ({
   name,
   role,
   id,
+  userId,
+  post_id
+  
 }) => {
   return (
     <div className="flex items-center justify-between bg-white p-2">
@@ -49,7 +56,7 @@ const Suggestion: React.FC<SuggestionProps> = ({
         <h2 className="font-bold">{name}</h2>
         <h3 className="text-gray-400 text-sm w-[165px] truncate">{role}</h3>
       </div>
-      <ReadUsersPostButton id={id} />
+      <ReadUsersPostButton id={userId} />
       {/* <button className=" font-semibold ml-10 text-blue-400">Read</button> */}
     </div>
   );

@@ -26,9 +26,11 @@ export async function GET(request: NextRequest) {
         role: true,
         approved: true,
         mobile_number:true,
+        userId: true,
         Post: {
           select: {
             id: true,
+            post_id: true,
             content: true,
             heading: true,
             image: true,

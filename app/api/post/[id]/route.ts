@@ -9,11 +9,11 @@ import { DeleteImage, UploadImage } from "@/public/uploads/upload";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: number } }
+  { params }: { params: { id: string } }
 ) {
   const users = await prisma.post.findUnique({
     where: {
-      id: Number(params.id),
+      post_id: params.id,
     },
     include: {
       user: {
@@ -32,7 +32,7 @@ export async function GET(
 //! To delete a post
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: number } }
+  { params }: { params: { id: string } }
 ) {
   const session: CustomSession | null = await getServerSession(authOptions);
 
@@ -41,7 +41,7 @@ export async function DELETE(
 
   const findPost = await prisma.post.findFirst({
     where: {
-      id: Number(params.id),
+      post_id: params.id,
       user_id: Number(session?.user?.id),
     },
   });
@@ -57,7 +57,7 @@ export async function DELETE(
 
   await prisma.post.delete({
     where: {
-      id: Number(params.id),
+      post_id: params.id,
       user_id: Number(session?.user?.id),
     },
   });
@@ -71,7 +71,7 @@ export async function DELETE(
 //! Upadate Post
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: number } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Get the session and check if the user is authenticated
@@ -80,14 +80,14 @@ export async function POST(
       return NextResponse.redirect("/auth/signin");
     }
 
-    const postId = Number(params.id);
+    const postId = params.id;
     const userId = Number(session.user?.id);
     // console.log("Post ID: ", postId);
 
     // Find the post and delete the existing image if present
     const findPost = await prisma.post.findFirst({
       where: {
-        id: postId,
+        post_id: postId,
         user_id: userId,
       },
     });
@@ -122,7 +122,7 @@ export async function POST(
     // Update the post with the new data
     await prisma.post.update({
       where: {
-        id: postId,
+        post_id: postId,
         user_id: userId,
       },
       data: {

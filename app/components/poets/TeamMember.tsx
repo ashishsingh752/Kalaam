@@ -11,6 +11,7 @@ interface TeamMembersProps {
 
 interface PostType {
   id: number;
+  userId: string;
   content: string;
   heading: string;
   image: string;
@@ -79,7 +80,7 @@ export default function TeamMembers({ yearIndex }: TeamMembersProps) {
         {users.slice(0, displayCount).map((user) => (
           <div key={user.id}>
             <MembersOfClub
-              id={user.id}
+              id={user.userId}
               image={user.image}
               name={user.name}
               role={user.role}

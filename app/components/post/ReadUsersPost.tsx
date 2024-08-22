@@ -7,14 +7,14 @@ import Post from "../feed/Post";
 import { BackToHome } from "../buttons/Button";
 
 interface PostType {
-  id: number;
+  id: string;
   content: string;
   heading: string;
   image: string;
 }
 
 interface UserType {
-  id: number;
+  id: string;
   name: string;
   email: string;
   roll_number: string;
@@ -37,7 +37,7 @@ export default function ReadUsersPost() {
     const fetchUserPosts = async () => {
       try {
         const userPostsResponse = await getUserPostsToRead({
-          id: Number(userId),
+          id: (userId as string),
         });
         setUserImage(userPostsResponse.image);
         if (userPostsResponse && userPostsResponse.name) {
@@ -45,8 +45,8 @@ export default function ReadUsersPost() {
         }
         if (userPostsResponse && userPostsResponse.Post) {
           const transformedPosts = userPostsResponse.Post.map((post) => ({
-            key: post.id,
-            id: post.id,
+            key: post.post_id,
+            id: post.post_id,
             content: post.content,
             heading: post.heading,
             image: post.image,

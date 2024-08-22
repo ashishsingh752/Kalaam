@@ -7,7 +7,7 @@ import axios from "axios";
 import Image from "next/image";
 
 interface MembersOfClubProps {
-  id: number;
+  id: string;
   content: string;
   heading: string;
   image: string;
@@ -16,7 +16,8 @@ interface MembersOfClubProps {
 }
 
 interface PostType {
-  id: number;
+  id: string;
+  userId: string;
   content: string;
   heading: string;
   image: string;
@@ -89,6 +90,8 @@ export default function Suggestions() {
           <div key={user.id}>
             <Suggestion
               id={user.id}
+              post_id={user.userId}
+              userId={user.userId}
               image={user.image}
               name={user.name}
               role={user.role}
