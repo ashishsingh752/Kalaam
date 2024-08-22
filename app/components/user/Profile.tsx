@@ -99,7 +99,7 @@ export default function Profile() {
     }
   };
 
-  console.log(session?.user)
+  console.log(session?.user);
 
   return (
     <div className="flex md:p-6 justify-center items-center bg-gray-200 min-h-screen">
@@ -151,7 +151,7 @@ export default function Profile() {
             </div>
             <div className="flex flex-col">
               <label className="font-medium">Contact Number</label>
-              <div >
+              <div>
                 <div className="mt-2 ml-2 font-semibold mb-1 absolute">+91</div>
                 <input
                   onChange={(e) => setUserContact(e.target.value)}
@@ -164,13 +164,12 @@ export default function Profile() {
             <div className="flex flex-col">
               <label className="font-medium">Role/Position</label>
               <input
-                onChange={(e) => setUserRole(e.target.value)}
+                // onChange={(e) => setUserRole(e.target.value)}
                 value={userRole}
                 placeholder="Role/Position"
-                className="border border-gray-300 rounded-md w-full p-2"
+                className=" border-gray-300 rounded-md w-full p-2"
               />
             </div>
-
           </div>
 
           {/* Update or delete account */}
