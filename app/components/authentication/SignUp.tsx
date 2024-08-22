@@ -1,20 +1,26 @@
-// signup component
-
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
-import { signIn, useSession } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
 
 interface RegistrationProps {
+  name: string;
+  email: string;
+  password: string;
+  roll_number: string;
+  yearOfStudy: string;
+}
+
+interface AuthErrorType {
   name?: string;
   email?: string;
   password?: string;
   roll_number?: string;
-  yearOfStudy: string;
+  confirm_password?: string;
 }
 
 export default function SignUp() {
@@ -29,62 +35,102 @@ export default function SignUp() {
     roll_number: "",
     yearOfStudy: "",
   });
+  const [confirmPassword, setConfirmPassword] = useState("");
   const router = useRouter();
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    if (session) {
-      setLoading(false);
-    }
-  }, [session]);
 
   const handleChange = (e: any) => {
+    const { id, value } = e.target;
     setAuthState({
       ...authState,
-      [e.target.id]: e.target.value,
+      [id]: value,
     });
+    validateField(id, value);
+  };
+
+  const validateField = (id: string, value: string) => {
+    let errorMsg = "";
+
+    switch (id) {
+      case "name":
+        if (!value) errorMsg = "Name is required.";
+        else if (value.length < 3) errorMsg = "Name must be at least 3 characters.";
+        break;
+
+      case "email":
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!value.endsWith("nitrkl.ac.in")) errorMsg = "Email do not contains @nitrk.ac.in domain.";
+        if (!value) errorMsg = "Email is required.";
+        else if (!emailRegex.test(value)) errorMsg = "Invalid email address.";
+        break;
+
+      case "password":
+        if (!value) errorMsg = "Password is required.";
+        else if (value.length < 6) errorMsg = "Password must be at least 6 characters.";
+        break;
+
+      case "roll_number":
+        const rollNumberPattern = /^[0-9]{3}[A-Z]{2}[0-9]{4}$/;
+        if (!value) errorMsg = "Roll number is required.";
+        if (!rollNumberPattern.test(value)) {
+          errorMsg = "Roll number must be in the format 111xx2222.";
+        }
+        if (value.length > 9) errorMsg = "Roll number must be at 9 characters.";
+
+        break;
+
+      case "confirm_password":
+        if (value !== authState.password) errorMsg = "Passwords do not match.";
+        break;
+
+      default:
+        break;
+    }
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [id]: errorMsg,
+    }));
   };
 
   const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setLoading(true);
+
+    // Check for any errors before submitting
+    const formErrors = Object.values(errors).filter(Boolean);
+    if (formErrors.length > 0) {
+      toast.error("Please fix the errors in the form before submitting.");
+      return;
+    }
+
     try {
       const res = await axios.post("/api/auth/signup", authState);
       const response = res.data;
       if (response.status === 200) {
-        router.push(`/signin?message=${response.message}`);
-        alert(response.message);
-        setLoading(false);
+        toast.success(response.message);
+        setAuthState({
+          name: "",
+          email: "",
+          password: "",
+          roll_number: "",
+          yearOfStudy: "",
+        });
+        setConfirmPassword("");
+        setTimeout(() => {
+          router.push("/signin"); 
+        }, 2000);
       } else if (response.status === 400) {
         setErrors(response.error);
-        setLoading(false);
+        toast.error("Failed to register. Please check the form and try again.");
       }
     } catch (error) {
-      console.log("error happened", error);
-      setLoading(false);
+      toast.error("An unexpected error occurred. Please try again later.");
     }
   };
 
-  if (session) {
-    redirect("/");
-  }
-  if (loading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <Image
-          className="h-10 w-10"
-          src={`https://media.tenor.com/_62bXB8gnzoAAAAj/loading.gif`}
-          width={40}
-          height={40}
-          alt="Loading..."
-        />
-      </div>
-    );
-  }
-
   return (
-    <div className="flex   h-[calc(100vh-5rem)]  lg:p-10  items-center justify-center bg-gray-200">
-      <div className="w-full max-w-sm m-3  p-6 bg-white rounded-md shadow-md">
+    <div className="flex h-[calc(100vh-5rem)] lg:p-10 items-center justify-center bg-gray-200">
+      <Toaster position="top-center" reverseOrder={false} />
+      <div className="w-full max-w-sm m-3 p-6 bg-white rounded-md shadow-md">
         <h3 className="text-2xl font-semibold text-center">Kalaam: The Poetry Club</h3>
         <div className="flex justify-center pt-5 items-center">
           <Image
@@ -97,65 +143,45 @@ export default function SignUp() {
             className=" "
           />
         </div>
-        {/* <div className="w-full mt-5 mb-0.5">
-          <button
-            onClick={() => signIn("google")}
-            className="w-full rounded-md flex justify-center mt-6 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-blue-400"
-          >
-            Continue With Google
-          </button>
-        </div> */}
-        <div className="w-full flex items-center justify-between mt-2 ">
-          <hr className="w-full bg-gray-300 border-0" />
-          {/* <span className="text-sm text-gray-500 px-2">OR</span> */}
-          <hr className="w-full bg-gray-300 border-0" />
-        </div>
-
-        <div className="w-full flex items-center mt-2 justify-center  mb-1">
+        <div className="w-full flex items-center mt-2 justify-center mb-1">
           <span className="text-xl font-semibold px-2">Register</span>
         </div>
 
         <form onSubmit={handleFormSubmit} className="flex flex-col gap-1 mt-6">
-          {/* name */}
-
+          {/* Name */}
           <input
             id="name"
             type="text"
             placeholder="Name"
             onChange={handleChange}
-            className="w-full px-4 text-sm py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
+            className={`w-full px-4 text-sm py-1 rounded-md border ${errors.name ? "border-red-400" : "border-gray-300"} focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
           />
-          <span className="text-red-400 font-semibold">{errors?.name}</span>
+          {errors.name && <span className="text-red-400 font-semibold">{errors.name}</span>}
 
-          {/* roll_number */}
-
+          {/* Roll Number */}
           <input
             id="roll_number"
             type="text"
             placeholder="Roll Number"
             onChange={handleChange}
-            className="w-full px-4 py-1 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
+            className={`w-full px-4 py-1 text-sm rounded-md border ${errors.roll_number ? "border-red-400" : "border-gray-300"} focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
           />
-          <span className="text-red-400 font-semibold">
-            {errors?.roll_number}
-          </span>
+          {errors.roll_number && <span className="text-red-400 font-semibold">{errors.roll_number}</span>}
 
-          {/* email  */}
-
+          {/* Email */}
           <input
             id="email"
             type="email"
             placeholder="Email"
             onChange={handleChange}
-            className="w-full px-4 py-1  text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
+            className={`w-full px-4 py-1 text-sm rounded-md border ${errors.email ? "border-red-400" : "border-gray-300"} focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
           />
-          <span className="text-red-400 font-semibold">{errors?.email}</span>
+          {errors.email && <span className="text-red-400 font-semibold">{errors.email}</span>}
 
-          {/* year of Study */}
-
+          {/* Year of Study */}
           <div className="flex flex-row">
             <div className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0">
-              <label className="text-sm text-gray-500 ">Year of Study</label>
+              <label className="text-sm text-gray-500">Year of Study</label>
             </div>
             <select
               className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
@@ -163,7 +189,7 @@ export default function SignUp() {
               id="yearOfStudy"
               onChange={handleChange}
             >
-              <option value="0">Select Year</option>
+              <option value="">Select Year</option>
               <option value="1">First Year</option>
               <option value="2">Second Year</option>
               <option value="3">Third Year</option>
@@ -172,60 +198,61 @@ export default function SignUp() {
             </select>
           </div>
 
-          {/* password section */}
-
+          {/* Password */}
           <div className="relative w-full">
             <input
               id="password"
               type={isOpen ? "text" : "password"}
               placeholder="Password"
               onChange={handleChange}
-              className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
+              className={`w-full text-sm px-4 py-1 rounded-md border ${errors.password ? "border-red-400" : "border-gray-300"} focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
             />
             <div
-              className="absolute text-sm inset-y-0 right-0 pr-3 flex items-center  leading-5 cursor-pointer"
+              className="absolute text-sm inset-y-0 right-0 pr-3 flex items-center leading-5 cursor-pointer"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <FaRegEye /> : <FaEyeSlash />}
             </div>
           </div>
-          <span className="text-red-400 font-semibold">{errors?.password}</span>
+          {errors.password && <span className="text-red-400 font-semibold">{errors.password}</span>}
+
+          {/* Confirm Password */}
           <div className="relative w-full">
             <input
-              id="password"
+              id="confirm_password"
               type={isOpenConfirm ? "text" : "password"}
               placeholder="Confirm Password"
-              onChange={handleChange}
-              className="w-full text-sm px-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0"
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                validateField("confirm_password", e.target.value);
+              }}
+              className={`w-full text-sm px-4 py-1 rounded-md border ${errors.confirm_password ? "border-red-400" : "border-gray-300"} focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
             />
             <div
-              className="absolute text-sm inset-y-0 right-0 pr-3 flex items-center  leading-5 cursor-pointer"
+              className="absolute text-sm inset-y-0 right-0 pr-3 flex items-center leading-5 cursor-pointer"
               onClick={() => setIsOpenConfirm(!isOpenConfirm)}
             >
               {isOpenConfirm ? <FaRegEye /> : <FaEyeSlash />}
             </div>
           </div>
-          {/* <span className="text-red-400 font-semibold">{errors?.confirm_password}</span> */}
+          {errors.confirm_password && <span className="text-red-400 font-semibold">{errors.confirm_password}</span>}
 
+          {/* Submit Button */}
           <button
-            disabled={loading}
             type="submit"
-            className="w-full rounded-md flex justify-center mt-4 items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-blue-400"
+            className="mt-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-0"
+            disabled={loading}
           >
-            {loading ? "Loading..." : "Submit"}
+            {loading ? "Registering..." : "Register"}
           </button>
-          {/* {errors && <p className="text-red-500 mt-2">{errors}</p>} */}
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-500">
-          have an account?{" "}
-          <Link
-            href={"/signin"}
-            className="text-blue-600 hover:underline focus:outline-none"
-          >
+        <div className="mt-4 text-sm text-center">
+          Already have an account?{" "}
+          <Link href="/signin" className="text-blue-600 hover:underline">
             Sign in
           </Link>
-        </p>
+        </div>
       </div>
     </div>
   );
