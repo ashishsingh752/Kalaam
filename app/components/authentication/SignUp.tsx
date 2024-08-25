@@ -72,7 +72,7 @@ export default function SignUp() {
         const rollNumberPattern = /^[0-9]{3}[A-Z]{2}[0-9]{4}$/;
         if (!value) errorMsg = "Roll number is required.";
         if (!rollNumberPattern.test(value)) {
-          errorMsg = "Roll number must be in the format 111xx2222.";
+          errorMsg = "Roll number must be in the format 111XX1111.";
         }
         if (value.length > 9) errorMsg = "Roll number must be at 9 characters.";
 

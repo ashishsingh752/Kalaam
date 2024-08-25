@@ -3,11 +3,23 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import MembersOfClub from "../poets/MembersOfClub";
 import "tailwind-scrollbar";
+import { useSearchParams, useRouter } from "next/navigation";
 
 const SearchUsers = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [users, setUsers] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
+
+  const searchParams = useSearchParams();
+  let val = searchParams.get("q");
+
+  // Synchronize the searchTerm with the query parameter from the URL
+  useEffect(() => {
+    if (val) {
+      setSearchTerm(val);
+    }
+  }, [val]);
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -43,6 +55,12 @@ const SearchUsers = () => {
     setSearchTerm(e.target.value);
   };
 
+  const handleSearch = () => {
+    if (searchTerm.trim() !== "") {
+      router.push(`/search?q=${searchTerm}`);
+    }
+  };
+
   return (
     <div className="max-w-screen h-[calc(100vh-5rem)] pt-10 px-4 md:px-10 overflow-auto bg-gray-200 flex flex-col  items-center">
       <div className="flex flex-col w-full md:w-1/2 gap-3 mb-10">
@@ -52,11 +70,16 @@ const SearchUsers = () => {
             value={searchTerm}
             type="text"
             name="searchTerm"
-            className="p-2 rounded-full w-full border-gray-300 outline-none focus:border-blue-300 focus:ring-1"
+            className="p-2 px-5 rounded-full w-full border-gray-300 outline-none focus:border-blue-300 focus:ring-1"
             placeholder="Type name to search..."
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
           />
           <button
-            onClick={() => setSearchTerm(searchTerm)}
+            onClick={handleSearch}
             className="absolute right-0 top-0 bottom-0 px-4 bg-blue-500 text-white rounded-r-full hover:bg-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
           >
             Search

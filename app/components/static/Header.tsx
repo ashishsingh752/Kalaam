@@ -17,6 +17,7 @@ import DashboardButton from "../admin/DashboardButton";
 import Events from "../buttons/Events";
 import Contact from "../buttons/Contact";
 import MembersButton from "../buttons/Memebers";
+import SearchBox from "../search/SearchBox";
 
 export default async function Header() {
   const session: CustomSession | null = await getServerSession(authOptions);
@@ -30,14 +31,8 @@ export default async function Header() {
         {/* Right side */}
         <div className="flex md:gap-2  items-center md:space-x-4">
           <div className="flex min-w-auto md:right-auto items-center  max-w-lg mx-2 rounded-full  relative">
-            <input
-              type="text"
-              className=" w-32 sm:w-44 outline outline-slate-500 bg-transparent  rounded-full border-none"
-              placeholder={"Search"}
-            />
-            <div className="text-gray-500 flex bg-gray-200 rounded-r-full justify-center items-center  w-8 h-full absolute right-0">
-              <HandleSearchRoute />
-            </div>
+            <SearchBox />
+
           </div>
 
           <div className=" hidden md:block ">
