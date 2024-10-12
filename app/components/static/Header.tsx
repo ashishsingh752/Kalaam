@@ -30,11 +30,9 @@ export default async function Header() {
 
         {/* Right side */}
         <div className="flex md:gap-2  items-center md:space-x-4">
-          <div className="flex min-w-auto md:right-auto items-center  max-w-lg mx-2 rounded-full  relative">
+          <div className=" hidden md:block min-w-auto md:right-auto items-center  max-w-lg mx-2 rounded-full  relative">
             <SearchBox />
-
           </div>
-
           <div className=" hidden md:block ">
             <div className="flex gap-1 md:gap-6">
               <HomeButton />
@@ -46,15 +44,9 @@ export default async function Header() {
           </div>
 
           {session ? (
-            <>
-              {/* add user profile dropdowm */}
-              {/* <div className="hidden md:block">
-                <CreateNewPostButton />
-              </div> */}
-
-              {/* show dashboard for admin only */}
+            <div className="gap-2 flex justify-center items-center">
               {session && (session?.user?.role === "Admin" || session?.user?.role === "President" )  && (
-                <div className="hidden md:block">
+                <div>
                   <DashboardButton />
                 </div>
               )}
@@ -67,7 +59,7 @@ export default async function Header() {
               <div className="cursor-pointer">
                 <SidebarMannager />
               </div>
-            </>
+            </div>
           ) : (
             <>
               <div className="hidden md:block">

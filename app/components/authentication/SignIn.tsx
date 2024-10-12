@@ -79,19 +79,17 @@ export default function SignIn() {
     <div className="flex  h-[calc(100vh-5rem)]  bg-gray-200 items-center justify-center b">
       <Toaster position="top-center" reverseOrder={false} />
       <div className="w-full max-w-sm m-3 p-6 bg-white rounded-md shadow-md">
-        <h3 className="text-2xl  font-semibold text-center">
-          Kalaam: The Poetry Club
-        </h3>
-        <div className="flex justify-center pt-5 items-center">
+        <h3 className="text-2xl  font-semibold text-center">कवितालय</h3>
+        <div className="flex justify-center mt-2 items-center">
           <Image
             src={
-              "https://res.cloudinary.com/dkm6extdv/image/upload/v1718981080/kalaam-images/xgnmihsqctrq7wsvhdlc.png"
+              // "https://res.cloudinary.com/dkm6extdv/image/upload/v1718981080/kalaam-images/xgnmihsqctrq7wsvhdlc.png"
+              "https://res.cloudinary.com/dkm6extdv/image/upload/v1728752557/ii-removebg-preview_jjqgoy.png"
             }
             alt="Kalaam Logo"
             width={100}
             height={100}
-            className=" "
-
+            className=""
           />
         </div>
         {/* Temporarily disable Google authentication. Will be enabled soon. */}
@@ -102,13 +100,13 @@ export default function SignIn() {
           Continue With Google
         </button> */}
 
-        <div className="w-full flex items-center justify-between mt-2 mb-2">
+        {/* <div className="w-full flex items-center justify-between mt-2 mb-2">
           <hr className="w-full bg-gray-300 border-0" />
-          {/* <span className="text-sm text-gray-500 px-2">OR</span> */}
+          <span className="text-sm text-gray-500 px-2">OR</span>
           <hr className="w-full bg-gray-300 border-0" />
-        </div>
+        </div> */}
 
-        <div className="w-full flex items-center justify-center mt-2 mb-1">
+        <div className="w-full flex items-center justify-center mb-1">
           <span className="text-xl font-semibold px-2">Sign In</span>
         </div>
 

@@ -53,19 +53,22 @@ export default function SignUp() {
     switch (id) {
       case "name":
         if (!value) errorMsg = "Name is required.";
-        else if (value.length < 3) errorMsg = "Name must be at least 3 characters.";
+        else if (value.length < 3)
+          errorMsg = "Name must be at least 3 characters.";
         break;
 
       case "email":
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!value.endsWith("nitrkl.ac.in")) errorMsg = "Email do not contains @nitrkl.ac.in domain.";
+        if (!value.endsWith("nitrkl.ac.in"))
+          errorMsg = "Email do not contains @nitrkl.ac.in domain.";
         if (!value) errorMsg = "Email is required.";
         else if (!emailRegex.test(value)) errorMsg = "Invalid email address.";
         break;
 
       case "password":
         if (!value) errorMsg = "Password is required.";
-        else if (value.length < 6) errorMsg = "Password must be at least 6 characters.";
+        else if (value.length < 6)
+          errorMsg = "Password must be at least 6 characters.";
         break;
 
       case "roll_number":
@@ -74,7 +77,7 @@ export default function SignUp() {
         if (!rollNumberPattern.test(value)) {
           errorMsg = "Roll number must be in the format 111XX1111.";
         }
-        if (value.length > 9) errorMsg = "Roll number must be at 9 characters.";
+        if (value.length > 9) errorMsg = "Roll number must be 9 characters.";
 
         break;
 
@@ -116,7 +119,7 @@ export default function SignUp() {
         });
         setConfirmPassword("");
         setTimeout(() => {
-          router.push("/signin"); 
+          router.push("/signin");
         }, 2000);
       } else if (response.status === 400) {
         setErrors(response.error);
@@ -131,19 +134,20 @@ export default function SignUp() {
     <div className="flex h-[calc(100vh-5rem)] lg:p-10 items-center justify-center bg-gray-200">
       <Toaster position="top-center" reverseOrder={false} />
       <div className="w-full max-w-sm m-3 p-6 bg-white rounded-md shadow-md">
-        <h3 className="text-2xl font-semibold text-center">Kalaam: The Poetry Club</h3>
-        <div className="flex justify-center pt-5 items-center">
+        <h3 className="text-2xl font-semibold text-center">कवितालय</h3>
+        <div className="flex justify-center mt-2 items-center">
           <Image
             src={
-              "https://res.cloudinary.com/dkm6extdv/image/upload/v1718981080/kalaam-images/xgnmihsqctrq7wsvhdlc.png"
+              // "https://res.cloudinary.com/dkm6extdv/image/upload/v1718981080/kalaam-images/xgnmihsqctrq7wsvhdlc.png"
+              "https://res.cloudinary.com/dkm6extdv/image/upload/v1728752557/ii-removebg-preview_jjqgoy.png"
             }
             alt="Kalaam Logo"
             width={100}
             height={100}
-            className=" "
+            className=""
           />
         </div>
-        <div className="w-full flex items-center mt-2 justify-center mb-1">
+        <div className="w-full flex items-center  justify-center mb-1">
           <span className="text-xl font-semibold px-2">Register</span>
         </div>
 
@@ -154,9 +158,13 @@ export default function SignUp() {
             type="text"
             placeholder="Name"
             onChange={handleChange}
-            className={`w-full px-4 text-sm py-1 rounded-md border ${errors.name ? "border-red-400" : "border-gray-300"} focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
+            className={`w-full px-4 text-sm py-1 rounded-md border ${
+              errors.name ? "border-red-400" : "border-gray-300"
+            } focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
           />
-          {errors.name && <span className="text-red-400 font-semibold">{errors.name}</span>}
+          {errors.name && (
+            <span className="text-red-400 font-semibold">{errors.name}</span>
+          )}
 
           {/* Roll Number */}
           <input
@@ -164,9 +172,15 @@ export default function SignUp() {
             type="text"
             placeholder="Roll Number"
             onChange={handleChange}
-            className={`w-full px-4 py-1 text-sm rounded-md border ${errors.roll_number ? "border-red-400" : "border-gray-300"} focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
+            className={`w-full px-4 py-1 text-sm rounded-md border ${
+              errors.roll_number ? "border-red-400" : "border-gray-300"
+            } focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
           />
-          {errors.roll_number && <span className="text-red-400 font-semibold">{errors.roll_number}</span>}
+          {errors.roll_number && (
+            <span className="text-red-400 font-semibold">
+              {errors.roll_number}
+            </span>
+          )}
 
           {/* Email */}
           <input
@@ -174,9 +188,13 @@ export default function SignUp() {
             type="email"
             placeholder="Email"
             onChange={handleChange}
-            className={`w-full px-4 py-1 text-sm rounded-md border ${errors.email ? "border-red-400" : "border-gray-300"} focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
+            className={`w-full px-4 py-1 text-sm rounded-md border ${
+              errors.email ? "border-red-400" : "border-gray-300"
+            } focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
           />
-          {errors.email && <span className="text-red-400 font-semibold">{errors.email}</span>}
+          {errors.email && (
+            <span className="text-red-400 font-semibold">{errors.email}</span>
+          )}
 
           {/* Year of Study */}
           <div className="flex flex-row">
@@ -205,7 +223,9 @@ export default function SignUp() {
               type={isOpen ? "text" : "password"}
               placeholder="Password"
               onChange={handleChange}
-              className={`w-full text-sm px-4 py-1 rounded-md border ${errors.password ? "border-red-400" : "border-gray-300"} focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
+              className={`w-full text-sm px-4 py-1 rounded-md border ${
+                errors.password ? "border-red-400" : "border-gray-300"
+              } focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
             />
             <div
               className="absolute text-sm inset-y-0 right-0 pr-3 flex items-center leading-5 cursor-pointer"
@@ -214,7 +234,11 @@ export default function SignUp() {
               {isOpen ? <FaRegEye /> : <FaEyeSlash />}
             </div>
           </div>
-          {errors.password && <span className="text-red-400 font-semibold">{errors.password}</span>}
+          {errors.password && (
+            <span className="text-red-400 font-semibold">
+              {errors.password}
+            </span>
+          )}
 
           {/* Confirm Password */}
           <div className="relative w-full">
@@ -226,7 +250,9 @@ export default function SignUp() {
                 setConfirmPassword(e.target.value);
                 validateField("confirm_password", e.target.value);
               }}
-              className={`w-full text-sm px-4 py-1 rounded-md border ${errors.confirm_password ? "border-red-400" : "border-gray-300"} focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
+              className={`w-full text-sm px-4 py-1 rounded-md border ${
+                errors.confirm_password ? "border-red-400" : "border-gray-300"
+              } focus:outline-none focus:ring-1 focus:ring-blue-400 focus:ring-offset-0`}
             />
             <div
               className="absolute text-sm inset-y-0 right-0 pr-3 flex items-center leading-5 cursor-pointer"
@@ -235,7 +261,11 @@ export default function SignUp() {
               {isOpenConfirm ? <FaRegEye /> : <FaEyeSlash />}
             </div>
           </div>
-          {errors.confirm_password && <span className="text-red-400 font-semibold">{errors.confirm_password}</span>}
+          {errors.confirm_password && (
+            <span className="text-red-400 font-semibold">
+              {errors.confirm_password}
+            </span>
+          )}
 
           {/* Submit Button */}
           <button

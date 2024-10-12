@@ -14,9 +14,9 @@ export default function Member() {
           }}
         ></div>
         <div className="relative pl-10 text-7xl flex justify-center items-center flex-col  md:text-9xl p-2  bg-opacity-70">
-          <div className="pt-2 text-gray-100">This is</div>
+          <div className="pt-2 text-gray-100">Our</div>
           <div className="mt-2 text-gray-100">
-            <div className="text-gray-100 md:flex">Kalaam</div> Family
+            <div className="text-gray-100 md:flex">Team</div> 
           </div>
         </div>
       </div>

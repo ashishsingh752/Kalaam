@@ -28,12 +28,14 @@ const HeaderLogo: React.FC = () => {
       <div className="flex items-center cursor-pointer">
         <Image
           src={
-            "https://res.cloudinary.com/dkm6extdv/image/upload/v1718981080/kalaam-images/xgnmihsqctrq7wsvhdlc.png"
+            // "https://res.cloudinary.com/dkm6extdv/image/upload/v1718981080/kalaam-images/xgnmihsqctrq7wsvhdlc.png"
+            "https://res.cloudinary.com/dkm6extdv/image/upload/v1728752557/ii-removebg-preview_jjqgoy.png"
           }
           alt="Kalaam Logo"
-          width={100}
-          height={100}
+          width={80}
+          height={80}
           onClick={() => handelHome()}
+          className=""
         />
       </div>
     </div>
