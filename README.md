@@ -1,57 +1,68 @@
-# This is the website for the Kalaam: The Poetry club of NIT Rourkela.
+# 🌟 Kalaam: The Poetry Club of NIT Rourkela
 
-###  Visite Website 
-https://kalaam-nitrkl.vercel.app/
+🎉 **Welcome to Kalaam!**  
+Kalaam is a platform for poetry enthusiasts at NIT Rourkela to share, discover, and celebrate creativity. Explore poetic expressions, connect with fellow members, and let words inspire the world.  
 
-## Home page: 
+🔗 **Visit the Website**  
+[https://kalaam-nitrkl.vercel.app/](https://kalaam-nitrkl.vercel.app/)
 
-- Users get suggestions to read works by particular poets.
+---
 
-  
-![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/51a30ce7-c787-4c5d-a902-0a0c8c0b8604)
+## 🚀 Tech Stack
+- **Frontend:** Next.js, TypeScript, Tailwind CSS  
+- **Backend:** Prisma ORM, PostgreSQL  
+- **Media Storage:** Cloudinary  
+- **Authentication:** Firebase  
 
-## Sidebaar 
+---
 
-- Available in all the pages 
-- Open on hovering ove ">" icon
-- Closes when the mouse moves out of the sidebar.
-  
-![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/b53e0c4b-f11f-4b4c-83af-ad44b34d56b1)
+## ✨ Features
 
-## Club member
+### 🏠 **Home Page**
+- Personalized **reading suggestions** based on poets.
+- Infinite scrolling for seamless **content loading**.
+- Discover and enjoy **club members' posts** in one place.
 
-- Users can see all Kalaam Club members.
-- Users can choose a member to read all of their creations (poems, stories, etc.).
+### 📝 **Registration and Login**
+- **Secure registration** with NIT Rourkela email ID and roll number.  
+- **Admin approval** required for login.  
+- Integrated **form validation** for smooth registration.
 
-![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/20b51565-0b36-4cdc-b440-9857d4057397)
+### 👤 **Profile Management**
+- View and update **user details**.  
+- Access all **posts by the user** in one place.  
+- Full **CRUD functionality** for profiles and posts.
 
-## Permission to Post 
+### 📜 **Posts**
+- **Create posts** with a title, content, and image.  
+- **Preview feature** to review posts before publishing.  
+- Only **authenticated users** can post content.
 
-- Only authenticated users are able to post content.
+### 🛠️ **Sidebar**
+- A dynamic **sidebar available on all pages**.  
+- Toggle visibility with a click or close by moving the mouse away.  
 
-![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/e8a8b28e-dba6-42c2-8867-469fd4316dc7)
+### 🤝 **Team Members**
+- Team members are displayed based on their **academic year**.  
+- **Pagination** to improve navigation – view more members by clicking "Show More."
 
+### 🔐 **Permissions**
+- **Only approved users** can create and share posts.
 
-## User dropdown 
-- Provides functionality for logging out on smaller screens.
-- Allows users to support the club through real-time payment (feature coming soon).
+### 🔽 **User Dropdown**
+- **Log out functionality** for smaller screens.  
+- Upcoming feature: **Support the club with real-time payments.**
 
-![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/113d1bef-68bb-46e1-8172-5f83b85a865a)
+---
 
-## Post
-- Poets/writers can post their content by adding a title and the content.
-- They must have to upload a image of the related post
-- After adding the image and the content only he the post and preview buttom will be enable 
+## 💡 Highlights
+- **Optimized for performance** with infinite scrolling and reduced load times.  
+- Clean and **user-friendly UI** with Tailwind CSS.  
+- Built for scalability and **future enhancements** like real-time payment support.  
 
-![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/b9b6052a-973c-4c0b-bcd3-f6d164fe1a64)
-
-## Preview
-
-- On preview, poets can see their post image.
-- On clicking "read," they can see both the content and the image of the post.
-
-![image](https://github.com/ashishsingh752/Kalaam/assets/99067547/6c970908-abf7-40b5-8d07-1ed1f95e1804)
-
-
+---
+![image](https://github.com/user-attachments/assets/21dff3c8-7506-4466-9026-7232a8c846d5) 
+![image](https://github.com/user-attachments/assets/19880259-748a-405d-945f-2b0f78be2099)
+![image](https://github.com/user-attachments/assets/218b3fd6-c0bd-423f-a499-9933df01fed2)
 
 
