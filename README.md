@@ -24,9 +24,14 @@ Kalaam is a platform for poetry enthusiasts at NIT Rourkela to share, discover, 
 - Discover and enjoy **club members' posts** in one place.
 
 ### 📝 **Registration and Login**
-- **Secure registration** with NIT Rourkela email ID and roll number.  
-- **Admin approval** required for login.  
-- Integrated **form validation** for smooth registration.
+- Secure registration with NIT Rourkela email ID and roll number.  
+- **Admin approval** required before granting login access.  
+- Integrated **form validation** ensures smooth and error-free registration.
+
+### 🛠️ **Admin Dashboard**
+- Manage all registered user accounts in a centralized dashboard.  
+- **Approve** or **delete** newly registered accounts.  
+- **Assign or modify** user **Roles** for streamlined club hierarchy.
 
 ### 👤 **Profile Management**
 - View and update **user details**.  
@@ -62,6 +67,7 @@ Kalaam is a platform for poetry enthusiasts at NIT Rourkela to share, discover, 
 
 ---
 ![image](https://github.com/user-attachments/assets/21dff3c8-7506-4466-9026-7232a8c846d5) 
+![image](https://github.com/user-attachments/assets/c31850b7-f662-43d5-ad1f-8a0e071047d6)
 ![image](https://github.com/user-attachments/assets/19880259-748a-405d-945f-2b0f78be2099)
 ![image](https://github.com/user-attachments/assets/218b3fd6-c0bd-423f-a499-9933df01fed2)
 
