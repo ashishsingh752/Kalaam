@@ -45,11 +45,13 @@ export default async function Header() {
 
           {session ? (
             <div className="gap-2 flex justify-center items-center">
-              {session && (session?.user?.role === "Admin" || session?.user?.role === "President" )  && (
-                <div>
-                  <DashboardButton />
-                </div>
-              )}
+              {session &&
+                (session?.user?.role === "Admin" ||
+                  session?.user?.role === "President") && (
+                  <div>
+                    <DashboardButton />
+                  </div>
+                )}
 
               {/* use profile icon */}
               <div className="cursor-pointer">
@@ -57,7 +59,7 @@ export default async function Header() {
               </div>
 
               <div className="cursor-pointer">
-                <SidebarMannager />
+                <SidebarMannager isAuthenticated={true} />
               </div>
             </div>
           ) : (
@@ -66,7 +68,7 @@ export default async function Header() {
                 <HandleLoginButtom />
               </div>
               <div className="right-10">
-                <SidebarMannager />
+                <SidebarMannager isAuthenticated={false} />
               </div>
             </>
           )}
