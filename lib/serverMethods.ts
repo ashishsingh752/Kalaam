@@ -9,15 +9,15 @@ import {
 import { getServerSession } from "next-auth";
 
 //! Get all posts 
-//! It works in the production when I change the Env.APP_URL to actual url i.e. https://kalaam-nitrkl.vercel.app/
+//! Uses Env.APP_URL which automatically switches between local and production
 
 export async function getPost() {
-  const res = await fetch(`https://kalaam-nitrkl.vercel.app/api/post`, {
+  const res = await fetch(`${Env.APP_URL}/api/post`, {
     cache: "no-cache",
     headers: headers(),
   });
   if (!res.ok) {
-    throw new Error("Failed to fecth posts");
+    throw new Error("Failed to fetch posts");
   }
   const response = await res.json();
   return response?.data;
@@ -52,14 +52,14 @@ export async function getUserPosts() {
 }
 
 
-//! this is not working in the production when I change the Env.APP_URL to actual url i.e. https://kalaam-nitrkl.vercel.app/
+//! Get all users - uses Env.APP_URL for environment-aware fetching
 export async function getUser() {
-  const res = await fetch(`https://kalaam-nitrkl.vercel.app/api/user`, {
+  const res = await fetch(`${Env.APP_URL}/api/user`, {
     cache: "no-cache",
     headers: headers(),
   });
   if (!res.ok) {
-    throw new Error("Failed to fecth Users");
+    throw new Error("Failed to fetch Users");
   }
   const response = await res.json();
   return response?.data;
@@ -92,12 +92,12 @@ export async function getUserPostsToUpdate(post: { id: string }) {
 }
 
 export async function getUsersForSuggestion() {
-  const res = await fetch(`https://kalaam-nitrkl.vercel.app/api/user/members`, {
+  const res = await fetch(`${Env.APP_URL}/api/user/members`, {
     cache: "no-cache",
     headers: headers(),
   });
   if (!res.ok) {
-    throw new Error("Failed to fecth Users");
+    throw new Error("Failed to fetch Users");
   }
   const response = await res.json();
   return response?.data;
