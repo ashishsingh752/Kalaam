@@ -9,18 +9,32 @@ import {
 import { getServerSession } from "next-auth";
 
 //! Get all posts 
-//! Uses Env.APP_URL which automatically switches between local and production
-
+//! Queries the database directly to avoid server-side fetch issues in production
 export async function getPost() {
-  const res = await fetch(`${Env.APP_URL}/api/post`, {
-    cache: "no-cache",
-    headers: headers(),
-  });
-  if (!res.ok) {
+  try {
+    const posts = await prisma.post.findMany({
+      take: 20,
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            roll_number: true,
+            email: true,
+            image: true,
+            role: true,
+          },
+        },
+      },
+      orderBy: {
+        id: "desc",
+      },
+    });
+    return posts;
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
     throw new Error("Failed to fetch posts");
   }
-  const response = await res.json();
-  return response?.data;
 }
 
 export async function getUserPosts() {
@@ -52,17 +66,39 @@ export async function getUserPosts() {
 }
 
 
-//! Get all users - uses Env.APP_URL for environment-aware fetching
+//! Get all users - queries database directly
 export async function getUser() {
-  const res = await fetch(`${Env.APP_URL}/api/user`, {
-    cache: "no-cache",
-    headers: headers(),
-  });
-  if (!res.ok) {
-    throw new Error("Failed to fetch Users");
+  try {
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        roll_number: true,
+        image: true,
+        role: true,
+        approved: true,
+        mobile_number: true,
+        userId: true,
+        Post: {
+          select: {
+            id: true,
+            post_id: true,
+            content: true,
+            heading: true,
+            image: true,
+          },
+        },
+      },
+      orderBy: {
+        id: "desc",
+      },
+    });
+    return users;
+  } catch (error) {
+    console.error("Failed to fetch users:", error);
+    throw new Error("Failed to fetch users");
   }
-  const response = await res.json();
-  return response?.data;
 }
 
 
