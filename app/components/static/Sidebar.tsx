@@ -19,6 +19,7 @@ interface SidebarProps {
   onMouseEnter: () => void;
   onMouseLeave: (event: React.MouseEvent) => void;
   id: string;
+  isAuthenticated?: boolean;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -26,6 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   isOpen,
   onMouseEnter,
   onMouseLeave,
+  isAuthenticated = false,
 }) => {
   const router = useRouter();
 
@@ -58,9 +60,11 @@ const Sidebar: React.FC<SidebarProps> = ({
           <Logo content="Contact" icon={<FaUsers />} />
         </div>
 
-        <div>
-          <AccountOrSighIn />
-        </div>
+        {!isAuthenticated && (
+          <div>
+            <AccountOrSighIn />
+          </div>
+        )}
       </div>
       <div className="mt-16 bg-slate-200 p-4 rounded-lg">
         <h3 className="text-center font-semibold">Connect With Us</h3>

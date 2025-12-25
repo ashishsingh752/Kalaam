@@ -4,7 +4,11 @@ import { FaBars } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 import { AiOutlineClose } from "react-icons/ai";
 
-export default function SidebarManager() {
+export default function SidebarManager({
+  isAuthenticated,
+}: {
+  isAuthenticated?: boolean;
+}) {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const handleMouseEnter = useCallback(() => {
@@ -53,6 +57,7 @@ export default function SidebarManager() {
           isOpen={isSidebarOpen}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          isAuthenticated={isAuthenticated}
         />
       </div>
     </div>
