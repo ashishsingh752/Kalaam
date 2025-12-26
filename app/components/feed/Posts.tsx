@@ -66,7 +66,6 @@ const PostCard: React.FC<PostCardProps> = ({
             height={48}
             className="rounded-full w-12 h-12 object-cover ring-2 ring-purple-100"
           />
-          <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></div>
         </div>
 
         <div className="flex-1 ml-3">

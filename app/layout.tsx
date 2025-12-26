@@ -22,7 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={`${inter.className} bg-premium-gradient bg-fixed min-h-screen`}
+      >
         <Providers>
           <Header />
           {children}
