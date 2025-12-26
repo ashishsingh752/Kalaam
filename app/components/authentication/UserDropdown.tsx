@@ -23,7 +23,7 @@ const UserDropdown: React.FC<UserProps> = () => {
   const { data: session } = useSession();
 
   return (
-    <div className="w-72 p-4 rounded-xl shadow-xl bg-white border border-gray-100 animate-fadeIn">
+    <div className="w-72 p-4 rounded-xl shadow-xl bg-white border border-gray-100">
       <div className="flex flex-col gap-3 justify-center items-center">
         <Image
           className="rounded-full p-1 w-16 h-16 ring-2 ring-gray-200"

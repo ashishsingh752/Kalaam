@@ -20,7 +20,7 @@ export default function MiniProfile() {
               alt="User Profile"
               width={56}
               height={56}
-              className="relative rounded-full w-14 h-14 object-cover border-[3px] border-slate-50 shadow-sm transition-transform duration-300 group-hover:scale-105"
+              className="relative rounded-full w-14 h-14 object-cover border-[3px] border-slate-50 shadow-sm"
             />
           ) : (
             <Image

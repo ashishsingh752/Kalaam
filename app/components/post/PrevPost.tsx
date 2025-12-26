@@ -26,7 +26,7 @@ const PrevPost: React.FC<PrevPostProps> = ({
           </h2>
           <button
             onClick={() => setReadContent(!readContent)}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-200 text-purple-600 font-medium hover:scale-105 active:scale-95"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow duration-200 text-purple-600 font-medium"
             aria-label={readContent ? "Close content" : "Read content"}
           >
             {readContent ? (

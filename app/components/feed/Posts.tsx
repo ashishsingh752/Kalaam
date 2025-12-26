@@ -78,7 +78,7 @@ const PostCard: React.FC<PostCardProps> = ({
 
         <button
           onClick={handleRead}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-purple text-white font-medium shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105 active:scale-95"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-purple text-white font-medium shadow-md hover:shadow-lg transition-shadow duration-200"
           aria-label={postContentOpen ? "Close content" : "Read content"}
         >
           {postContentOpen ? (
@@ -124,7 +124,7 @@ const PostCard: React.FC<PostCardProps> = ({
               alt={heading}
               fill
               loading="lazy"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             {/* Hover Overlay */}
@@ -149,7 +149,7 @@ const PostCard: React.FC<PostCardProps> = ({
 
           <button
             onClick={() => setLiked(!liked)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white shadow-sm hover:shadow-md transition-all duration-200 hover:scale-110 active:scale-95 group"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white shadow-sm hover:shadow-md transition-shadow duration-200 group"
             aria-label={liked ? "Unlike post" : "Like post"}
           >
             {liked ? (

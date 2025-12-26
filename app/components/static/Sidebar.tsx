@@ -50,10 +50,11 @@ const Sidebar: React.FC<SidebarProps> = ({
   return (
     <div
       id="sidebar"
-      className={`fixed right-0 top-0 h-screen w-80 bg-white/95 backdrop-blur-xl shadow-2xl transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1) z-50 pt-0 border-l border-slate-100 ${
-        isOpen ? "translate-x-0" : "translate-x-full"
+      className={`fixed right-0 top-0 h-screen w-full sm:w-80 max-w-sm bg-white/95 backdrop-blur-xl shadow-2xl transition-all duration-300 z-50 pt-0 border-l border-slate-100 ${
+        isOpen
+          ? "translate-x-0 visible opacity-100"
+          : "translate-x-full invisible opacity-0"
       }`}
-      onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
       {/* Sidebar Header */}
@@ -90,7 +91,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 }`}
               >
                 <div
-                  className={`text-xl transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3 ${
+                  className={`text-xl transition-colors duration-300 ${
                     isActive
                       ? "text-indigo-600"
                       : "text-slate-400 group-hover:text-indigo-500"
@@ -119,7 +120,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               <div className="px-4 font-semibold text-slate-400 text-xs uppercase tracking-wider mb-4 pl-2">
                 Account
               </div>
-              <div className="px-1 transform transition-transform hover:translate-x-1 duration-300">
+              <div className="px-1">
                 <AccountOrSighIn />
               </div>
             </div>
@@ -134,10 +135,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                 Connect With Us
               </h3>
               <div className="flex justify-center gap-6">
-                <FaWhatsapp className="text-2xl text-slate-400 hover:text-green-500 hover:scale-110 transition-all duration-300 cursor-pointer hover:drop-shadow-md" />
-                <FaFacebook className="text-2xl text-slate-400 hover:text-blue-600 hover:scale-110 transition-all duration-300 cursor-pointer hover:drop-shadow-md" />
-                <FaInstagram className="text-2xl text-slate-400 hover:text-pink-500 hover:scale-110 transition-all duration-300 cursor-pointer hover:drop-shadow-md" />
-                <FaTwitter className="text-2xl text-slate-400 hover:text-blue-400 hover:scale-110 transition-all duration-300 cursor-pointer hover:drop-shadow-md" />
+                <FaWhatsapp className="text-2xl text-slate-400 hover:text-green-500 transition-colors duration-300 cursor-pointer" />
+                <FaFacebook className="text-2xl text-slate-400 hover:text-blue-600 transition-colors duration-300 cursor-pointer" />
+                <FaInstagram className="text-2xl text-slate-400 hover:text-pink-500 transition-colors duration-300 cursor-pointer" />
+                <FaTwitter className="text-2xl text-slate-400 hover:text-blue-400 transition-colors duration-300 cursor-pointer" />
               </div>
             </div>
             <p className="text-[10px] text-slate-400 font-medium">

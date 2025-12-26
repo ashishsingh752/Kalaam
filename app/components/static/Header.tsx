@@ -26,10 +26,7 @@ export default async function Header() {
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between rounded-full border border-white/40 bg-white/80 px-4 shadow-lg shadow-black/[0.03] backdrop-blur-xl transition-all duration-300 hover:bg-white/90 hover:shadow-xl hover:shadow-black/[0.04] sm:px-6 lg:px-8 supports-[backdrop-filter]:bg-white/60">
           {/* Logo Section */}
           <div className="flex shrink-0 items-center gap-2">
-            <Link
-              href="/"
-              className="transition-transform duration-200 hover:scale-105 active:scale-95"
-            >
+            <Link href="/" className="">
               <HeaderLogo />
             </Link>
           </div>
@@ -63,13 +60,13 @@ export default async function Header() {
                 <>
                   {(session?.user?.role === "Admin" ||
                     session?.user?.role === "President") && (
-                    <div className="scale-90 opacity-80 transition-all hover:scale-100 hover:opacity-100">
+                    <div className="opacity-80 hover:opacity-100 transition-opacity">
                       <DashboardButton />
                     </div>
                   )}
 
                   <div className="flex items-center gap-2">
-                    <div className="transition-transform hover:scale-105 cursor-pointer ring-2 ring-transparent hover:ring-indigo-100 rounded-full">
+                    <div className="cursor-pointer ring-2 ring-transparent hover:ring-indigo-100 rounded-full transition-all">
                       <UserProfile />
                     </div>
                   </div>

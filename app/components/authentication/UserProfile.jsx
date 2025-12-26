@@ -36,14 +36,14 @@ export default function UserProfile() {
         {session && session.user ? (
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 rounded-full transition-all hover:scale-105"
+            className="focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 rounded-full "
           >
             <Image
               src={session?.user?.image || defaultImageUrl}
               alt="User Profile"
               width={48}
               height={48}
-              className="rounded-full w-12 h-12 object-cover ring-2 ring-gray-200 hover:ring-gray-300 transition-all"
+              className="rounded-full w-12 h-12 object-cover ring-2 ring-gray-200 hover:ring-gray-300 "
             />
           </button>
         ) : (
