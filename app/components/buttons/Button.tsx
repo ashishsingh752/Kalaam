@@ -139,7 +139,14 @@ const ReadUsersPostButton: React.FC<ReadPostButtonProps> = ({ id }) => {
       console.error("Error reading post:", error);
     }
   };
-  return <button onClick={readPost}>Read</button>;
+  return (
+    <button
+      onClick={readPost}
+      className="px-3 py-1.5 text-xs font-semibold text-indigo-600 bg-indigo-50 rounded-full hover:bg-indigo-100 transition-colors duration-200"
+    >
+      View Profile
+    </button>
+  );
 };
 
 const ReadUsersPostDashBoard: React.FC<ReadUsersPostDashBoardProps> = ({

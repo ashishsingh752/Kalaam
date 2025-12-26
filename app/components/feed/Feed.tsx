@@ -5,26 +5,24 @@ import Suggestions from "./Suggestions";
 
 const Feed: React.FC = () => {
   return (
-    <>
-      <main className="grid grid-cols-1 md:grid-cols-3 lg:pl-24 md:max-w-6xl ">
-        <section className="md:col-span-2">
-          {/* new posts of the poets */}
-          <Posts />
-        </section>
-        <section className="hidden md:inline-grid md:col-span-1">
-          <div className="w-auto">
-            {/* user profile */}
-            <div className="w-auto">
-              <MiniProfile />
-            </div>
-            {/* name of poets to see */}
-            <div className="mt-5 w-auto bg-white max-h-96 overflow-scroll overflow-x-hidden">
-              <Suggestions />
-            </div>
-          </div>
-        </section>
-      </main>
-    </>
+    <main className="grid grid-cols-1 lg:grid-cols-4 gap-8 max-w-7xl mx-auto px-4 pt-0 pb-8">
+      {/* Main Content Area - Posts */}
+      <section className="col-span-1 lg:col-span-3">
+        {/* new posts of the poets */}
+        <Posts />
+      </section>
+
+      {/* Sidebar Area */}
+      <section className="hidden lg:block lg:col-span-1">
+        <div className="sticky top-28 space-y-6 mt-6">
+          {/* user profile */}
+          <MiniProfile />
+
+          {/* suggestions */}
+          <Suggestions />
+        </div>
+      </section>
+    </main>
   );
 };
 

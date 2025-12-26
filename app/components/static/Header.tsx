@@ -22,9 +22,6 @@ export default async function Header() {
 
   return (
     <>
-      {/* Spacer to prevent content overlap since header is sticky/floating */}
-      <div className="h-4 md:h-6" aria-hidden="true" />
-
       <header className="sticky top-6 z-50 px-4 mb-8">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between rounded-full border border-white/40 bg-white/80 px-4 shadow-lg shadow-black/[0.03] backdrop-blur-xl transition-all duration-300 hover:bg-white/90 hover:shadow-xl hover:shadow-black/[0.04] sm:px-6 lg:px-8 supports-[backdrop-filter]:bg-white/60">
           {/* Logo Section */}

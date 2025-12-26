@@ -2,10 +2,8 @@ import Feed from "./components/feed/Feed";
 
 export default function Page() {
   return (
-    <>
-      <div className="min-h-screen bg-gray-50">
-        <Feed />
-      </div>
-    </>
+    <div className="min-h-screen bg-slate-50">
+      <Feed />
+    </div>
   );
 }

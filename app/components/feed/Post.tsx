@@ -40,118 +40,121 @@ const Post: React.FC<PostsProps> = ({
   };
 
   return (
-    <div className="bg-white md:m-7 my-7 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 overflow-hidden">
-      {/* post header */}
-      <div className="flex items-center p-5 bg-gradient-to-r from-white to-purple-50/30">
-        <div className="relative group">
-          <Image
-            src={userImg}
-            alt={name}
-            width={100}
-            height={100}
-            className="rounded-full p-1 w-12 mr-3 h-12 object-cover border-2 border-purple-200 transition-all duration-300 group-hover:border-purple-400 group-hover:scale-110"
-          />
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    <div className="bg-white my-6 rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition-shadow duration-300">
+      {/* Post Header */}
+      <div className="flex items-center justify-between p-4 bg-white">
+        <div className="flex items-center space-x-3">
+          <div className="relative group">
+            <div className="absolute inset-0 bg-slate-200 rounded-full blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <Image
+              src={userImg}
+              alt={name}
+              width={48}
+              height={48}
+              className="relative rounded-full w-10 h-10 object-cover ring-2 ring-slate-50 group-hover:ring-slate-200 transition-all duration-300"
+            />
+          </div>
+          <div>
+            <h3 className="font-semibold text-slate-900 leading-tight">
+              {heading}
+            </h3>
+            <p className="text-xs text-slate-500 font-medium">{name}</p>
+          </div>
         </div>
-        <div className="flex-1">
-          <p className="font-bold text-gray-800 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            {heading}
-          </p>
-          <p className="text-xs text-gray-500 mt-1">by {name}</p>
-        </div>
+
         <button
           onClick={handleRead}
-          className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold hover:from-indigo-600 hover:to-purple-600 transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-md"
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
+            postContentOpen
+              ? "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              : "bg-indigo-50 text-indigo-600 hover:bg-indigo-100"
+          }`}
         >
           {postContentOpen ? (
             <>
               <svg
                 className="w-4 h-4"
                 fill="none"
-                stroke="currentColor"
                 viewBox="0 0 24 24"
+                stroke="currentColor"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
+                  d="M5 15l7-7 7 7"
                 />
               </svg>
-              Close
+              <span>Collapse</span>
             </>
           ) : (
             <>
+              <span>Read</span>
               <svg
                 className="w-4 h-4"
                 fill="none"
-                stroke="currentColor"
                 viewBox="0 0 24 24"
+                stroke="currentColor"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  d="M19 9l-7 7-7-7"
                 />
               </svg>
-              Read
             </>
           )}
         </button>
       </div>
 
-      {/* Users post content or image */}
+      {/* Content Area */}
       <div className="relative">
         {postContentOpen ? (
-          <div className="p-6 max-h-96 overflow-auto animate-fade-in bg-gradient-to-b from-white to-purple-50/20">
-            <div
-              className="text-sm leading-relaxed text-gray-700 prose prose-sm max-w-none"
-              style={{ whiteSpace: "pre-line" }}
-              dangerouslySetInnerHTML={{ __html: readContent }}
-            ></div>
-            <div className="mt-6 pt-4 border-t border-purple-100">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-purple-600">
-                  <svg
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                  </svg>
-                  <span className="text-sm font-medium">
-                    Thank you for reading!
-                  </span>
-                </div>
+          <div className="px-6 pb-6 pt-2 animate-in fade-in slide-in-from-top-2 duration-300">
+            <div className="prose prose-slate prose-sm max-w-none text-slate-600 leading-relaxed whitespace-pre-line">
+              <div dangerouslySetInnerHTML={{ __html: readContent }} />
+            </div>
+
+            <div className="mt-6 flex items-center justify-end text-slate-400 text-xs font-medium">
+              <div className="flex items-center gap-1">
+                <HeartIcon className="w-3 h-3" />
+                <span>Thanks for reading</span>
               </div>
             </div>
           </div>
         ) : (
-          <div className="relative w-full h-96 bg-gray-100 overflow-hidden group">
+          <div
+            className="group relative w-full h-[400px] sm:h-[500px] bg-slate-100 overflow-hidden cursor-pointer"
+            onClick={handleRead}
+          >
             {!imageLoaded && (
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse"></div>
+              <div className="absolute inset-0 bg-slate-200 animate-pulse flex items-center justify-center">
+                <span className="text-slate-400 text-sm">Loading image...</span>
+              </div>
             )}
             <Image
               src={postImg}
-              alt="postImage"
+              alt="Post visual"
               fill
-              loading="lazy"
+              className={`object-cover transition-transform duration-700 ease-out will-change-transform ${
+                imageLoaded
+                  ? "scale-100 group-hover:scale-105"
+                  : "scale-105 blur-sm"
+              }`}
               onLoad={() => setImageLoaded(true)}
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+            <div className="absolute bottom-4 left-4 right-4 text-white opacity-90">
+              <p className="text-sm font-medium drop-shadow-sm">
+                Click to read full story
+              </p>
+            </div>
           </div>
         )}
       </div>
 
-      {/* Author info */}
-      <div className="p-5 bg-gradient-to-r from-white to-indigo-50/30 border-t border-gray-100">
-        <p className="text-sm text-gray-600">
-          <span className="font-semibold text-gray-800">Author:</span>{" "}
-          <span className="italic text-purple-600 font-medium">{name}</span>
-        </p>
-      </div>
+      {/* Footer / Meta (Optional, if we want to add more, but current design integrates it into header) */}
     </div>
   );
 };
