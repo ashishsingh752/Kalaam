@@ -26,15 +26,15 @@ interface PostType {
   content: string;
   image: string;
   heading: string;
-  create_at: string;
-  update_at: string;
+  create_at: string | Date;
+  update_at: string | Date;
   user: {
     id: number;
     name: string;
     roll_number: string;
     email: string;
-    image: string;
-    role: string;
+    image: string | null;
+    role: string | null;
   };
 }
 
