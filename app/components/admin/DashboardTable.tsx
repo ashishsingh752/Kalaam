@@ -1,5 +1,5 @@
-import React from 'react';
-import DashboardTableRow from './DashboardTablRow';
+import React from "react";
+import DashboardTableRow from "./DashboardTablRow";
 
 interface MembersOfClubProps {
   id: number;
@@ -13,7 +13,6 @@ interface MembersOfClubProps {
   role: string;
   mobile_number: string;
   userId: string;
-
 }
 
 interface DashboardTableProps {
@@ -30,18 +29,48 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   handleRoleChange,
 }) => {
   return (
-    <table className="min-w-full bg-white border border-gray-300">
-      <thead>
-        <tr className="bg-gray-600 text-white">
-          <th className="py-2 px-4 border-b">Name</th>
-          <th className="py-2 px-4 border-b">Roll Number</th>
-          <th className="py-2 px-4 border-b">Role</th>
-          <th className="py-2 px-4 border-b">Email</th>
-          <th className="py-2 px-4 border-b">Status</th>
-          <th className="py-2 px-4 border-b">Actions</th>
+    <table className="min-w-full divide-y divide-gray-200 relative">
+      <thead className="bg-gray-50 sticky top-0 z-10 shadow-sm">
+        <tr>
+          <th
+            scope="col"
+            className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider backdrop-blur-sm bg-gray-50/95"
+          >
+            User
+          </th>
+          <th
+            scope="col"
+            className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider backdrop-blur-sm bg-gray-50/95"
+          >
+            Roll Number
+          </th>
+          <th
+            scope="col"
+            className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider backdrop-blur-sm bg-gray-50/95"
+          >
+            Role
+          </th>
+          <th
+            scope="col"
+            className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider backdrop-blur-sm bg-gray-50/95"
+          >
+            Email
+          </th>
+          <th
+            scope="col"
+            className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider backdrop-blur-sm bg-gray-50/95"
+          >
+            Status
+          </th>
+          <th
+            scope="col"
+            className="px-6 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider backdrop-blur-sm bg-gray-50/95"
+          >
+            Actions
+          </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="bg-white divide-y divide-gray-200">
         {users.map((user) => (
           <DashboardTableRow
             key={user.id}

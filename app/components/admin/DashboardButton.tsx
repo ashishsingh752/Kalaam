@@ -6,11 +6,11 @@ export default function DashboardButton() {
   const router = useRouter();
 
   return (
-    <div
+    <button
       onClick={() => router.push("/dashboard")}
-      className=" outline-gray-600  hover:underline cursor-pointer hidden md:inline-flex  transition-transform duration-200 ease-out"
+      className="text-gray-600 hover:text-black hover:bg-gray-100 px-3 py-2 rounded-md transition-colors duration-200 font-medium hidden md:inline-block"
     >
-      DashBoard
-    </div>
+      Dashboard
+    </button>
   );
 }

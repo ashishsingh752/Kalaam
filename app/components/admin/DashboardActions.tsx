@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { IoCheckmark, IoTrash } from "react-icons/io5";
 
 interface DashboardTableActionsProps {
   userId: number;
@@ -17,7 +18,7 @@ const DashboardTableActions: React.FC<DashboardTableActionsProps> = ({
   selectedRole,
   handleRoleChange,
 }) => {
-  const handleApproval= async () => {
+  const handleApproval = async () => {
     try {
       await handleApprove(userId);
 
@@ -25,25 +26,27 @@ const DashboardTableActions: React.FC<DashboardTableActionsProps> = ({
         await handleRoleChange(userId, selectedRole);
       }
     } catch (error) {
-      console.error('Error approving user:', error);
+      console.error("Error approving user:", error);
     }
   };
 
   return (
-    <div className="flex justify-center space-x-2">
+    <div className="flex justify-center items-center space-x-3">
       {!approved && (
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={handleApproval}
+          className="text-green-600 hover:text-green-900 transition-colors p-1 rounded-full hover:bg-green-50"
+          title="Approve User"
         >
-          Approve
+          <IoCheckmark size={20} />
         </button>
       )}
       <button
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
         onClick={() => handleDelete(userId)}
+        className="text-red-600 hover:text-red-900 transition-colors p-1 rounded-full hover:bg-red-50"
+        title="Delete User"
       >
-        Delete
+        <IoTrash size={20} />
       </button>
     </div>
   );
