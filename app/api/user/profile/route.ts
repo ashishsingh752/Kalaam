@@ -35,44 +35,31 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     const image = formData.get("image") as unknown as File;
 
-    if (!image) {
-      return NextResponse.json(
-        {
-          message: "No image found in request body",
-        },
-        { status: 404 }
-      );
-    }
-    if (profileData.role === "admin" || profileData.role === "Admin") {
-      return NextResponse.json(
-        {
-          message: "Not allowed to take role as admin",
-        },
-        { status: 404 }
-      );
-    }
-    // delete the image from the coudinary
-    const imageUrl = findUser.public_id;
-    if (imageUrl) {
-      const result_delete = await DeleteImage(imageUrl);
-    }
+    let updateData: any = {
+      name: profileData.name,
+      email: profileData.email,
+      roll_number: profileData.roll_number,
+      mobile_number: profileData.mobile_number,
+    };
 
-    // upload image to cloudinary
-    const uploadImage: any = await UploadImage(image, "kalaam-images");
+    if (image && image.size > 0 && image.name !== "undefined") {
+      // delete the image from the coudinary
+      const imageUrl = findUser.public_id;
+      if (imageUrl) {
+        await DeleteImage(imageUrl);
+      }
+
+      // upload image to cloudinary
+      const uploadImage: any = await UploadImage(image, "kalaam-images");
+      updateData.image = uploadImage.secure_url;
+      updateData.public_id = uploadImage.public_id;
+    }
 
     const updatedUser = await prisma.user.update({
       where: {
         id: userId,
       },
-      data: {
-        name: profileData.name,
-        email: profileData.email,
-        roll_number: profileData.roll_number,
-        role: profileData.role,
-        image: uploadImage.secure_url,
-        public_id: uploadImage.public_id,
-        mobile_number: profileData.mobile_number,
-      },
+      data: updateData,
     });
 
     return NextResponse.json({ status: 200, data: updatedUser });

@@ -102,92 +102,153 @@ export default function Profile() {
   console.log(session?.user);
 
   return (
-    <div className="flex md:p-6 justify-center items-center bg-gray-200 min-h-screen">
-      <div className=" md:mx-40 bg-white p-8 w-full">
-        {/* Profile heading */}
-        <div className="text-2xl flex justify-center font-bold text-blue-500 mb-5">
-          Profile
-        </div>
-
-        {/* Profile details */}
-        <div>
-          {/* profile image */}
-          <div className="mt-5">
-            <ProfileImageUpload
-              imageUrl={
-                session?.user?.image ||
-                "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-              }
-              onUpload={handleImageUpload}
-            />
-          </div>
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col">
-              <label className="font-medium">Your Name</label>
-              <input
-                onChange={(e) => setUserName(e.target.value)}
-                value={userName}
-                placeholder="Your name"
-                className="border border-gray-300 rounded-md w-full p-2"
-              />
-            </div>
-            <div className="flex flex-col">
-              <label className="font-medium">Your Email</label>
-              <input
-                onChange={(e) => setUserEmail(e.target.value)}
-                value={userEmail}
-                placeholder="Your email"
-                className="border border-gray-300 rounded-md w-full p-2"
-              />
-            </div>
-            <div className="flex flex-col">
-              <label className="font-medium">Roll Number</label>
-              <input
-                onChange={(e) => setUserRollNumber(e.target.value)}
-                value={userRollNumber}
-                placeholder="Roll Number"
-                className="border border-gray-300 rounded-md w-full p-2"
-              />
-            </div>
-            <div className="flex flex-col">
-              <label className="font-medium">Contact Number</label>
-              <div>
-                <div className="mt-2 ml-2 font-semibold mb-1 absolute">+91</div>
-                <input
-                  onChange={(e) => setUserContact(e.target.value)}
-                  value={userContact}
-                  placeholder="8888888888"
-                  className="border pl-10 border-gray-300 rounded-md w-full p-2"
+    <div className="flex justify-center items-center bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl w-full space-y-8">
+        <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
+          <div className="md:flex">
+            {/* Left Side - Profile Image & Basic Info */}
+            <div className="md:w-1/3 bg-blue-50 p-8 flex flex-col items-center justify-center border-r border-blue-100">
+              <div className="mb-6">
+                <ProfileImageUpload
+                  imageUrl={
+                    session?.user?.image ||
+                    "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                  }
+                  onUpload={handleImageUpload}
                 />
               </div>
+              <h2 className="text-xl font-bold text-gray-800 text-center">
+                {userName || "User Name"}
+              </h2>
+              <p className="text-sm text-gray-500 text-center mt-1">
+                {userRole || "Role"}
+              </p>
             </div>
-            <div className="flex flex-col">
-              <label className="font-medium">Role/Position</label>
-              <input
-                // onChange={(e) => setUserRole(e.target.value)}
-                value={userRole}
-                placeholder="Role/Position"
-                className=" border-gray-300 rounded-md w-full p-2"
-              />
-            </div>
-          </div>
 
-          {/* Update or delete account */}
-          <div className="flex justify-between items-center mt-10 gap-4">
-            <HandleDeleteAccount />
-            <div
-              onClick={handleUpdate}
-              className="bg-blue-500 flex text-center cursor-pointer text-white px-4 py-2 rounded-md font-medium text-base hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition ease-in-out duration-150"
-            >
-              {loading ? "Updating..." : "Update Account"}
+            {/* Right Side - Form Details */}
+            <div className="md:w-2/3 p-8">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-800">
+                  Profile Settings
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">
+                    Full Name
+                  </label>
+                  <input
+                    onChange={(e) => setUserName(e.target.value)}
+                    value={userName}
+                    placeholder="Your name"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">
+                    Email Address
+                  </label>
+                  <input
+                    onChange={(e) => setUserEmail(e.target.value)}
+                    value={userEmail}
+                    placeholder="Your email"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">
+                    Roll Number
+                  </label>
+                  <input
+                    onChange={(e) => setUserRollNumber(e.target.value)}
+                    value={userRollNumber}
+                    placeholder="Roll Number"
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">
+                    Contact Number
+                  </label>
+                  <div className="relative rounded-md shadow-sm">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <span className="text-gray-500 sm:text-sm">+91</span>
+                    </div>
+                    <input
+                      onChange={(e) => setUserContact(e.target.value)}
+                      value={userContact}
+                      placeholder="8888888888"
+                      className="block w-full pl-10 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm"
+                    />
+                  </div>
+                </div>
+
+                <div className="sm:col-span-2 space-y-1">
+                  <label className="text-sm font-medium text-gray-700">
+                    Role / Position
+                  </label>
+                  <input
+                    value={userRole}
+                    placeholder="Role/Position"
+                    readOnly
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500 sm:text-sm cursor-not-allowed"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pt-6 mt-6 border-t border-gray-100">
+                <HandleDeleteAccount />
+                <button
+                  onClick={handleUpdate}
+                  disabled={loading}
+                  className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition duration-150 ease-in-out"
+                >
+                  {loading ? (
+                    <span className="flex items-center gap-2">
+                      <svg
+                        className="animate-spin -ml-1 h-4 w-4 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Updating...
+                    </span>
+                  ) : (
+                    "Save Changes"
+                  )}
+                </button>
+              </div>
             </div>
           </div>
-          <div className="pt-10">
-            <div className="text-2xl flex justify-center font-bold text-blue-500 mb-5">
-              Your Posts
-            </div>
-            <UsersPostWrapper />
+        </div>
+
+        {/* Posts Section */}
+        <div className="bg-white shadow-lg rounded-2xl overflow-hidden p-8">
+          <div className="mb-6 flex items-center justify-between border-b pb-4 border-gray-100">
+            <h3 className="text-xl font-bold text-gray-800">Your Posts</h3>
+            <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+              Manage Content
+            </span>
           </div>
+          <UsersPostWrapper />
         </div>
       </div>
     </div>
