@@ -33,30 +33,26 @@ export default function SidebarManager({
   }, []);
 
   return (
-    <div>
-      <div className="flex">
-        <div
-          className="flex items-center cursor-pointer"
-          // onMouseEnter={handleMouseEnter}
+    <div className="relative z-[60]">
+      <div className="flex items-center">
+        <button
+          onClick={handleIconClick}
+          className="p-2 rounded-full hover:bg-slate-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-slate-200"
+          aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
         >
           {isSidebarOpen ? (
-            <AiOutlineClose
-              onClick={handleIconClick}
-              className="text-2xl bg-white shadow-none"
-            />
+            <AiOutlineClose className="text-xl text-slate-700" />
           ) : (
-            <FaBars
-              onClick={handleIconClick}
-              className="text-2xl bg-white shadow-none"
-            />
+            <FaBars className="text-xl text-slate-700" />
           )}
-        </div>
+        </button>
 
         <Sidebar
           id="sidebar"
           isOpen={isSidebarOpen}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onClose={() => setSidebarOpen(false)}
           isAuthenticated={isAuthenticated}
         />
       </div>

@@ -10,14 +10,15 @@ import {
   FaInstagram,
   FaTwitter,
 } from "react-icons/fa";
-import { Logo } from "./Logo";
-import { useRouter } from "next/navigation";
+import { AiOutlineClose } from "react-icons/ai";
+import { useRouter, usePathname } from "next/navigation";
 import AccountOrSighIn from "./AccountOrSighIn";
 
 interface SidebarProps {
   isOpen: boolean;
   onMouseEnter: () => void;
   onMouseLeave: (event: React.MouseEvent) => void;
+  onClose: () => void;
   id: string;
   isAuthenticated?: boolean;
 }
@@ -27,52 +28,122 @@ const Sidebar: React.FC<SidebarProps> = ({
   isOpen,
   onMouseEnter,
   onMouseLeave,
+  onClose,
   isAuthenticated = false,
 }) => {
   const router = useRouter();
+  const pathname = usePathname();
+
+  const menuItems = [
+    { label: "Home", icon: <FaHome />, route: "/" },
+    { label: "Members", icon: <FaUsers />, route: "/poets" },
+    { label: "Events", icon: <FaBook />, route: "/events" },
+    { label: "Post Content", icon: <FaPen />, route: "/newpost" },
+    { label: "Contact", icon: <FaUsers />, route: "/contact" },
+  ];
+
+  const handleNavigation = (route: string) => {
+    router.push(route);
+    onClose(); // Close sidebar on navigation
+  };
 
   return (
     <div
       id="sidebar"
-      className={`fixed right-0 top-20 sm:mt-1 h-[calc(100vh-5rem)] bg-white shadow-lg rounded-lg transition-transform duration-300 ${
-        isOpen
-          ? "translate-x-0 overflow-y-scroll scrollbar-none"
-          : "translate-x-full "
+      className={`fixed right-0 top-0 h-screen w-80 bg-white/95 backdrop-blur-xl shadow-2xl transition-transform duration-300 cubic-bezier(0.4, 0, 0.2, 1) z-50 pt-0 border-l border-slate-100 ${
+        isOpen ? "translate-x-0" : "translate-x-full"
       }`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      style={{ width: "16rem" }}
     >
-      <div className="cursor-pointer pt-10">
-        <div onClick={() => router.replace("/")}>
-          <Logo content="Home" icon={<FaHome />} />
+      {/* Sidebar Header */}
+      <div className="h-24 flex items-end justify-between pb-6 px-8 bg-gradient-to-b from-slate-50 to-white/50">
+        <div>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent tracking-tight">
+            Kalaam
+          </h2>
+          <p className="text-xs text-slate-500 font-medium tracking-wide uppercase mt-1">
+            The Poetry Club
+          </p>
         </div>
-        <div onClick={() => router.push("/poets")}>
-          <Logo content="Members" icon={<FaUsers />} />
-        </div>
-        <div onClick={() => router.push("/events")}>
-          <Logo content="Events" icon={<FaBook />} />
-        </div>
-        <div onClick={() => router.replace("/newpost")}>
-          <Logo content="Post Content" icon={<FaPen />} />
-        </div>
-        <div onClick={() => router.replace("/contact")}>
-          <Logo content="Contact" icon={<FaUsers />} />
+        <button
+          onClick={onClose}
+          className="p-2 rounded-full hover:bg-slate-200/50 text-slate-500 hover:text-slate-700 transition-all duration-200"
+        >
+          <AiOutlineClose className="text-xl" />
+        </button>
+      </div>
+
+      <div className="flex flex-col h-[calc(100vh-6rem)] overflow-y-auto custom-scrollbar">
+        {/* Navigation Items */}
+        <div className="px-4 py-8 space-y-2">
+          {menuItems.map((item) => {
+            const isActive = pathname === item.route;
+            return (
+              <div
+                key={item.label}
+                onClick={() => handleNavigation(item.route)}
+                className={`group flex items-center gap-4 px-5 py-4 rounded-2xl cursor-pointer transition-all duration-300 border ${
+                  isActive
+                    ? "bg-indigo-50 border-indigo-100/50 shadow-sm"
+                    : "border-transparent hover:bg-slate-50 hover:border-slate-100"
+                }`}
+              >
+                <div
+                  className={`text-xl transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3 ${
+                    isActive
+                      ? "text-indigo-600"
+                      : "text-slate-400 group-hover:text-indigo-500"
+                  }`}
+                >
+                  {item.icon}
+                </div>
+                <span
+                  className={`font-medium tracking-wide ${
+                    isActive
+                      ? "text-indigo-900"
+                      : "text-slate-600 group-hover:text-slate-900"
+                  }`}
+                >
+                  {item.label}
+                </span>
+                {isActive && (
+                  <div className="ml-auto w-2 h-2 rounded-full bg-indigo-500 shadow-md shadow-indigo-200"></div>
+                )}
+              </div>
+            );
+          })}
+
+          {!isAuthenticated && (
+            <div className="pt-8 mt-4 border-t border-slate-100 mx-2">
+              <div className="px-4 font-semibold text-slate-400 text-xs uppercase tracking-wider mb-4 pl-2">
+                Account
+              </div>
+              <div className="px-1 transform transition-transform hover:translate-x-1 duration-300">
+                <AccountOrSighIn />
+              </div>
+            </div>
+          )}
         </div>
 
-        {!isAuthenticated && (
-          <div>
-            <AccountOrSighIn />
+        {/* Footer */}
+        <div className="mt-auto p-8 bg-slate-50/50 border-t border-slate-100/80 backdrop-blur-sm">
+          <div className="text-center space-y-6">
+            <div>
+              <h3 className="font-semibold text-slate-800 text-sm mb-4">
+                Connect With Us
+              </h3>
+              <div className="flex justify-center gap-6">
+                <FaWhatsapp className="text-2xl text-slate-400 hover:text-green-500 hover:scale-110 transition-all duration-300 cursor-pointer hover:drop-shadow-md" />
+                <FaFacebook className="text-2xl text-slate-400 hover:text-blue-600 hover:scale-110 transition-all duration-300 cursor-pointer hover:drop-shadow-md" />
+                <FaInstagram className="text-2xl text-slate-400 hover:text-pink-500 hover:scale-110 transition-all duration-300 cursor-pointer hover:drop-shadow-md" />
+                <FaTwitter className="text-2xl text-slate-400 hover:text-blue-400 hover:scale-110 transition-all duration-300 cursor-pointer hover:drop-shadow-md" />
+              </div>
+            </div>
+            <p className="text-[10px] text-slate-400 font-medium">
+              © {new Date().getFullYear()} Kalaam Club. All rights reserved.
+            </p>
           </div>
-        )}
-      </div>
-      <div className="mt-16 bg-slate-200 p-4 rounded-lg">
-        <h3 className="text-center font-semibold">Connect With Us</h3>
-        <div className="flex cursor-pointer justify-around mt-4 text-2xl">
-          <FaWhatsapp className="hover:text-green-600 transition-colors duration-200" />
-          <FaFacebook className="hover:text-blue-600 transition-colors duration-200" />
-          <FaInstagram className="hover:text-pink-500 transition-colors duration-200" />
-          <FaTwitter className="hover:text-blue-400 transition-colors duration-200" />
         </div>
       </div>
     </div>
