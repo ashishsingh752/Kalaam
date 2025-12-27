@@ -11,6 +11,7 @@ import {
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { ReadUsersPostDashBoard } from "../buttons/Button";
 
 interface PostsProps {
   userImg: string;
@@ -146,59 +147,10 @@ const Post: React.FC<PostsProps> = ({
         }`}
       >
         {postContentOpen ? (
-          <div className="p-8 sm:p-12 bg-[#fcfdff] relative animate-fadeIn">
-            {/* Subtle patterns/decorations */}
-            <div className="absolute top-10 left-10 text-6xl text-purple-100 font-serif opacity-30 select-none">
-              &ldquo;
-            </div>
-            <div className="absolute bottom-10 right-10 text-6xl text-purple-100 font-serif opacity-30 select-none rotate-180">
-              &ldquo;
-            </div>
-
-            <div className="max-w-2xl mx-auto relative z-10">
-              <div className="flex justify-center mb-8">
-                <div className="w-12 h-1 bg-gradient-to-r from-transparent via-purple-200 to-transparent rounded-full"></div>
-              </div>
-
-              <div className="text-center font-serif text-xl sm:text-2xl leading-[2] text-gray-800 italic whitespace-pre-line drop-shadow-sm">
-                <div dangerouslySetInnerHTML={{ __html: content }} />
-              </div>
-
-              <div className="mt-12 flex flex-col items-center gap-6">
-                <div className="w-16 h-16 rounded-full bg-purple-50 flex items-center justify-center text-purple-300">
-                  <svg
-                    className="w-8 h-8"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                  </svg>
-                </div>
-                <p className="text-gray-400 text-sm font-medium tracking-widest uppercase">
-                  Finis
-                </p>
-
-                <div className="flex items-center gap-4 mt-4">
-                  <button
-                    onClick={handleCopy}
-                    className="flex items-center gap-2 px-5 py-2 rounded-xl bg-white border border-gray-100 text-gray-500 hover:text-purple-600 hover:border-purple-100 transition-all text-sm font-bold shadow-sm"
-                  >
-                    {copied ? (
-                      <CheckIcon className="w-4 h-4 text-green-500" />
-                    ) : (
-                      <ClipboardDocumentIcon className="w-4 h-4" />
-                    )}
-                    {copied ? "Copied!" : "Keep Poem"}
-                  </button>
-                  <button
-                    onClick={handleShare}
-                    className="flex items-center gap-2 px-5 py-2 rounded-xl bg-white border border-gray-100 text-gray-500 hover:text-blue-600 hover:border-blue-100 transition-all text-sm font-bold shadow-sm"
-                  >
-                    <ShareIcon className="w-4 h-4" />
-                    Share
-                  </button>
-                </div>
-              </div>
+          <div className="min-h-[450px] max-h-[450px] overflow-y-auto px-4 text-center font-serif text-xl sm:text-2xl leading-[2] text-gray-800 italic whitespace-pre-line drop-shadow-sm">
+            <div dangerouslySetInnerHTML={{ __html: content }} />
+            <div className="text-sm flex justify-center items-center gap-2 font-semibold">
+             Written By: {name}
             </div>
           </div>
         ) : (
@@ -225,10 +177,11 @@ const Post: React.FC<PostsProps> = ({
 
       {/* Footer */}
       <div className="px-8 py-6 bg-white border-t border-gray-50 flex items-center justify-between">
-        <span className="text-sm font-semibold">
-          Written by: <span className="font-bold text-purple-600">{name}</span>
-        </span>
-
+        {!postContentOpen && (
+          <div className="text-sm flex justify-center items-center gap-2 font-semibold">
+            Written By: {name}
+          </div>
+        )}
         <div className="flex items-center gap-4">
           <button
             onClick={() => setLiked(!liked)}
@@ -244,16 +197,32 @@ const Post: React.FC<PostsProps> = ({
               <HeartIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
             )}
           </button>
-          <button
-            onClick={handleShare}
-            className="p-2.5 rounded-xl hover:bg-gray-50 text-gray-400 hover:text-blue-500 transition-all"
-            aria-label="Share post"
-          >
-            <ShareIcon className="w-6 h-6" />
-          </button>
+
+          {postContentOpen && (
+            <button
+              onClick={handleCopy}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white border border-gray-100 text-gray-500 hover:text-purple-600 hover:border-purple-100 transition-all text-sm font-bold shadow-sm"
+            >
+              {copied ? (
+                <CheckIcon className="w-4 h-4 text-green-500" />
+              ) : (
+                <ClipboardDocumentIcon className="w-4 h-4" />
+              )}
+              {copied ? "Copied!" : "Keep Poem"}
+            </button>
+          )}
+
+          <div className="flex items-center">
+            <button
+              onClick={handleShare}
+              className="p-2.5 rounded-xl hover:bg-gray-50 text-gray-400 hover:text-blue-500 transition-all"
+              aria-label="Share post"
+            >
+              <ShareIcon className="w-6 h-6" />
+            </button>
+          </div>
         </div>
       </div>
-
       <style jsx>{`
         @keyframes heartbeat {
           0% {
