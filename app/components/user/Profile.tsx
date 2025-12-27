@@ -45,9 +45,46 @@ export default function Profile() {
       setUserRollNumber(user.roll_number || "");
       setUserRole(user.role || "");
       setUserContact(user.mobile_number || "");
-      setUserYearOfStudy(user.yearOfStudy || "");
+      setUserYearOfStudy(
+        user.yearOfStudy || calculateYearOfStudy(user.roll_number || "")
+      );
     }
   }, [status, router, session]);
+
+  const calculateYearOfStudy = (rollNumber: string) => {
+    if (!rollNumber) return "";
+
+    // Extract year from roll number (e.g., 121CS... -> 21 -> 2021)
+    // Matches 3 digits, 2 letters, 4 digits pattern commonly used
+    const match = rollNumber.match(/^(\d{3})[A-Z]{2}\d{4}$/);
+    if (!match) return "";
+
+    const batchYearPrefix = match[1].substring(1); // '21' from '121'
+    const batchYear = parseInt("20" + batchYearPrefix);
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth(); // 0-11
+
+    // If current month is before July (approx start of academic year), subtract 1 from year diff
+    // Example: Batch 2021. Feb 2022. Diff 1 catch. But they are in 1st year (2021-22).
+    // 2022 - 2021 = 1.
+    // If month >= 6 (July), then they have started next year.
+    // July 2022 -> 2022 - 2021 = 1. +1 = 2nd Year?
+    // Let's stick to simple "Current Year - Batch Year + (Month >= 6 ? 1 : 0)" methodology?
+    // Batch 2021.
+    // Aug 2021 (Month 7): 2021 - 2021 + 1 = 1st Year.
+    // Jan 2022 (Month 0): 2022 - 2021 + 0 = 1st Year.
+    // Aug 2022 (Month 7): 2022 - 2021 + 1 = 2nd Year.
+
+    let yearDiff = currentYear - batchYear;
+    if (currentMonth >= 6) {
+      // July onwards
+      yearDiff += 1;
+    }
+
+    if (yearDiff > 5) return "5"; // Alumni
+    if (yearDiff < 1) return "1"; // Just joined
+    return yearDiff.toString();
+  };
 
   if (status === "loading") {
     return (
