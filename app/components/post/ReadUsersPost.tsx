@@ -136,25 +136,49 @@ export default function ReadUsersPost() {
 
   if (userPosts.length === 0 || !userPosts) {
     return (
-      <div className="min-h-screen bg-gradient-page flex justify-center items-center px-4">
-        <div className="card-elevated p-12 text-center max-w-md animate-fadeIn">
-          <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <DocumentTextIcon className="w-10 h-10 text-purple-500" />
+      <div className="min-h-screen -mt-24 bg-[#fcfdff] flex flex-col items-center px-4 py-12">
+        <div className="w-full max-w-4xl mb-12 animate-fadeIn">
+          <div className="flex justify-start mb-8">
+            <BackToHome />
           </div>
-          <h2 className="text-3xl font-bold gradient-text mb-3">
-            No Posts Yet
-          </h2>
-          <p className="text-gray-600 mb-8">
-            {userName || "This user"} hasn&apos;t shared any posts yet. Check
-            back later!
-          </p>
-          <button
-            onClick={() => (window.location.href = "/")}
-            className="btn-premium inline-flex items-center gap-2"
-          >
-            <HomeIcon className="w-5 h-5" />
-            Back to Home
-          </button>
+        </div>
+
+        <div className="flex-1 flex items-center justify-center w-full">
+          <div className="relative group max-w-md w-full">
+            {/* Background Glow */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-purple-100 to-indigo-100 rounded-[3rem] blur-2xl opacity-50 group-hover:opacity-75 transition duration-1000"></div>
+
+            <div className="relative bg-white/70 backdrop-blur-2xl p-12 text-center rounded-[3rem] border border-white shadow-[0_20px_50px_rgba(0,0,0,0.03)] animate-fadeIn">
+              <div className="relative mb-10">
+                <div className="w-24 h-24 bg-gradient-to-tr from-purple-50 to-indigo-50 rounded-[2rem] flex items-center justify-center mx-auto shadow-inner relative z-10">
+                  <DocumentTextIcon className="w-12 h-12 text-indigo-400/80" />
+                </div>
+                {/* Decorative Elements */}
+                <div className="absolute top-0 right-1/4 w-4 h-4 bg-purple-100 rounded-full animate-pulse"></div>
+                <div className="absolute bottom-0 left-1/4 w-3 h-3 bg-indigo-100 rounded-full animate-bounce delay-300"></div>
+              </div>
+
+              <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">
+                Silent Sanctuary
+              </h2>
+
+              <p className="text-slate-500 text-lg mb-10 leading-relaxed font-serif italic">
+                &ldquo;Words are the small seeds from which great empires are
+                built.&rdquo; <br />
+                {userName || "This user"} hasn&apos;t planted any seeds yet.
+              </p>
+
+              <div className="space-y-4">
+                <button
+                  onClick={() => (window.location.href = "/")}
+                  className="w-full py-5 bg-slate-900 text-white rounded-3xl font-bold text-lg hover:bg-black hover:shadow-2xl hover:shadow-indigo-100 transition-all active:scale-95 flex items-center justify-center gap-3"
+                >
+                  <HomeIcon className="w-6 h-6 text-indigo-400" />
+                  Explore Others
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -168,12 +192,9 @@ export default function ReadUsersPost() {
         </div>
 
         <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r blur-xl opacity-20 group-hover:opacity-30 transition duration-1000"></div>
-
           <div className="relative bg-white/80 backdrop-blur-xl rounded-[3rem] border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.05)] overflow-hidden">
             <div className="flex flex-col md:flex-row items-center p-8 md:p-12 gap-10">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-tr rounded-full animate-spin-slow opacity-10"></div>
                 <div className="p-1.5 rounded-full bg-gradient-to-tr from-gray-100 to-gray-200 shadow-inner">
                   <Image
                     src={
@@ -189,12 +210,6 @@ export default function ReadUsersPost() {
               </div>
 
               <div className="flex-1 text-center md:text-left space-y-4">
-                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 mb-2">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-600">
-                    {}
-                  </span>
-                </div>
-
                 <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight">
                   {userName}
                 </h1>

@@ -110,9 +110,6 @@ const Post: React.FC<PostsProps> = ({
             {heading}
           </h3>
           <div className="flex items-center gap-2 mt-1">
-            <span className="text-sm font-semibold text-purple-600">
-              by {name}
-            </span>
             <span className="w-1 h-1 rounded-full bg-gray-300"></span>
             <span className="text-xs text-gray-400 font-medium">
               {formatTimestamp(createdAt)}
@@ -228,32 +225,33 @@ const Post: React.FC<PostsProps> = ({
 
       {/* Footer */}
       <div className="px-8 py-6 bg-white border-t border-gray-50 flex items-center justify-between">
-        <button
-          onClick={() => setLiked(!liked)}
-          className={`flex items-center gap-3 px-6 py-2.5 rounded-2xl transition-all duration-300 group ${
-            liked
-              ? "bg-red-50 text-red-600"
-              : "bg-gray-50 text-gray-500 hover:bg-red-50 hover:text-red-500"
-          }`}
-        >
-          {liked ? (
-            <HeartIconSolid className="w-6 h-6 animate-[heartbeat_0.6s_ease-in-out]" />
-          ) : (
-            <HeartIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
-          )}
-        </button>
+        <span className="text-sm font-semibold">
+          Written by: <span className="font-bold text-purple-600">{name}</span>
+        </span>
 
-        {!postContentOpen && (
-          <div className="flex items-center gap-4">
-            <button
-              onClick={handleShare}
-              className="p-2.5 rounded-xl hover:bg-gray-50 text-gray-400 hover:text-blue-500 transition-all"
-              aria-label="Share post"
-            >
-              <ShareIcon className="w-6 h-6" />
-            </button>
-          </div>
-        )}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setLiked(!liked)}
+            className={`flex items-center gap-3 px-6 py-2.5 rounded-2xl transition-all duration-300 group ${
+              liked
+                ? "bg-red-50 text-red-600"
+                : "bg-gray-50 text-gray-500 hover:bg-red-50 hover:text-red-500"
+            }`}
+          >
+            {liked ? (
+              <HeartIconSolid className="w-6 h-6 animate-[heartbeat_0.6s_ease-in-out]" />
+            ) : (
+              <HeartIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
+            )}
+          </button>
+          <button
+            onClick={handleShare}
+            className="p-2.5 rounded-xl hover:bg-gray-50 text-gray-400 hover:text-blue-500 transition-all"
+            aria-label="Share post"
+          >
+            <ShareIcon className="w-6 h-6" />
+          </button>
+        </div>
       </div>
 
       <style jsx>{`

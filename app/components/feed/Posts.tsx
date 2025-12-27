@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import { getPost } from "@/lib/serverMethods";
 import { FormSkeleton } from "../post/PostSkeleton";
 import { toast } from "react-hot-toast";
+import { ReadUsersPostDashBoard } from "../buttons/Button";
 
 interface PostCardProps {
   userImg: string;
@@ -21,6 +22,7 @@ interface PostCardProps {
   name: string;
   heading: string;
   id: string;
+  userId: string;
   createdAt: string | Date;
 }
 
@@ -35,6 +37,7 @@ interface PostType {
   update_at: string | Date;
   user: {
     id: number;
+    userId: string;
     name: string;
     roll_number: string;
     email: string;
@@ -74,6 +77,7 @@ const PostCard: React.FC<PostCardProps> = ({
   content,
   name,
   id,
+  userId,
   heading,
   createdAt,
 }) => {
@@ -130,9 +134,6 @@ const PostCard: React.FC<PostCardProps> = ({
             {heading}
           </h3>
           <div className="flex items-center gap-2 mt-1">
-            <span className="text-sm font-semibold text-purple-600">
-              by {name}
-            </span>
             <span className="w-1 h-1 rounded-full bg-gray-300"></span>
             <span className="text-xs text-gray-400 font-medium">
               {formatTimestamp(createdAt)}
@@ -248,22 +249,25 @@ const PostCard: React.FC<PostCardProps> = ({
 
       {/* Footer */}
       <div className="px-8 py-6 bg-white border-t border-gray-50 flex items-center justify-between">
-        <button
-          onClick={() => setLiked(!liked)}
-          className={`flex items-center gap-3 px-6 py-2.5 rounded-2xl transition-all duration-300 group ${
-            liked
-              ? "bg-red-50 text-red-600"
-              : "bg-gray-50 text-gray-500 hover:bg-red-50 hover:text-red-500"
-          }`}
-        >
-          {liked ? (
-            <HeartIconSolid className="w-6 h-6 animate-[heartbeat_0.6s_ease-in-out]" />
-          ) : (
-            <HeartIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
-          )}
-        </button>
+        <span className="text-sm flex items-center gap-2 font-semibold">
+          Written by: <ReadUsersPostDashBoard id={userId} name={name} />
+        </span>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setLiked(!liked)}
+            className={`flex items-center gap-3 px-6 py-2.5 rounded-2xl transition-all duration-300 group ${
+              liked
+                ? "bg-red-50 text-red-600"
+                : "bg-gray-50 text-gray-500 hover:bg-red-50 hover:text-red-500"
+            }`}
+          >
+            {liked ? (
+              <HeartIconSolid className="w-6 h-6 animate-[heartbeat_0.6s_ease-in-out]" />
+            ) : (
+              <HeartIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
+            )}
+          </button>
 
-        {!postContentOpen && (
           <div className="flex items-center gap-4">
             <button
               onClick={handleShare}
@@ -273,7 +277,7 @@ const PostCard: React.FC<PostCardProps> = ({
               <ShareIcon className="w-6 h-6" />
             </button>
           </div>
-        )}
+        </div>
       </div>
 
       <style jsx>{`
@@ -378,6 +382,7 @@ const Posts: React.FC = () => {
         <PostCard
           key={post.post_id}
           id={post.post_id}
+          userId={post.user.userId}
           userImg={post.user.image || "/default-avatar.png"}
           postImg={post.image}
           content={post.content}

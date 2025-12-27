@@ -18,6 +18,7 @@ export async function getPost() {
         user: {
           select: {
             id: true,
+            userId: true,
             name: true,
             roll_number: true,
             email: true,
@@ -190,6 +191,7 @@ export async function getSinglePost(postId: string) {
         user: {
           select: {
             id: true,
+            userId: true,
             name: true,
             roll_number: true,
             email: true,

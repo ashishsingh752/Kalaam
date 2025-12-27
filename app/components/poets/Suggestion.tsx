@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ReadUsersPostButton } from "../buttons/Button";
+import { ReadUsersPostButton, ReadUsersPostDashBoard } from "../buttons/Button";
 
 interface SuggestionProps {
   id: string;
@@ -49,9 +49,9 @@ const Suggestion: React.FC<SuggestionProps> = ({
         </div>
 
         <div className="flex flex-col">
-          <h2 className="font-bold text-sm text-slate-800 leading-tight group-hover:text-blue-600 transition-colors">
-            {name}
-          </h2>
+          <div className="text-sm font-medium text-gray-900">
+            <ReadUsersPostDashBoard id={userId} name={name} />
+          </div>
           <h3 className="text-slate-400 text-xs font-medium uppercase tracking-tight mt-0.5">
             {role}
           </h3>
