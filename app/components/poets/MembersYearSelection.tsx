@@ -3,12 +3,7 @@ import "tailwind-scrollbar";
 import { useState } from "react";
 import TeamMembers from "./TeamMember";
 
-interface YearProps {
-  key: string;
-  year: string;
-}
-
-const Years: YearProps[] = [
+const Years = [
   { key: "5", year: "Our Alumni" },
   { key: "4", year: "Fourth Year" },
   { key: "3", year: "Third Year" },
@@ -16,47 +11,53 @@ const Years: YearProps[] = [
   { key: "1", year: "First Year" },
 ];
 
-interface HandleOnClickProps {
-  year: string;
-}
-
-function HandleOnClick({ year }: HandleOnClickProps) {
-  return (
-    <div className="text-center w-48 h-24 flex justify-center items-center text-3xl font-normal">
-      {year}
-    </div>
-  );
-}
-
 export default function MembersYearSelection() {
   const [selectedYear, setSelectedYear] = useState<string | null>("Our Alumni");
   const [selectedYearIndex, setSelectedYearIndex] = useState<string>("5");
 
   return (
-    <div>
-      <div className="flex flex-row justify-center gap-0.5 items-center">
-        {Years.map((year) => (
-          <div
-            key={year.key}
-            className="text-lg font-normal md:text-2xl h-20 md:h-24 flex items-center justify-center cursor-pointer w-16 md:w-28 bg-blue-400 shadow-xl hover:bg-blue-300 p-1 md:p-2 rounded-md"
-            onClick={() => {
-              setSelectedYear(year.year);
-              setSelectedYearIndex(year.key);
-            }}
-          >
-            <div className="flex text-center bg-fred-400 justify-center">
+    <div className="w-full">
+      {/* Scrollable Container for Mobile, Centered for Desktop */}
+      <div className="flex overflow-x-auto no-scrollbar md:justify-center items-center gap-3 px-4 py-6">
+        {Years.map((year) => {
+          const isActive = selectedYearIndex === year.key;
+          return (
+            <button
+              key={year.key}
+              onClick={() => {
+                setSelectedYear(year.year);
+                setSelectedYearIndex(year.key);
+              }}
+              className={`
+                whitespace-nowrap px-6 py-2.5 rounded-full text-sm md:text-base font-medium transition-all duration-300
+                ${
+                  isActive
+                    ? "bg-blue-600 text-white shadow-lg shadow-blue-200 scale-105"
+                    : "bg-white text-slate-600 hover:bg-blue-50 hover:text-blue-600 border border-slate-200"
+                }
+              `}
+            >
               {year.year}
-            </div>
-          </div>
-        ))}
+            </button>
+          );
+        })}
       </div>
+
       {selectedYear && (
-        <div className="flex flex-col items-center font-normal justify-center ">
-          <div className="flex justify-center mt-5">
-            <HandleOnClick year={selectedYear} />
-          </div>
-          <div className="max-w-1/2  flex justify-center">
-            <div className="mt-0">
+        <div className="mt-8 animate-fade-in">
+          <div className="flex flex-col items-center">
+            {/* Context Heading */}
+            <div className="mb-10 text-center">
+              <span className="text-blue-500 font-semibold text-sm tracking-widest uppercase mb-2 block">
+                Directory
+              </span>
+              <h3 className="text-3xl font-serif font-bold text-slate-800">
+                {selectedYear}
+              </h3>
+            </div>
+
+            {/* Team Grid */}
+            <div className="w-full">
               <TeamMembers yearIndex={selectedYearIndex} />
             </div>
           </div>

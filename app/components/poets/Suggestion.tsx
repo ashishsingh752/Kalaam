@@ -31,30 +31,28 @@ const Suggestion: React.FC<SuggestionProps> = ({
   image,
   name,
   role,
-  id,
   userId,
-  post_id,
 }) => {
   return (
-    <div className="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 transition-colors duration-200 group">
-      <div className="flex items-center gap-3">
-        <div className="relative w-10 h-10 rounded-full overflow-hidden border border-slate-200 group-hover:border-indigo-200 transition-colors">
+    <div className="flex items-center justify-between p-3 rounded-xl hover:bg-white hover:shadow-md hover:shadow-slate-100 transition-all duration-300 group border border-transparent hover:border-slate-100">
+      <div className="flex items-center gap-4">
+        <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-slate-100 group-hover:border-blue-200 transition-all duration-300">
           <Image
             src={
               image ||
               "https://images.unsplash.com/photo-1682686581221-c126206d12f0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxMjZ8fHxlbnwwfHx8fHw%3D"
             }
-            alt="user img"
+            alt={name}
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-500 group-hover:scale-110"
           />
         </div>
 
         <div className="flex flex-col">
-          <h2 className="font-semibold text-sm text-slate-800 leading-tight">
+          <h2 className="font-bold text-sm text-slate-800 leading-tight group-hover:text-blue-600 transition-colors">
             {name}
           </h2>
-          <h3 className="text-slate-500 text-xs truncate max-w-[120px]">
+          <h3 className="text-slate-400 text-xs font-medium uppercase tracking-tight mt-0.5">
             {role}
           </h3>
         </div>

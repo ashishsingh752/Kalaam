@@ -23,40 +23,43 @@ interface PostType {
 }
 
 //! This component will shows the members of the club
-const MembersOfClub: FC<MembersOfClubProps> = ({
-  image,
-  name,
-  heading,
-  content,
-  roll_number,
-  role,
-  id,
-}) => {
+const MembersOfClub: FC<MembersOfClubProps> = ({ image, name, role, id }) => {
   return (
-    <div className="flex flex-col items-center bg-sky-50 rounded-lg justify-center  ">
-      {/* Image of the club member */}
-      <div className="w-48 h-44 rounded-md bg-zinc-300 flex justify-center items-center">
-        <Image
-          src={
-            image ||
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR_bwZrOyCQJhPMvpxqrv-xmqEBzAJAKJtT-VpWkSQ-4AppODnHxANcPsX-RTiIYlcrXE&usqp=CAU"
-          }
-          alt="user img"
-          width={100}
-          height={100}
-          objectFit="cover"
-          className="w-36 h-36 rounded-full  border "
-        />
+    <div className="group relative w-64 h-[320px] bg-white border border-slate-100 rounded-2xl p-6 flex flex-col items-center transition-all duration-500 hover:shadow-2xl hover:shadow-blue-100 hover:-translate-y-2 overflow-hidden">
+      {/* Decorative Background Element */}
+      <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+      {/* Avatar Container */}
+      <div className="relative mb-6">
+        <div className="w-32 h-32 rounded-full p-1 bg-gradient-to-tr from-blue-100 to-indigo-100 group-hover:from-blue-400 group-hover:to-indigo-400 transition-all duration-500">
+          <div className="w-full h-full rounded-full overflow-hidden border-4 border-white">
+            <Image
+              src={
+                image ||
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR_bwZrOyCQJhPMvpxqrv-xmqEBzAJAKJtT-VpWkSQ-4AppODnHxANcPsX-RTiIYlcrXE&usqp=CAU"
+              }
+              alt={name}
+              width={128}
+              height={128}
+              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+            />
+          </div>
+        </div>
       </div>
 
-      {/* Other details of the club member */}
-      <div className="">
-        <div className="flex justify-center items-center font-bold">{name}</div>
-        <div className="flex justify-center items-center text-gray-400 text-sm w-[150px]">
-          {role}
+      {/* Member Info */}
+      <div className="text-center flex-grow flex flex-col justify-between">
+        <div>
+          <h4 className="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-300">
+            {name}
+          </h4>
+          <p className="text-sm font-medium text-slate-400 mt-1 uppercase tracking-wider">
+            {role}
+          </p>
         </div>
 
-        <div className="flex justify-center font-semibold text-blue-400 mt-1 mb-1">
+        {/* Action Button */}
+        <div className=" text-red-900">
           <ReadUsersPostButton id={id} />
         </div>
       </div>

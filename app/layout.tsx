@@ -27,7 +27,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          {children}
+          <main className="pt-24 min-h-screen">{children}</main>
         </Providers>
       </body>
     </html>

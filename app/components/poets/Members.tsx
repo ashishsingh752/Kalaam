@@ -5,7 +5,7 @@ import MembersOfClub from "./MembersOfClub";
 import { shuffleArray } from "@/lib/utils";
 import axios from "axios";
 
-//! this component is to fetch the members data from the database and then display in the members page 
+//! this component is to fetch the members data from the database and then display in the members page
 interface MembersOfClubProps {
   id: number;
   userId: string;
@@ -63,18 +63,24 @@ export default function Members({ year }: { year: string }) {
 
   if (isLoading) {
     return (
-      <div className="w-full h-44 flex justify-center items-center">
-        Loading...
+      <div className="w-full h-64 flex flex-col justify-center items-center gap-4">
+        <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+        <p className="text-slate-400 font-medium animate-pulse">
+          Curating our poets...
+        </p>
       </div>
     );
   }
 
   return (
-    <div>
-      {/* <div className="flex mt-8 flex-row pb-2 p-6 gap-2 mb-0 m-3 overflow-auto"> */}
-      <div className="flex flex-wrap justify-center pb-2 md:p-6 gap-3 pt-24 mb-0 m-3">
-        {users.map((user) => (
-          <div key={user.id}>
+    <div className="max-w-7xl mx-auto px-6 pt-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center mb-16">
+        {users.map((user, index) => (
+          <div
+            key={user.id}
+            className="animate-fade-in"
+            style={{ animationDelay: `${index * 100}ms` }}
+          >
             <MembersOfClub
               id={user.userId}
               image={user.image}
