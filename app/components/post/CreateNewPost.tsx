@@ -277,11 +277,11 @@ export default function CreateNewPost() {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap gap-3 justify-end">
+          <div className="flex flex-col sm:flex-row gap-3 sm:justify-end">
             <button
               onClick={() => setShowPreview(!showPreview)}
               disabled={!image || !postTitle || !content}
-              className="btn-premium flex items-center gap-2"
+              className="btn-premium flex items-center justify-center gap-2 w-full sm:w-auto"
             >
               {showPreview ? (
                 <>
@@ -298,7 +298,7 @@ export default function CreateNewPost() {
             <button
               disabled={!image || !postTitle || !content || loading}
               onClick={handleImageUpload}
-              className="btn-premium-pink flex items-center gap-2 ripple"
+              className="btn-premium-pink flex items-center justify-center gap-2 w-full sm:w-auto ripple"
             >
               {loading ? (
                 <>
