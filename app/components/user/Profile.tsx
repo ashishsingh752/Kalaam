@@ -15,6 +15,7 @@ interface User {
   image?: string;
   role?: string;
   mobile_number?: string;
+  yearOfStudy?: string;
 }
 
 //! user profile component. - Status:200
@@ -26,6 +27,7 @@ export default function Profile() {
   const [userRollNumber, setUserRollNumber] = useState<string>("");
   const [userRole, setUserRole] = useState<string>("");
   const [userContact, setUserContact] = useState<string>("");
+  const [userYearOfStudy, setUserYearOfStudy] = useState<string>("");
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -43,6 +45,7 @@ export default function Profile() {
       setUserRollNumber(user.roll_number || "");
       setUserRole(user.role || "");
       setUserContact(user.mobile_number || "");
+      setUserYearOfStudy(user.yearOfStudy || "");
     }
   }, [status, router, session]);
 
@@ -71,6 +74,7 @@ export default function Profile() {
     formData.append("roll_number", userRollNumber);
     formData.append("role", userRole);
     formData.append("mobile_number", userContact);
+    formData.append("yearOfStudy", userYearOfStudy);
     if (profileImage) {
       formData.append("image", profileImage);
     }
@@ -189,14 +193,22 @@ export default function Profile() {
 
                 <div className="sm:col-span-2 space-y-1">
                   <label className="text-sm font-medium text-gray-700">
-                    Role / Position
+                    Year of Study
                   </label>
-                  <input
-                    value={userRole}
-                    placeholder="Role/Position"
-                    readOnly
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500 sm:text-sm cursor-not-allowed"
-                  />
+                  <select
+                    value={userYearOfStudy}
+                    id="yearOfStudy"
+                    aria-label="Year of Study"
+                    onChange={(e) => setUserYearOfStudy(e.target.value)}
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm bg-white"
+                  >
+                    <option value="">Select Year of Study</option>
+                    <option value="1">First Year</option>
+                    <option value="2">Second Year</option>
+                    <option value="3">Third Year</option>
+                    <option value="4">Fourth Year</option>
+                    <option value="5">Alumni</option>
+                  </select>
                 </div>
               </div>
 

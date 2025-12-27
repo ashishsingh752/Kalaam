@@ -18,6 +18,7 @@ export type CustomUser = {
   image?: string | null;
   public_id?: string | null;
   mobile_number?: string | null;
+  yearOfStudy?: string | null;
 };
 
 export const authOptions: AuthOptions = {
@@ -73,6 +74,7 @@ export const authOptions: AuthOptions = {
             image: true,
             public_id: true,
             mobile_number:true,
+            yearOfStudy:true,
           },
         });
 

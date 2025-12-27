@@ -31,6 +31,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       roll_number: formData.get("roll_number") as string,
       role: formData.get("role") as string,
       mobile_number: formData.get("mobile_number") as string,
+      yearOfStudy: formData.get("yearOfStudy") as string,
     };
 
     const image = formData.get("image") as unknown as File;
@@ -40,6 +41,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       email: profileData.email,
       roll_number: profileData.roll_number,
       mobile_number: profileData.mobile_number,
+      yearOfStudy: profileData.yearOfStudy,
     };
 
     if (image && image.size > 0 && image.name !== "undefined") {
