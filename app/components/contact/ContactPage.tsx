@@ -69,26 +69,40 @@ const ContactPage: NextPage = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full h-44 flex justify-center items-center">
-        <p className="text-xl font-semibold">Loading...</p>
+      <div className="flex h-[calc(100vh-4rem)] items-center justify-center bg-gray-50">
+        <div className="flex flex-col items-center gap-4">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-900 border-t-transparent"></div>
+          <p className="text-lg font-medium text-gray-600">Loading Team...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-6 text-center">Contact Us</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {users.map((user) => (
-          <ContactCard
-            key={user.id}
-            name={user.name}
-            image={user.image}
-            mobile_number={user.mobile_number}
-            email={user.email}
-            role={user.role}
-          />
-        ))}
+    <div className="min-h-screen bg-gray-50 pb-20 pt-10">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center mb-16">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Meet Our Leadership
+          </h2>
+          <p className="mt-4 text-lg leading-8 text-gray-600">
+            Dedicated individuals working together to foster creativity and
+            linguistic excellence at NIT Rourkela.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {users.map((user) => (
+            <ContactCard
+              key={user.id}
+              name={user.name}
+              image={user.image}
+              mobile_number={user.mobile_number}
+              email={user.email}
+              role={user.role}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
