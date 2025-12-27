@@ -14,6 +14,7 @@ interface PostType {
   content: string;
   heading: string;
   image: string;
+  create_at: string | Date;
 }
 
 interface ApiPostType {
@@ -21,6 +22,7 @@ interface ApiPostType {
   content: string;
   heading: string;
   image: string;
+  create_at: string | Date;
 }
 
 interface UserType {
@@ -29,6 +31,7 @@ interface UserType {
   email: string;
   roll_number: string;
   image: string;
+  role: string;
   posts: Array<PostType>;
 }
 
@@ -37,6 +40,8 @@ export default function ReadUsersPost() {
   const [userPosts, setUserPosts] = useState<Array<PostType>>([]);
   const [loading, setLoading] = useState(true);
   const [userName, setUserName] = useState<string>("");
+  const [userRollNumber, setUserRollNumber] = useState<string>("");
+  const [userRole, setUserRole] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [userImage, setUserImage] = useState<string | null>("");
   const searchParams = useSearchParams();
@@ -50,7 +55,9 @@ export default function ReadUsersPost() {
         });
         setUserImage(userPostsResponse.image);
         if (userPostsResponse && userPostsResponse.name) {
-          setUserName(userPostsResponse.name);
+          setUserName(userPostsResponse.name || "");
+          setUserRollNumber(userPostsResponse.roll_number || "");
+          setUserRole(userPostsResponse.role || "");
         }
         if (userPostsResponse && userPostsResponse.Post) {
           const transformedPosts = userPostsResponse.Post.map(
@@ -60,6 +67,7 @@ export default function ReadUsersPost() {
               content: post.content,
               heading: post.heading,
               image: post.image,
+              create_at: post.create_at,
             })
           );
           setUserPosts(transformedPosts);
@@ -153,41 +161,84 @@ export default function ReadUsersPost() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-page flex flex-col items-center px-4 py-8">
-      {/* User Header */}
-      <div className="w-full max-w-4xl mb-8 animate-fadeIn">
-        <div className="card-elevated overflow-hidden">
-          <div className="h-32 bg-gradient-purple"></div>
-          <div className="px-6 pb-6 -mt-16 relative">
-            <div className="flex items-end gap-4 mb-4">
+    <div className="min-h-screen bg-[#fcfdff] flex flex-col items-center px-4 py-8">
+      <div className="w-full max-w-4xl mb-12 animate-fadeIn">
+        <div className="flex justify-start mb-8">
+          <BackToHome />
+        </div>
+
+        <div className="relative group">
+          <div className="absolute -inset-1 bg-gradient-to-r blur-xl opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+
+          <div className="relative bg-white/80 backdrop-blur-xl rounded-[3rem] border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.05)] overflow-hidden">
+            <div className="flex flex-col md:flex-row items-center p-8 md:p-12 gap-10">
               <div className="relative">
-                <Image
-                  src={
-                    userImage ||
-                    "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-                  }
-                  width={120}
-                  height={120}
-                  alt={userName}
-                  className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-lg"
-                />
-                <div className="absolute bottom-2 right-2 w-6 h-6 bg-green-400 rounded-full border-4 border-white"></div>
+                <div className="absolute inset-0 bg-gradient-to-tr rounded-full animate-spin-slow opacity-10"></div>
+                <div className="p-1.5 rounded-full bg-gradient-to-tr from-gray-100 to-gray-200 shadow-inner">
+                  <Image
+                    src={
+                      userImage ||
+                      "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                    }
+                    width={160}
+                    height={160}
+                    alt={userName}
+                    className="w-32 h-32 md:w-44 md:h-44 rounded-full object-cover shadow-2xl border-4 border-white"
+                  />
+                </div>
               </div>
-              <div className="pb-2">
-                <h1 className="text-3xl font-bold text-gray-800 mb-1">
+
+              <div className="flex-1 text-center md:text-left space-y-4">
+                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 mb-2">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-600">
+                    {}
+                  </span>
+                </div>
+
+                <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight">
                   {userName}
                 </h1>
-                <p className="text-gray-500">
-                  {userPosts.length} {userPosts.length === 1 ? "Post" : "Posts"}
-                </p>
+
+                <div className="flex flex-wrap items-center justify-center md:justify-start gap-6 pt-2">
+                  <div className="flex items-center gap-3">
+                    <div className="h-12 w-12 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 shadow-sm">
+                      <DocumentTextIcon className="w-6 h-6 text-indigo-500" />
+                    </div>
+                    <div>
+                      <p className="text-xl font-bold text-slate-900 leading-none">
+                        {userPosts.length}
+                      </p>
+                      <p className="text-xs font-medium text-slate-400 uppercase tracking-tighter">
+                        Publications
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="hidden md:block h-10 w-px bg-slate-200"></div>
+
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-semibold text-slate-500">
+                      {userRollNumber}
+                    </p>
+                  </div>
+
+                  <div className="hidden md:block h-10 w-px bg-slate-200"></div>
+
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-semibold text-slate-500">
+                      {userRole}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
+
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent"></div>
           </div>
         </div>
       </div>
 
-      {/* Posts Grid */}
-      <div className="w-full max-w-4xl space-y-6">
+      <div className="w-full max-w-4xl space-y-4">
         {userPosts.map((post, index) => (
           <div
             key={post.id}
@@ -204,20 +255,20 @@ export default function ReadUsersPost() {
               postImg={post.image}
               content={post.content}
               heading={post.heading}
+              createdAt={post.create_at}
             />
           </div>
         ))}
       </div>
 
-      {/* Back to Home Button */}
-      <div className="mt-12 mb-8">
-        <button
-          onClick={() => (window.location.href = "/")}
-          className="btn-premium inline-flex items-center gap-2"
-        >
-          <HomeIcon className="w-5 h-5" />
-          Back to Home
-        </button>
+      <div className="mt-20 mb-12 text-center">
+        <div className="inline-flex items-center gap-3 text-gray-300">
+          <div className="h-px w-8 bg-gray-200"></div>
+          <p className="text-sm font-medium italic font-serif">
+            You&apos;ve reached the beginning of the journey
+          </p>
+          <div className="h-px w-8 bg-gray-200"></div>
+        </div>
       </div>
     </div>
   );

@@ -152,12 +152,17 @@ export async function getUserPostsToRead(user: { id: string }) {
         email: true,
         roll_number: true,
         image: true,
+        role: true,
         Post: {
           select: {
             post_id: true,
             content: true,
             heading: true,
             image: true,
+            create_at: true,
+          },
+          orderBy: {
+            id: "desc",
           },
         },
       },
@@ -171,5 +176,32 @@ export async function getUserPostsToRead(user: { id: string }) {
   } catch (error) {
     console.error("Failed to fetch user posts:", error);
     throw new Error("Failed to fetch user posts");
+  }
+}
+
+// ! Get a single post by post_id
+export async function getSinglePost(postId: string) {
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        post_id: postId,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            roll_number: true,
+            email: true,
+            image: true,
+            role: true,
+          },
+        },
+      },
+    });
+    return post;
+  } catch (error) {
+    console.error("Failed to fetch single post:", error);
+    throw new Error("Failed to fetch single post");
   }
 }

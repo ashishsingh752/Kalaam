@@ -178,12 +178,25 @@ const BackToHome: React.FC = () => {
   const router = useRouter();
 
   return (
-    <div
+    <button
       onClick={() => router.back()}
-      className=" flex justify-center items-center text-2xl  underline text-blue-500 cursor-pointer"
+      className="group flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-100 rounded-2xl text-gray-600 font-bold hover:shadow-lg hover:border-purple-200 transition-all active:scale-95"
     >
-      Back
-    </div>
+      <svg
+        className="w-5 h-5 group-hover:-translate-x-1 transition-transform"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M10 19l-7-7m0 0l7-7m-7 7h18"
+        />
+      </svg>
+      <span>Back</span>
+    </button>
   );
 };
 
