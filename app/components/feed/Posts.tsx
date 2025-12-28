@@ -141,26 +141,16 @@ const PostCard: React.FC<PostCardProps> = ({
           </div>
         </div>
 
-        <button
+        <div
           onClick={handleRead}
-          className={`relative overflow-hidden flex items-center gap-2 px-6 py-2.5 rounded-2xl font-bold transition-all duration-300 ${
+          className={`relative cursor-pointer overflow-hidden flex items-center gap-2 px-6 py-2.5 rounded-2xl font-bold  ${
             postContentOpen
               ? "bg-gray-100 text-gray-600"
-              : "bg-gray-900 text-white hover:bg-black shadow-lg hover:shadow-purple-200"
+              : "text-gray-900 hover:bg-gray-100 hover:text-gray-600  hover:shadow-purple-200"
           }`}
         >
-          {postContentOpen ? (
-            <>
-              <XMarkIcon className="w-5 h-5" />
-              <span className="hidden sm:inline">Close</span>
-            </>
-          ) : (
-            <>
-              <BookOpenIcon className="w-5 h-5" />
-              <span className="hidden sm:inline">Read</span>
-            </>
-          )}
-        </button>
+          {postContentOpen ? <>Close</> : <>Read</>}
+        </div>
       </div>
 
       {/* Content Area - Toggle between Image and Text */}
@@ -170,10 +160,10 @@ const PostCard: React.FC<PostCardProps> = ({
         }`}
       >
         {postContentOpen ? (
-          <div className="min-h-[450px] max-h-[450px] overflow-y-auto px-4 text-center font-serif text-xl sm:text-2xl leading-[2] text-gray-800 italic whitespace-pre-line drop-shadow-sm">
+          <div className="min-h-[463px] max-h-[463px] overflow-y-auto px-4 text-center font-serif text-xl sm:text-2xl leading-[2] text-gray-800 italic whitespace-pre-line drop-shadow-sm">
             <div dangerouslySetInnerHTML={{ __html: content }} />
             <div className="text-sm flex justify-center items-center gap-2 font-semibold">
-             Written By: <ReadUsersPostDashBoard id={userId} name={name} />
+              Written By: <ReadUsersPostDashBoard id={userId} name={name} />
             </div>
           </div>
         ) : (
@@ -205,7 +195,20 @@ const PostCard: React.FC<PostCardProps> = ({
             Written By: <ReadUsersPostDashBoard id={userId} name={name} />
           </div>
         )}
-        <div className="flex items-center gap-4">
+        <div className="flex justify-end flex-1 items-center gap-4">
+          {postContentOpen && (
+            <button
+              onClick={handleCopy}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white border border-gray-100 text-gray-500  hover:border-purple-100 transition-all text-sm font-bold shadow-sm"
+            >
+              {copied ? (
+                <CheckIcon className="w-4 h-4 text-green-500" />
+              ) : (
+                <ClipboardDocumentIcon className="w-4 h-4" />
+              )}
+              {copied ? "Copied!" : "Keep Poem"}
+            </button>
+          )}
           <button
             onClick={() => setLiked(!liked)}
             className={`flex items-center gap-3 px-6 py-2.5 rounded-2xl transition-all duration-300 group ${
@@ -220,21 +223,6 @@ const PostCard: React.FC<PostCardProps> = ({
               <HeartIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
             )}
           </button>
-
-          {postContentOpen && (
-            <button
-              onClick={handleCopy}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white border border-gray-100 text-gray-500 hover:text-purple-600 hover:border-purple-100 transition-all text-sm font-bold shadow-sm"
-            >
-              {copied ? (
-                <CheckIcon className="w-4 h-4 text-green-500" />
-              ) : (
-                <ClipboardDocumentIcon className="w-4 h-4" />
-              )}
-              {copied ? "Copied!" : "Keep Poem"}
-            </button>
-          )}
-
           <div className="flex items-center">
             <button
               onClick={handleShare}

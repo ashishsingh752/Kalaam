@@ -142,7 +142,7 @@ const ReadUsersPostButton: React.FC<ReadPostButtonProps> = ({ id }) => {
   return (
     <button
       onClick={readPost}
-      className="px-3 py-1.5 text-sm font-semibold text-indigo-600  transition-colors duration-200"
+      className="px-3 py-1.5 font-semibold text-indigo-600  transition-colors duration-200"
     >
       View
     </button>
