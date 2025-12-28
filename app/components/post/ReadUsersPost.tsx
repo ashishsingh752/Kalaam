@@ -8,6 +8,7 @@ import { BackToHome } from "../buttons/Button";
 
 import { DocumentTextIcon, HomeIcon } from "@heroicons/react/24/outline";
 import PostSkeleton from "./PostSkeleton";
+import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 
 interface PostType {
   id: string;
@@ -15,6 +16,8 @@ interface PostType {
   heading: string;
   image: string;
   create_at: string | Date;
+  initialLikeCount: number;
+  initialLiked: boolean;
 }
 
 interface ApiPostType {
@@ -23,6 +26,10 @@ interface ApiPostType {
   heading: string;
   image: string;
   create_at: string | Date;
+  _count: {
+    likes: number;
+  };
+  liked: boolean;
 }
 
 interface UserType {
@@ -44,6 +51,7 @@ export default function ReadUsersPost() {
   const [userRole, setUserRole] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [userImage, setUserImage] = useState<string | null>("");
+  const [totalLikes, setTotalLikes] = useState<number>(0);
   const searchParams = useSearchParams();
   const userId = searchParams.get("id");
 
@@ -68,9 +76,12 @@ export default function ReadUsersPost() {
               heading: post.heading,
               image: post.image,
               create_at: post.create_at,
+              initialLikeCount: post._count?.likes || 0,
+              initialLiked: post.liked,
             })
           );
           setUserPosts(transformedPosts);
+          setTotalLikes(userPostsResponse.totalLikes || 0);
         }
       } catch (error) {
         console.error("Failed to fetch user posts:", error);
@@ -229,12 +240,18 @@ export default function ReadUsersPost() {
                     </div>
                   </div>
 
-                  <div className="hidden md:block h-10 w-px bg-slate-200"></div>
-
-                  <div className="flex items-center gap-2">
-                    <p className="text-sm font-semibold text-slate-500">
-                      {userRollNumber}
-                    </p>
+                  <div className="flex items-center gap-3">
+                    <div className="h-12 w-12 rounded-2xl bg-red-50 flex items-center justify-center border border-red-100 shadow-sm">
+                      <HeartIconSolid className="w-6 h-6 text-red-500" />
+                    </div>
+                    <div>
+                      <p className="text-xl font-bold text-slate-900 leading-none">
+                        {totalLikes}
+                      </p>
+                      <p className="text-xs font-medium text-slate-400 uppercase tracking-tighter">
+                        Total Likes
+                      </p>
+                    </div>
                   </div>
 
                   <div className="hidden md:block h-10 w-px bg-slate-200"></div>
@@ -271,6 +288,8 @@ export default function ReadUsersPost() {
               content={post.content}
               heading={post.heading}
               createdAt={post.create_at}
+              initialLikeCount={post.initialLikeCount}
+              initialLiked={post.initialLiked}
             />
           </div>
         ))}

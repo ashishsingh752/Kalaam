@@ -24,6 +24,8 @@ interface PostCardProps {
   id: string;
   userId: string;
   createdAt: string | Date;
+  initialLikeCount?: number;
+  initialLiked?: boolean;
 }
 
 interface PostType {
@@ -44,6 +46,10 @@ interface PostType {
     image: string | null;
     role: string | null;
   };
+  _count?: {
+    likes: number;
+  };
+  liked?: boolean;
 }
 
 const formatTimestamp = (date: string | Date) => {
@@ -80,13 +86,45 @@ const PostCard: React.FC<PostCardProps> = ({
   userId,
   heading,
   createdAt,
+  initialLikeCount = 0,
+  initialLiked = false,
 }) => {
   const [postContentOpen, setPostContentOpen] = useState<boolean>(false);
-  const [liked, setLiked] = useState<boolean>(false);
+  const [liked, setLiked] = useState<boolean>(initialLiked);
+  const [likeCount, setLikeCount] = useState<number>(initialLikeCount);
+  const [loading, setLoading] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
 
   const handleRead = () => {
     setPostContentOpen(!postContentOpen);
+  };
+
+  const handleLike = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      const response = await fetch("/api/post/like", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ post_id: id }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setLiked(data.liked);
+        setLikeCount((prev) => (data.liked ? prev + 1 : prev - 1));
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.message || "Failed to like post");
+      }
+    } catch (error) {
+      console.error("Like error:", error);
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCopy = () => {
@@ -210,7 +248,8 @@ const PostCard: React.FC<PostCardProps> = ({
             </button>
           )}
           <button
-            onClick={() => setLiked(!liked)}
+            onClick={handleLike}
+            disabled={loading}
             className={`flex items-center gap-3 px-6 py-2.5 rounded-2xl transition-all duration-300 group ${
               liked
                 ? "bg-red-50 text-red-600"
@@ -222,6 +261,7 @@ const PostCard: React.FC<PostCardProps> = ({
             ) : (
               <HeartIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
             )}
+            <span className="font-bold">{likeCount}</span>
           </button>
           <div className="flex items-center">
             <button
@@ -344,6 +384,8 @@ const Posts: React.FC = () => {
           name={post.user.name}
           heading={post.heading}
           createdAt={post.create_at}
+          initialLikeCount={post._count?.likes || 0}
+          initialLiked={post.liked}
         />
       ))}
     </div>

@@ -21,6 +21,8 @@ interface PostsProps {
   heading: string;
   id: string;
   createdAt?: string | Date;
+  initialLikeCount?: number;
+  initialLiked?: boolean;
 }
 
 const formatTimestamp = (date?: string | Date) => {
@@ -56,13 +58,45 @@ const Post: React.FC<PostsProps> = ({
   id,
   heading,
   createdAt,
+  initialLikeCount = 0,
+  initialLiked = false,
 }) => {
   const [postContentOpen, setPostContentOpen] = useState<boolean>(false);
-  const [liked, setLiked] = useState<boolean>(false);
+  const [liked, setLiked] = useState<boolean>(initialLiked);
+  const [likeCount, setLikeCount] = useState<number>(initialLikeCount);
+  const [loading, setLoading] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
 
   const handleRead = () => {
     setPostContentOpen(!postContentOpen);
+  };
+
+  const handleLike = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      const response = await fetch("/api/post/like", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ post_id: id }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setLiked(data.liked);
+        setLikeCount((prev) => (data.liked ? prev + 1 : prev - 1));
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.message || "Failed to like post");
+      }
+    } catch (error) {
+      console.error("Like error:", error);
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCopy = () => {
@@ -150,7 +184,7 @@ const Post: React.FC<PostsProps> = ({
           <div className="min-h-[450px] max-h-[450px] overflow-y-auto px-4 text-center font-serif text-xl sm:text-2xl leading-[2] text-gray-800 italic whitespace-pre-line drop-shadow-sm">
             <div dangerouslySetInnerHTML={{ __html: content }} />
             <div className="text-sm flex justify-center items-center gap-2 font-semibold">
-             Written By: {name}
+              Written By: {name}
             </div>
           </div>
         ) : (
@@ -184,7 +218,8 @@ const Post: React.FC<PostsProps> = ({
         )}
         <div className="flex items-center gap-4">
           <button
-            onClick={() => setLiked(!liked)}
+            onClick={handleLike}
+            disabled={loading}
             className={`flex items-center gap-3 px-6 py-2.5 rounded-2xl transition-all duration-300 group ${
               liked
                 ? "bg-red-50 text-red-600"
@@ -196,6 +231,7 @@ const Post: React.FC<PostsProps> = ({
             ) : (
               <HeartIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
             )}
+            <span className="font-bold">{likeCount}</span>
           </button>
 
           {postContentOpen && (

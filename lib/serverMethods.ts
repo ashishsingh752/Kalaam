@@ -11,6 +11,7 @@ import { getServerSession } from "next-auth";
 //! Get all posts 
 //! Queries the database directly to avoid server-side fetch issues in production
 export async function getPost() {
+  const session: CustomSession | null = await getServerSession(authOptions);
   try {
     const posts = await prisma.post.findMany({
       take: 20,
@@ -26,12 +27,28 @@ export async function getPost() {
             role: true,
           },
         },
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
+        likes: {
+          where: {
+            user_id: Number(session?.user?.id) || 0,
+          },
+          select: {
+            id: true,
+          },
+        },
       },
       orderBy: {
         id: "desc",
       },
     });
-    return posts;
+    return posts.map((post) => ({
+      ...post,
+      liked: post.likes && post.likes.length > 0,
+    }));
   } catch (error) {
     console.error("Failed to fetch posts:", error);
     throw new Error("Failed to fetch posts");
@@ -52,6 +69,11 @@ export async function getUserPosts() {
             name: true,
             roll_number: true,
             email: true,
+          },
+        },
+        _count: {
+          select: {
+            likes: true,
           },
         },
       },
@@ -142,6 +164,7 @@ export async function getUsersForSuggestion() {
 
 // ! to get all the posts of a specific user to read 
 export async function getUserPostsToRead(user: { id: string }) {
+  const session: CustomSession | null = await getServerSession(authOptions);
   try {
     const userData = await prisma.user.findUnique({
       where: {
@@ -161,6 +184,19 @@ export async function getUserPostsToRead(user: { id: string }) {
             heading: true,
             image: true,
             create_at: true,
+            _count: {
+              select: {
+                likes: true,
+              },
+            },
+            likes: {
+              where: {
+                user_id: Number(session?.user?.id) || 0,
+              },
+              select: {
+                id: true,
+              },
+            },
           },
           orderBy: {
             id: "desc",
@@ -173,7 +209,21 @@ export async function getUserPostsToRead(user: { id: string }) {
       throw new Error(`User with id ${user.id} not found`);
     }
 
-    return userData;
+    const transformedPosts = userData.Post.map((post) => ({
+      ...post,
+      liked: post.likes && post.likes.length > 0,
+    }));
+
+    const totalLikes = userData.Post.reduce(
+      (acc, post) => acc + (post._count?.likes || 0),
+      0
+    );
+
+    return {
+      ...userData,
+      Post: transformedPosts,
+      totalLikes,
+    };
   } catch (error) {
     console.error("Failed to fetch user posts:", error);
     throw new Error("Failed to fetch user posts");
@@ -182,6 +232,7 @@ export async function getUserPostsToRead(user: { id: string }) {
 
 // ! Get a single post by post_id
 export async function getSinglePost(postId: string) {
+  const session: CustomSession | null = await getServerSession(authOptions);
   try {
     const post = await prisma.post.findUnique({
       where: {
@@ -199,9 +250,26 @@ export async function getSinglePost(postId: string) {
             role: true,
           },
         },
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
+        likes: {
+          where: {
+            user_id: Number(session?.user?.id) || 0,
+          },
+          select: {
+            id: true,
+          },
+        },
       },
     });
-    return post;
+    if (!post) return null;
+    return {
+      ...post,
+      liked: post.likes && post.likes.length > 0,
+    };
   } catch (error) {
     console.error("Failed to fetch single post:", error);
     throw new Error("Failed to fetch single post");

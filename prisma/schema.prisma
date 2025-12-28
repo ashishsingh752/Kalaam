@@ -30,6 +30,7 @@ model User {
   create_at     DateTime @default(now())
   update_at     DateTime @updatedAt()
   Post          Post[]
+  likes         Like[]
 }
 
 // 
@@ -44,4 +45,16 @@ model Post {
   heading   String
   create_at DateTime @default(now())
   update_at DateTime @updatedAt
+  likes     Like[]
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  user_id   Int
+  post_id   Int
+  user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([user_id, post_id])
 }
