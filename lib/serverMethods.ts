@@ -11,7 +11,12 @@ import { getServerSession } from "next-auth";
 //! Get all posts 
 //! Queries the database directly to avoid server-side fetch issues in production
 export async function getPost() {
-  const session: CustomSession | null = await getServerSession(authOptions);
+  let session: CustomSession | null = null;
+  try {
+    session = await getServerSession(authOptions);
+  } catch (e) {
+    console.warn("Could not get session in getPost", e);
+  }
   try {
     const posts = await prisma.post.findMany({
       take: 20,
@@ -56,11 +61,16 @@ export async function getPost() {
 }
 
 export async function getUserPosts() {
-  const session: CustomSession | null = await getServerSession(authOptions);
+  let session: CustomSession | null = null;
+  try {
+    session = await getServerSession(authOptions);
+  } catch (e) {
+    console.warn("Could not get session in getUserPosts", e);
+  }
   try {
     const posts = await prisma.post.findMany({
       where: {
-        user_id: Number(session?.user?.id),
+        user_id: Number(session?.user?.id) || 0,
       },
       include: {
         user: {
@@ -132,7 +142,7 @@ export async function getUserPostsToUpdate(post: { id: string }) {
     const posts = await prisma.post.findUnique({
       where: {
         post_id: post.id,
-        user_id: Number(session?.user?.id),
+        user_id: Number(session?.user?.id) || 0,
       },
       include: {
         user: {
@@ -164,7 +174,12 @@ export async function getUsersForSuggestion() {
 
 // ! to get all the posts of a specific user to read 
 export async function getUserPostsToRead(user: { id: string }) {
-  const session: CustomSession | null = await getServerSession(authOptions);
+  let session: CustomSession | null = null;
+  try {
+    session = await getServerSession(authOptions);
+  } catch (e) {
+    console.warn("Could not get session in getUserPostsToRead", e);
+  }
   try {
     const userData = await prisma.user.findUnique({
       where: {
@@ -205,17 +220,18 @@ export async function getUserPostsToRead(user: { id: string }) {
       },
     });
 
-    if (!userData) {
-      throw new Error(`User with id ${user.id} not found`);
+    if (!userData || !("Post" in userData)) {
+      throw new Error(`User with id ${user.id} not found or Posts not selected`);
     }
 
-    const transformedPosts = userData.Post.map((post) => ({
+    const posts = (userData as any).Post as any[];
+    const transformedPosts = posts.map((post) => ({
       ...post,
       liked: post.likes && post.likes.length > 0,
     }));
 
-    const totalLikes = userData.Post.reduce(
-      (acc, post) => acc + (post._count?.likes || 0),
+    const totalLikes = posts.reduce(
+      (acc: number, post: any) => acc + (post._count?.likes || 0),
       0
     );
 
