@@ -20,6 +20,7 @@ interface PostsProps {
   name: string;
   heading: string;
   id: string;
+  userId?: string;
   createdAt?: string | Date;
   initialLikeCount?: number;
   initialLiked?: boolean;
@@ -56,6 +57,7 @@ const Post: React.FC<PostsProps> = ({
   content,
   name,
   id,
+  userId,
   heading,
   createdAt,
   initialLikeCount = 0,
@@ -152,26 +154,16 @@ const Post: React.FC<PostsProps> = ({
           </div>
         </div>
 
-        <button
+        <div
           onClick={handleRead}
-          className={`relative overflow-hidden flex items-center gap-2 px-6 py-2.5 rounded-2xl font-bold transition-all duration-300 ${
+          className={`relative cursor-pointer overflow-hidden flex items-center gap-2 px-6 py-2.5 rounded-2xl font-bold  ${
             postContentOpen
               ? "bg-gray-100 text-gray-600"
-              : "bg-gray-900 text-white hover:bg-black shadow-lg hover:shadow-purple-200"
+              : "text-gray-900 hover:bg-gray-100 hover:text-gray-600  hover:shadow-purple-200"
           }`}
         >
-          {postContentOpen ? (
-            <>
-              <XMarkIcon className="w-5 h-5" />
-              <span className="hidden sm:inline">Close</span>
-            </>
-          ) : (
-            <>
-              <BookOpenIcon className="w-5 h-5" />
-              <span className="hidden sm:inline">Read</span>
-            </>
-          )}
-        </button>
+          {postContentOpen ? <>Close</> : <>Read</>}
+        </div>
       </div>
 
       {/* Content Area - Toggle between Image and Text */}
@@ -184,7 +176,12 @@ const Post: React.FC<PostsProps> = ({
           <div className="min-h-[450px] max-h-[450px] overflow-y-auto px-4 text-center font-serif text-xl sm:text-2xl leading-[2] text-gray-800 italic whitespace-pre-line drop-shadow-sm">
             <div dangerouslySetInnerHTML={{ __html: content }} />
             <div className="text-sm flex justify-center items-center gap-2 font-semibold">
-              Written By: {name}
+              Written By:{" "}
+              {userId ? (
+                <ReadUsersPostDashBoard id={userId} name={name} />
+              ) : (
+                name
+              )}
             </div>
           </div>
         ) : (
@@ -209,14 +206,27 @@ const Post: React.FC<PostsProps> = ({
         )}
       </div>
 
-      {/* Footer */}
       <div className="px-8 py-6 bg-white border-t border-gray-50 flex items-center justify-between">
         {!postContentOpen && (
           <div className="text-sm flex justify-center items-center gap-2 font-semibold">
-            Written By: {name}
+            Written By:{" "}
+            {userId ? <ReadUsersPostDashBoard id={userId} name={name} /> : name}
           </div>
         )}
-        <div className="flex items-center gap-4">
+        <div className="flex justify-end flex-1 items-center gap-4">
+          {postContentOpen && (
+            <button
+              onClick={handleCopy}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white border border-gray-100 text-gray-500  hover:border-purple-100 transition-all text-sm font-bold shadow-sm"
+            >
+              {copied ? (
+                <CheckIcon className="w-4 h-4 text-green-500" />
+              ) : (
+                <ClipboardDocumentIcon className="w-4 h-4" />
+              )}
+              {copied ? "Copied!" : "Keep Poem"}
+            </button>
+          )}
           <button
             onClick={handleLike}
             disabled={loading}
@@ -233,21 +243,6 @@ const Post: React.FC<PostsProps> = ({
             )}
             <span className="font-bold">{likeCount}</span>
           </button>
-
-          {postContentOpen && (
-            <button
-              onClick={handleCopy}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white border border-gray-100 text-gray-500 hover:text-purple-600 hover:border-purple-100 transition-all text-sm font-bold shadow-sm"
-            >
-              {copied ? (
-                <CheckIcon className="w-4 h-4 text-green-500" />
-              ) : (
-                <ClipboardDocumentIcon className="w-4 h-4" />
-              )}
-              {copied ? "Copied!" : "Keep Poem"}
-            </button>
-          )}
-
           <div className="flex items-center">
             <button
               onClick={handleShare}
@@ -259,6 +254,7 @@ const Post: React.FC<PostsProps> = ({
           </div>
         </div>
       </div>
+
       <style jsx>{`
         @keyframes heartbeat {
           0% {

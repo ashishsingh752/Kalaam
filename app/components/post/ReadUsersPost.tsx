@@ -279,6 +279,7 @@ export default function ReadUsersPost() {
           >
             <Post
               id={post.id.toString()}
+              userId={userId as string}
               name={userName}
               userImg={
                 userImage ||
