@@ -9,6 +9,7 @@ import DashboardButton from "../admin/DashboardButton";
 import SearchBox from "../search/SearchBox";
 import UserProfile from "../authentication/UserProfile";
 import SidebarMannager from "./SidebarManager";
+import NotificationManager from "../notifications/NotificationManager";
 
 export default async function Header() {
   const session: CustomSession | null = await getServerSession(authOptions);
@@ -66,7 +67,9 @@ export default async function Header() {
                       </div>
                     )}
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
+                      <NotificationManager />
+                      <div className="h-8 w-px bg-gray-100 mx-1"></div>
                       <div className="cursor-pointer ring-2 ring-transparent hover:ring-indigo-100 rounded-full transition-all">
                         <UserProfile />
                       </div>

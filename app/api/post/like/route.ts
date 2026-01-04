@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/db";
 import { getServerSession } from "next-auth";
 import { authOptions, CustomSession } from "../../auth/[...nextauth]/options";
+import redis from "@/lib/redis";
 
 export async function POST(req: NextRequest) {
   const session: CustomSession | null = await getServerSession(authOptions);
@@ -20,7 +21,7 @@ export async function POST(req: NextRequest) {
     // Check if the post exists
     const post = await prisma.post.findUnique({
       where: { post_id: post_id },
-      select: { id: true }
+      select: { id: true, user_id: true, heading: true }
     });
 
     if (!post) {
@@ -53,6 +54,27 @@ export async function POST(req: NextRequest) {
           post_id: post.id,
         },
       });
+
+      // Send Redis notification if the liker is not the post owner
+      if (redis && Number(session.user?.id) !== post.user_id) {
+        try {
+          const notification = {
+            type: "LIKE",
+            sender_id: session.user?.id,
+            sender_name: session.user?.name,
+            post_id: post_id,
+            post_heading: post.heading,
+            created_at: new Date().toISOString(),
+            read: false,
+          };
+
+          await redis.lpush(`notifications:${post.user_id}`, JSON.stringify(notification));
+          await redis.ltrim(`notifications:${post.user_id}`, 0, 49);
+        } catch (redisError) {
+          console.error("Redis notification error:", redisError);
+        }
+      }
+
       return NextResponse.json({ message: "Liked", liked: true }, { status: 200 });
     }
   } catch (error: any) {
