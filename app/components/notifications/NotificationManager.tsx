@@ -107,12 +107,20 @@ export default function NotificationManager() {
               </div>
             ) : (
               notifications.map((notification, index) => (
-                <div
+                <Link
                   key={index}
+                  href={`/post/${notification.post_id}`}
+                  onClick={() => setIsOpen(false)}
                   className="group relative flex flex-col rounded-xl p-3 transition-all hover:bg-gray-50/80 active:scale-[0.98]"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-indigo-600">
+                    <div
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white ${
+                        notification.type === "LIKE"
+                          ? "bg-red-500"
+                          : "bg-indigo-500"
+                      }`}
+                    >
                       <span className="text-xs font-bold">
                         {notification.sender_name.slice(0, 2).toUpperCase()}
                       </span>
@@ -122,7 +130,9 @@ export default function NotificationManager() {
                         <span className="font-semibold">
                           {notification.sender_name}
                         </span>{" "}
-                        liked your post:
+                        {notification.type === "LIKE"
+                          ? "liked your post:"
+                          : "published a new post:"}
                       </p>
                       <p className="line-clamp-1 text-sm font-medium text-indigo-600">
                         &quot;{notification.post_heading}&quot;
@@ -135,7 +145,7 @@ export default function NotificationManager() {
                       </span>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))
             )}
           </div>

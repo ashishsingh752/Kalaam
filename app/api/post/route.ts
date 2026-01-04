@@ -6,6 +6,7 @@ import { CustomErrorReporter } from "@/app/validator/customErrorReportor";
 import vine, { errors } from "@vinejs/vine";
 import prisma from "@/db";
 import { UploadImage } from "@/public/uploads/upload";
+import redis from "@/lib/redis";
 
 
 export async function GET(request: NextRequest) {
@@ -75,7 +76,7 @@ export async function POST(req: NextRequest) {
     }
     const imageUrl: any = await UploadImage(image, "kalaam-images");
 
-    await prisma.post.create({
+    const newPost = await prisma.post.create({
       data: {
         content: payload.content,
         heading: payload.heading,
@@ -84,6 +85,40 @@ export async function POST(req: NextRequest) {
         public_id: imageUrl.public_id,
       },
     });
+
+    // Send notifications to all other users
+    if (redis) {
+      try {
+        const users = await prisma.user.findMany({
+          where: {
+            id: { not: Number(session.user?.id) }
+          },
+          select: { id: true }
+        });
+
+        const notification = {
+          type: "NEW_POST",
+          sender_id: session.user?.id,
+          sender_name: session.user?.name,
+          post_id: newPost.post_id,
+          post_heading: newPost.heading,
+          created_at: new Date().toISOString(),
+          read: false,
+        };
+
+        const notificationStr = JSON.stringify(notification);
+        
+        // Broadcast to all users in parallel
+        await Promise.all(
+          users.map(user => 
+            redis?.lpush(`notifications:${user.id}`, notificationStr)
+              .then(() => redis?.ltrim(`notifications:${user.id}`, 0, 49))
+          )
+        );
+      } catch (redisError) {
+        console.error("Redis broadcast error:", redisError);
+      }
+    }
 
     return NextResponse.json({
       status: 200,
