@@ -1,7 +1,7 @@
 # 🌟 Kalaam: The Poetry Club of NIT Rourkela
 
 🎉 **Welcome to Kalaam!**  
-Kalaam is a platform for poetry enthusiasts at NIT Rourkela to share, discover, and celebrate creativity. Explore poetic expressions, connect with fellow members, and let words inspire the world.  
+Kalaam is a premium digital platform designed for the vibrant poetry community at NIT Rourkela. It's more than just a website; it's a creative sanctuary where poets can share their voice, discover fellow wordsmiths, and engage in meaningful artistic expression.
 
 🔗 **Visit the Website**  
 [https://kalaam-nitrkl.vercel.app/](https://kalaam-nitrkl.vercel.app/)
@@ -9,66 +9,110 @@ Kalaam is a platform for poetry enthusiasts at NIT Rourkela to share, discover, 
 ---
 
 ## 🚀 Tech Stack
-- **Frontend:** Next.js, TypeScript, Tailwind CSS  
-- **Backend:** Prisma ORM, PostgreSQL  
-- **Media Storage:** Cloudinary  
-- **Authentication:** Firebase  
+
+| Layer          | Technology                                                                                                                           |
+| :------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| **Frontend**   | [Next.js](https://nextjs.org/) (App Router), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/) |
+| **Backend**    | [Prisma ORM](https://www.prisma.io/), [PostgreSQL](https://www.postgresql.org/) (Supabase/Neon)                                      |
+| **Auth**       | [Next-Auth](https://next-auth.js.org/) (Credentials & Google), [Firebase](https://firebase.google.com/)                              |
+| **Caching**    | [Redis](https://redis.io/) (via ioredis) for real-time notifications                                                                 |
+| **Media**      | [Cloudinary](https://cloudinary.com/) for optimized image hosting                                                                    |
+| **Validation** | [VineJS](https://vinejs.dev/) for robust schema-based validation                                                                     |
 
 ---
 
 ## ✨ Features
 
-### 🏠 **Home Page**
-- Personalized **reading suggestions** based on poets.
-- Infinite scrolling for seamless **content loading**.
-- Discover and enjoy **club members' posts** in one place.
+### 🏠 **Smart Home Page**
 
-### 📝 **Registration and Login**
-- Secure registration with NIT Rourkela email ID and roll number.  
-- **Admin approval** required before granting login access.  
-- Integrated **form validation** ensures smooth and error-free registration.
+- **Discover Poets**: Uses a shuffle algorithm to provide fresh, randomized member suggestions on every visit.
+- **Infinite Feed**: Seamlessly explore posts with infinite scrolling for an uninterrupted reading experience.
+- **Micro-Animations**: A polished UI with subtle transitions and interactive elements.
 
-### 🛠️ **Admin Dashboard**
-- Manage all registered user accounts in a centralized dashboard.  
-- **Approve** or **delete** newly registered accounts.  
-- **Assign or modify** user **Roles** for streamlined club hierarchy.
+### 🔔 **Real-time Notifications**
 
-### 👤 **Profile Management**
-- View and update **user details**.  
-- Access all **posts by the user** in one place.  
-- Full **CRUD functionality** for profiles and posts.
+- **Redis-Powered**: High-performance backend using Redis to store and manage user notifications.
+- **Interaction Alerts**: Get notified instantly when someone likes your poetry or interacts with your profile.
+- **Management**: Easy-to-use notification center to track and clear your alerts.
 
-### 📜 **Posts**
-- **Create posts** with a title, content, and image.  
-- **Preview feature** to review posts before publishing.  
-- Only **authenticated users** can post content.
+### 🔍 **Community Search**
 
-### 🛠️ **Sidebar**
-- A dynamic **sidebar available on all pages**.  
-- Toggle visibility with a click or close by moving the mouse away.  
+- **Find Poets**: Dedicated search functionality to discover club members by name.
+- **Instant Discovery**: Quickly connect with fellow students and faculty members in the poetry circle.
 
-### 🤝 **Team Members**
-- Team members are displayed based on their **academic year**.  
-- **Pagination** to improve navigation – view more members by clicking "Show More."
+### 📝 **Membership & Authentication**
 
-### 🔐 **Permissions**
-- **Only approved users** can create and share posts.
+- **NITR Identity**: Secure registration restricted to NIT Rourkela email IDs and roll numbers.
+- **Admin Oversight**: New accounts require admin approval, ensuring the community remains safe and exclusive.
+- **Hybrid Auth**: Flexible login options via institutional credentials or Google OAuth.
 
-### 🔽 **User Dropdown**
-- **Log out functionality** for smaller screens.  
-- Upcoming feature: **Support the club with real-time payments.**
+### 🛠️ **Admin Control Center**
+
+- **Member Management**: Centralized dashboard to approve, modify roles, or remove accounts.
+- **Hierarchy Control**: Assign specific roles (Admin, Moderator, Member) to streamline club operations.
+
+### 👤 **Creative Profiles**
+
+- **Personal Gallery**: showcase all your poetic contributions in one elegant dashboard.
+- **Full CRUD**: complete control over your profiles and posts - edit, update, or remove content with ease.
+- **Rich Media**: Enhance your poetry with custom images hosted securely on Cloudinary.
+
+### 🔐 **Permissions & Security**
+
+- **Selective Posting**: Only verified and approved members can publish content.
+- **Data Integrity**: VineJS ensures all user input is sanitized and validated before hitting the database.
+
+---
+
+## � Project Structure
+
+```bash
+Kalaam/
+├── app/               # Next.js App Router (Routes & Components)
+│   ├── api/           # Backend API routes (Auth, Notifications, Posts)
+│   ├── components/    # Reusable UI components (Modals, Feed, Cards)
+│   └── (authpage)/    # Authentication specialized layouts
+├── lib/               # Utility functions and shared library clients (Redis, DB)
+├── prisma/            # Database schema and migrations
+├── public/            # Static assets
+└── types/             # Global TypeScript interface definitions
+```
+
+---
+
+## 🛠️ Getting Started
+
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/ashishsingh752/Kalaam.git
+   ```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+3. **Environment Setup**
+   Create a `.env` file and add your `DATABASE_URL`, `REDIS_URL`, and Cloudinary/Firebase credentials.
+4. **Run Migrations**
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+5. **Start Dev Server**
+   ```bash
+   npm run dev
+   ```
 
 ---
 
 ## 💡 Highlights
-- **Optimized for performance** with infinite scrolling and reduced load times.  
-- Clean and **user-friendly UI** with Tailwind CSS.  
-- Built for scalability and **future enhancements** like real-time payment support.  
+
+- **Performance Optimized**: Leverages Next.js Server Components and Redis for lightning-fast response times.
+- **User-Centric Design**: Focuses on a premium typography-heavy aesthetic suitable for a poetry club.
+- **Scalable Architecture**: decoupled services for media, notifications, and data.
 
 ---
-![image](https://github.com/user-attachments/assets/21dff3c8-7506-4466-9026-7232a8c846d5) 
-![image](https://github.com/user-attachments/assets/c31850b7-f662-43d5-ad1f-8a0e071047d6)
-![image](https://github.com/user-attachments/assets/19880259-748a-405d-945f-2b0f78be2099)
-![image](https://github.com/user-attachments/assets/218b3fd6-c0bd-423f-a499-9933df01fed2)
 
-
+<img width="1918" height="1147" alt="Kalaam Home" src="https://github.com/user-attachments/assets/c7ffe3d1-990b-43b0-8f00-b2c3cc3ccdc1" />
+<img width="1896" height="1147" alt="Poet Discovery" src="https://github.com/user-attachments/assets/53a1b953-bb89-4b5d-99d8-4ad6c9b3b407" />
+<img width="1884" height="1136" alt="Profiles" src="https://github.com/user-attachments/assets/5c22575c-9df0-40c7-80c7-2a3f3b92495a" />
+<img width="1919" height="1153" alt="Admin Dashboard" src="https://github.com/user-attachments/assets/e4f1b325-8e14-4202-a941-8def44b40bb1" />
