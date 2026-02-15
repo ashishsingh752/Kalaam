@@ -7,6 +7,8 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { FaEyeSlash, FaRegEye } from "react-icons/fa";
+import { toast, Toaster } from "react-hot-toast";
 
 interface User {
   name?: string;
@@ -31,6 +33,20 @@ export default function Profile() {
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
+  // Change password state
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [passwordErrors, setPasswordErrors] = useState<{
+    currentPassword?: string;
+    newPassword?: string;
+    confirmPassword?: string;
+  }>({});
+
   const signOutUser = async () => {
     await signOut();
   };
@@ -46,7 +62,7 @@ export default function Profile() {
       setUserRole(user.role || "");
       setUserContact(user.mobile_number || "");
       setUserYearOfStudy(
-        user.yearOfStudy || calculateYearOfStudy(user.roll_number || "")
+        user.yearOfStudy || calculateYearOfStudy(user.roll_number || ""),
       );
     }
   }, [status, router, session]);
@@ -54,35 +70,21 @@ export default function Profile() {
   const calculateYearOfStudy = (rollNumber: string) => {
     if (!rollNumber) return "";
 
-    // Extract year from roll number (e.g., 121CS... -> 21 -> 2021)
-    // Matches 3 digits, 2 letters, 4 digits pattern commonly used
     const match = rollNumber.match(/^(\d{3})[A-Z]{2}\d{4}$/);
     if (!match) return "";
 
-    const batchYearPrefix = match[1].substring(1); // '21' from '121'
+    const batchYearPrefix = match[1].substring(1);
     const batchYear = parseInt("20" + batchYearPrefix);
     const currentYear = new Date().getFullYear();
-    const currentMonth = new Date().getMonth(); // 0-11
-
-    // If current month is before July (approx start of academic year), subtract 1 from year diff
-    // Example: Batch 2021. Feb 2022. Diff 1 catch. But they are in 1st year (2021-22).
-    // 2022 - 2021 = 1.
-    // If month >= 6 (July), then they have started next year.
-    // July 2022 -> 2022 - 2021 = 1. +1 = 2nd Year?
-    // Let's stick to simple "Current Year - Batch Year + (Month >= 6 ? 1 : 0)" methodology?
-    // Batch 2021.
-    // Aug 2021 (Month 7): 2021 - 2021 + 1 = 1st Year.
-    // Jan 2022 (Month 0): 2022 - 2021 + 0 = 1st Year.
-    // Aug 2022 (Month 7): 2022 - 2021 + 1 = 2nd Year.
+    const currentMonth = new Date().getMonth();
 
     let yearDiff = currentYear - batchYear;
     if (currentMonth >= 6) {
-      // July onwards
       yearDiff += 1;
     }
 
-    if (yearDiff > 5) return "5"; // Alumni
-    if (yearDiff < 1) return "1"; // Just joined
+    if (yearDiff > 5) return "5";
+    if (yearDiff < 1) return "1";
     return yearDiff.toString();
   };
 
@@ -127,7 +129,7 @@ export default function Profile() {
       if (res.status === 200) {
         setLoading(false);
         alert(
-          "User updated successfully!. Please sign in again to see the changes."
+          "User updated successfully!. Please sign in again to see the changes.",
         );
         await signOutUser();
       } else {
@@ -140,10 +142,58 @@ export default function Profile() {
     }
   };
 
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const errs: {
+      currentPassword?: string;
+      newPassword?: string;
+      confirmPassword?: string;
+    } = {};
+
+    if (!currentPassword) {
+      errs.currentPassword = "Current password is required.";
+    }
+    if (!newPassword || newPassword.length < 6) {
+      errs.newPassword = "New password must be at least 6 characters.";
+    }
+    if (newPassword !== confirmPassword) {
+      errs.confirmPassword = "Passwords do not match.";
+    }
+
+    setPasswordErrors(errs);
+    if (Object.keys(errs).length > 0) return;
+
+    setPasswordLoading(true);
+    try {
+      const res = await axios.post("/api/auth/update-password", {
+        currentPassword,
+        newPassword,
+      });
+      const data = res.data;
+      if (data.status === 200) {
+        toast.success("Password updated successfully!");
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+        setPasswordErrors({});
+      } else {
+        toast.error(data.message || "Failed to update password.");
+        if (data.status === 403) {
+          setPasswordErrors({ currentPassword: data.message });
+        }
+      }
+    } catch (error) {
+      toast.error("An unexpected error occurred. Please try again.");
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
+
   console.log(session?.user);
 
   return (
     <div className="flex justify-center items-center bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="max-w-4xl w-full space-y-8">
         <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
           <div className="md:flex">
@@ -287,6 +337,162 @@ export default function Profile() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Change Password Section */}
+        <div className="bg-white shadow-xl rounded-2xl overflow-hidden p-8">
+          <div className="mb-6 flex items-center justify-between border-b pb-4 border-gray-100">
+            <h3 className="text-xl font-bold text-gray-800">Change Password</h3>
+            <span className="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+              Security
+            </span>
+          </div>
+          <form onSubmit={handleChangePassword} className="space-y-5 max-w-lg">
+            {/* Current Password */}
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-700">
+                Current Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showCurrentPassword ? "text" : "password"}
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  placeholder="Enter current password"
+                  className={`block w-full px-3 py-2 border ${
+                    passwordErrors.currentPassword
+                      ? "border-red-400 bg-red-50"
+                      : "border-gray-300"
+                  } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                  aria-label="Toggle current password visibility"
+                >
+                  {showCurrentPassword ? (
+                    <FaRegEye size={16} />
+                  ) : (
+                    <FaEyeSlash size={16} />
+                  )}
+                </button>
+              </div>
+              {passwordErrors.currentPassword && (
+                <p className="text-red-600 text-xs mt-1">
+                  {passwordErrors.currentPassword}
+                </p>
+              )}
+            </div>
+
+            {/* New Password */}
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-700">
+                New Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showNewPassword ? "text" : "password"}
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  placeholder="Enter new password (min 6 characters)"
+                  className={`block w-full px-3 py-2 border ${
+                    passwordErrors.newPassword
+                      ? "border-red-400 bg-red-50"
+                      : "border-gray-300"
+                  } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  aria-label="Toggle new password visibility"
+                >
+                  {showNewPassword ? (
+                    <FaRegEye size={16} />
+                  ) : (
+                    <FaEyeSlash size={16} />
+                  )}
+                </button>
+              </div>
+              {passwordErrors.newPassword && (
+                <p className="text-red-600 text-xs mt-1">
+                  {passwordErrors.newPassword}
+                </p>
+              )}
+            </div>
+
+            {/* Confirm New Password */}
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-700">
+                Confirm New Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Confirm new password"
+                  className={`block w-full px-3 py-2 border ${
+                    passwordErrors.confirmPassword
+                      ? "border-red-400 bg-red-50"
+                      : "border-gray-300"
+                  } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  aria-label="Toggle confirm password visibility"
+                >
+                  {showConfirmPassword ? (
+                    <FaRegEye size={16} />
+                  ) : (
+                    <FaEyeSlash size={16} />
+                  )}
+                </button>
+              </div>
+              {passwordErrors.confirmPassword && (
+                <p className="text-red-600 text-xs mt-1">
+                  {passwordErrors.confirmPassword}
+                </p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={passwordLoading}
+              className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition duration-150 ease-in-out"
+            >
+              {passwordLoading ? (
+                <span className="flex items-center gap-2">
+                  <svg
+                    className="animate-spin -ml-1 h-4 w-4 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Updating...
+                </span>
+              ) : (
+                "Update Password"
+              )}
+            </button>
+          </form>
         </div>
 
         {/* Posts Section */}

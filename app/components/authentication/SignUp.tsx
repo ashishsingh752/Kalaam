@@ -60,8 +60,6 @@ export default function SignUp() {
 
       case "email":
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!value.endsWith("nitrkl.ac.in"))
-          errorMsg = "Email do not contains @nitrkl.ac.in domain.";
         if (!value) errorMsg = "Email is required.";
         else if (!emailRegex.test(value)) errorMsg = "Invalid email address.";
         break;
@@ -203,7 +201,7 @@ export default function SignUp() {
             <input
               id="email"
               type="email"
-              placeholder="Email (@nitrkl.ac.in)"
+              placeholder="Email"
               value={authState.email}
               onChange={handleChange}
               className={`w-full px-4 py-2.5 text-sm rounded-lg border ${

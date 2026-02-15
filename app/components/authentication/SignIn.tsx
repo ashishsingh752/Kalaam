@@ -24,6 +24,12 @@ export default function SignIn() {
     password: "",
   });
 
+  // Forgot password modal state
+  const [showForgotModal, setShowForgotModal] = useState(false);
+  const [forgotRollNumber, setForgotRollNumber] = useState("");
+  const [forgotLoading, setForgotLoading] = useState(false);
+  const [forgotSent, setForgotSent] = useState(false);
+
   useEffect(() => {
     async function getUser() {
       if (session) setLoading(false);
@@ -55,13 +61,38 @@ export default function SignIn() {
       } else if (response.status === 404 || response.status === 403) {
         setErrors(response.error);
         toast.error(
-          response.message || "Login failed. Please check your credentials."
+          response.message || "Login failed. Please check your credentials.",
         );
       }
     } catch (error) {
       toast.error("An unexpected error occurred. Please try again later.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!forgotRollNumber.trim()) {
+      toast.error("Please enter your roll number.");
+      return;
+    }
+    setForgotLoading(true);
+    try {
+      const res = await axios.post("/api/auth/forgot-password", {
+        roll_number: forgotRollNumber.trim(),
+      });
+      const data = res.data;
+      if (data.status === 200) {
+        setForgotSent(true);
+        toast.success("Reset link sent to your registered email!");
+      } else {
+        toast.error(data.message || "Something went wrong.");
+      }
+    } catch (error) {
+      toast.error("An unexpected error occurred. Please try again.");
+    } finally {
+      setForgotLoading(false);
     }
   };
 
@@ -171,6 +202,20 @@ export default function SignIn() {
                 <span>{errors.password}</span>
               </div>
             )}
+            {/* Forgot Password Link */}
+            <div className="flex justify-end mt-1.5">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowForgotModal(true);
+                  setForgotSent(false);
+                  setForgotRollNumber("");
+                }}
+                className="text-xs text-gray-500 hover:text-black hover:underline transition-colors"
+              >
+                Forgot Password?
+              </button>
+            </div>
           </div>
 
           {/* Submit Button */}
@@ -215,6 +260,139 @@ export default function SignIn() {
           </Link>
         </p>
       </div>
+
+      {/* Forgot Password Modal */}
+      {showForgotModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="w-full max-w-md m-4 p-8 bg-white rounded-2xl shadow-2xl border border-gray-100 relative animate-in fade-in">
+            {/* Close button */}
+            <button
+              onClick={() => setShowForgotModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors"
+              aria-label="Close forgot password modal"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            {!forgotSent ? (
+              <>
+                <div className="text-center mb-6">
+                  <div className="mx-auto w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                    <svg
+                      className="w-7 h-7 text-gray-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+                      />
+                    </svg>
+                  </div>
+                  <h2 className="text-xl font-bold text-gray-900">
+                    Forgot Password?
+                  </h2>
+                  <p className="text-gray-500 text-sm mt-1">
+                    Enter your roll number and we&apos;ll send a reset link to
+                    your registered email.
+                  </p>
+                </div>
+                <form
+                  onSubmit={handleForgotPassword}
+                  className="flex flex-col gap-4"
+                >
+                  <input
+                    type="text"
+                    placeholder="Institute Roll Number"
+                    value={forgotRollNumber}
+                    onChange={(e) => setForgotRollNumber(e.target.value)}
+                    className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+                    autoFocus
+                  />
+                  <button
+                    type="submit"
+                    disabled={forgotLoading}
+                    className="py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {forgotLoading ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg
+                          className="animate-spin h-4 w-4"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                            fill="none"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
+                        </svg>
+                        Sending...
+                      </span>
+                    ) : (
+                      "Send Reset Link"
+                    )}
+                  </button>
+                </form>
+              </>
+            ) : (
+              <div className="text-center">
+                <div className="mx-auto w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                  <svg
+                    className="w-7 h-7 text-green-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                </div>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">
+                  Check Your Email
+                </h2>
+                <p className="text-gray-500 text-sm mb-6">
+                  If an account exists with that roll number, we&apos;ve sent a
+                  password reset link to your registered email address.
+                </p>
+                <button
+                  onClick={() => setShowForgotModal(false)}
+                  className="py-2.5 px-6 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium"
+                >
+                  Got it
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

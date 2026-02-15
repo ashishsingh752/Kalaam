@@ -31,6 +31,7 @@ model User {
   update_at     DateTime @updatedAt()
   Post          Post[]
   likes         Like[]
+  passwordResetTokens PasswordResetToken[]
 }
 
 // 
@@ -57,4 +58,14 @@ model Like {
   createdAt DateTime @default(now())
 
   @@unique([user_id, post_id])
+}
+
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
 }
