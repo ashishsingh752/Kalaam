@@ -1,5 +1,6 @@
 import prisma from "@/db";
 import { NextRequest, NextResponse } from "next/server";
+import { sendApprovalEmail, sendDenialEmail } from "@/lib/mailer";
 
 export async function PUT(
   request: NextRequest,
@@ -32,6 +33,13 @@ export async function PUT(
       },
     });
 
+    // Send approval email (non-blocking, don't fail the request if email fails)
+    try {
+      await sendApprovalEmail(updatedUser.email, updatedUser.name);
+    } catch (emailError) {
+      console.error("Failed to send approval email:", emailError);
+    }
+
     return NextResponse.json({ status: 200, data: updatedUser });
   } catch (error) {
     console.error("Error updating user approval status:", error);
@@ -59,7 +67,14 @@ export async function DELETE(
         message: "User not found",
       });
     }
-    
+
+    // Send denial email BEFORE deleting (we need user data for the email)
+    try {
+      await sendDenialEmail(userData.email, userData.name);
+    } catch (emailError) {
+      console.error("Failed to send denial email:", emailError);
+    }
+
     // Delete the user
     const updatedUser = await prisma.user.delete({
       where: {

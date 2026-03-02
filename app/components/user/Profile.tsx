@@ -41,6 +41,7 @@ export default function Profile() {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordLoading, setPasswordLoading] = useState(false);
+  const [showChangePassword, setShowChangePassword] = useState(false);
   const [passwordErrors, setPasswordErrors] = useState<{
     currentPassword?: string;
     newPassword?: string;
@@ -341,158 +342,169 @@ export default function Profile() {
 
         {/* Change Password Section */}
         <div className="bg-white shadow-xl rounded-2xl overflow-hidden p-8">
-          <div className="mb-6 flex items-center justify-between border-b pb-4 border-gray-100">
-            <h3 className="text-xl font-bold text-gray-800">Change Password</h3>
-            <span className="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
-              Security
-            </span>
+          <div
+           onClick={() => setShowChangePassword(!showChangePassword)}
+           className="flex cursor-pointer items-center justify-between">
+            <div>
+              <h3 className="text-xl font-bold text-gray-800">
+                Change Password
+              </h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Update your account password
+              </p>
+            </div>
           </div>
-          <form onSubmit={handleChangePassword} className="space-y-5 max-w-lg">
-            {/* Current Password */}
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-700">
-                Current Password
-              </label>
-              <div className="relative">
-                <input
-                  type={showCurrentPassword ? "text" : "password"}
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                  placeholder="Enter current password"
-                  className={`block w-full px-3 py-2 border ${
-                    passwordErrors.currentPassword
-                      ? "border-red-400 bg-red-50"
-                      : "border-gray-300"
-                  } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
-                />
-                <button
-                  type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
-                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                  aria-label="Toggle current password visibility"
-                >
-                  {showCurrentPassword ? (
-                    <FaRegEye size={16} />
-                  ) : (
-                    <FaEyeSlash size={16} />
-                  )}
-                </button>
-              </div>
-              {passwordErrors.currentPassword && (
-                <p className="text-red-600 text-xs mt-1">
-                  {passwordErrors.currentPassword}
-                </p>
-              )}
-            </div>
-
-            {/* New Password */}
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-700">
-                New Password
-              </label>
-              <div className="relative">
-                <input
-                  type={showNewPassword ? "text" : "password"}
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="Enter new password (min 6 characters)"
-                  className={`block w-full px-3 py-2 border ${
-                    passwordErrors.newPassword
-                      ? "border-red-400 bg-red-50"
-                      : "border-gray-300"
-                  } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
-                />
-                <button
-                  type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
-                  onClick={() => setShowNewPassword(!showNewPassword)}
-                  aria-label="Toggle new password visibility"
-                >
-                  {showNewPassword ? (
-                    <FaRegEye size={16} />
-                  ) : (
-                    <FaEyeSlash size={16} />
-                  )}
-                </button>
-              </div>
-              {passwordErrors.newPassword && (
-                <p className="text-red-600 text-xs mt-1">
-                  {passwordErrors.newPassword}
-                </p>
-              )}
-            </div>
-
-            {/* Confirm New Password */}
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-700">
-                Confirm New Password
-              </label>
-              <div className="relative">
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Confirm new password"
-                  className={`block w-full px-3 py-2 border ${
-                    passwordErrors.confirmPassword
-                      ? "border-red-400 bg-red-50"
-                      : "border-gray-300"
-                  } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
-                />
-                <button
-                  type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  aria-label="Toggle confirm password visibility"
-                >
-                  {showConfirmPassword ? (
-                    <FaRegEye size={16} />
-                  ) : (
-                    <FaEyeSlash size={16} />
-                  )}
-                </button>
-              </div>
-              {passwordErrors.confirmPassword && (
-                <p className="text-red-600 text-xs mt-1">
-                  {passwordErrors.confirmPassword}
-                </p>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              disabled={passwordLoading}
-              className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition duration-150 ease-in-out"
+          {showChangePassword && (
+            <form
+              onSubmit={handleChangePassword}
+              className="space-y-5 max-w-lg mt-6 pt-6 border-t border-gray-100"
             >
-              {passwordLoading ? (
-                <span className="flex items-center gap-2">
-                  <svg
-                    className="animate-spin -ml-1 h-4 w-4 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
+              {/* Current Password */}
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-700">
+                  Current Password
+                </label>
+                <div className="relative">
+                  <input
+                    type={showCurrentPassword ? "text" : "password"}
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    placeholder="Enter current password"
+                    className={`block w-full px-3 py-2 border ${
+                      passwordErrors.currentPassword
+                        ? "border-red-400 bg-red-50"
+                        : "border-gray-300"
+                    } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                    onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                    aria-label="Toggle current password visibility"
                   >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                  Updating...
-                </span>
-              ) : (
-                "Update Password"
-              )}
-            </button>
-          </form>
+                    {showCurrentPassword ? (
+                      <FaRegEye size={16} />
+                    ) : (
+                      <FaEyeSlash size={16} />
+                    )}
+                  </button>
+                </div>
+                {passwordErrors.currentPassword && (
+                  <p className="text-red-600 text-xs mt-1">
+                    {passwordErrors.currentPassword}
+                  </p>
+                )}
+              </div>
+
+              {/* New Password */}
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-700">
+                  New Password
+                </label>
+                <div className="relative">
+                  <input
+                    type={showNewPassword ? "text" : "password"}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="Enter new password (min 6 characters)"
+                    className={`block w-full px-3 py-2 border ${
+                      passwordErrors.newPassword
+                        ? "border-red-400 bg-red-50"
+                        : "border-gray-300"
+                    } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                    onClick={() => setShowNewPassword(!showNewPassword)}
+                    aria-label="Toggle new password visibility"
+                  >
+                    {showNewPassword ? (
+                      <FaRegEye size={16} />
+                    ) : (
+                      <FaEyeSlash size={16} />
+                    )}
+                  </button>
+                </div>
+                {passwordErrors.newPassword && (
+                  <p className="text-red-600 text-xs mt-1">
+                    {passwordErrors.newPassword}
+                  </p>
+                )}
+              </div>
+
+              {/* Confirm New Password */}
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-700">
+                  Confirm New Password
+                </label>
+                <div className="relative">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Confirm new password"
+                    className={`block w-full px-3 py-2 border ${
+                      passwordErrors.confirmPassword
+                        ? "border-red-400 bg-red-50"
+                        : "border-gray-300"
+                    } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    aria-label="Toggle confirm password visibility"
+                  >
+                    {showConfirmPassword ? (
+                      <FaRegEye size={16} />
+                    ) : (
+                      <FaEyeSlash size={16} />
+                    )}
+                  </button>
+                </div>
+                {passwordErrors.confirmPassword && (
+                  <p className="text-red-600 text-xs mt-1">
+                    {passwordErrors.confirmPassword}
+                  </p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                disabled={passwordLoading}
+                className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition duration-150 ease-in-out"
+              >
+                {passwordLoading ? (
+                  <span className="flex items-center gap-2">
+                    <svg
+                      className="animate-spin -ml-1 h-4 w-4 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Updating...
+                  </span>
+                ) : (
+                  "Update Password"
+                )}
+              </button>
+            </form>
+          )}
         </div>
 
         {/* Posts Section */}
