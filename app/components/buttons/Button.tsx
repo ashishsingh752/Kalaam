@@ -79,16 +79,16 @@ const HandleLoginButtom: React.FC = () => {
   const router = useRouter();
   return (
     <>
-      <div className="flex flex-row gap-1">
+      <div className="flex flex-row gap-2.5">
         <div
           onClick={() => router.push("/signin")}
-          className="cursor-pointer border border-blue-500 text-blue-500 px-4 py-2 rounded-full font-medium hover:bg-blue-500 hover:text-white transition ease-in-out duration-150 focus:outline-1 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="cursor-pointer bg-gray-900 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-gray-800 transition-all duration-200 shadow-sm hover:shadow-md"
         >
           Login
         </div>
         <div
           onClick={() => router.push("/signup")}
-          className="cursor-pointer border border-blue-500 text-blue-500 px-4 py-2 rounded-full font-medium hover:bg-blue-500 hover:text-white transition ease-in-out duration-150 focus:outline-1 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="cursor-pointer border border-gray-300 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-gray-50 hover:border-gray-400 transition-all duration-200"
         >
           Register
         </div>
@@ -102,7 +102,7 @@ const DeletePostButton: React.FC<DeletePostButtonProps> = ({ id, heading }) => {
 
   const deletePost = async () => {
     const isConfirmed = confirm(
-      `Are you sure? This is will delete "${heading}" post.`
+      `Are you sure? This is will delete "${heading}" post.`,
     );
     if (!isConfirmed) {
       return;
@@ -205,7 +205,7 @@ const HandleDeleteAccount: React.FC = () => {
 
   const deletePost = async () => {
     const isConfirmed = confirm(
-      "Are you sure you want to delete your account?"
+      "Are you sure you want to delete your account?",
     );
     if (!isConfirmed) {
       return;

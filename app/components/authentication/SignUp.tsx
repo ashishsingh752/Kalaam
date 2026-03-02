@@ -71,13 +71,7 @@ export default function SignUp() {
         break;
 
       case "roll_number":
-        const rollNumberPattern = /^[0-9]{3}[A-Z]{2}[0-9]{4}$/;
         if (!value) errorMsg = "Roll number is required.";
-        if (!rollNumberPattern.test(value)) {
-          errorMsg = "Roll number must be in the format 111XX1111.";
-        }
-        if (value.length > 9) errorMsg = "Roll number must be 9 characters.";
-
         break;
 
       case "confirm_password":
@@ -179,7 +173,7 @@ export default function SignUp() {
             <input
               id="roll_number"
               type="text"
-              placeholder="Roll Number (e.g., 121CS1234)"
+              placeholder="Roll Number"
               value={authState.roll_number}
               onChange={handleChange}
               className={`w-full px-4 py-2.5 text-sm rounded-lg border ${
