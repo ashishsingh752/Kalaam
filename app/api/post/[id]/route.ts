@@ -84,7 +84,7 @@ export async function POST(
     const userId = Number(session.user?.id);
     // console.log("Post ID: ", postId);
 
-    // Find the post and delete the existing image if present
+    // Find the post to update
     const findPost = await prisma.post.findFirst({
       where: {
         post_id: postId,
@@ -96,28 +96,35 @@ export async function POST(
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
 
-    // to delete the image present in couldinary server
-    const postImage = findPost.public_id;
-    if (postImage) {
-      const result_delete = await DeleteImage(postImage);
-    }
-
     const formData = await req.formData();
     const data = {
       content: formData.get("content"),
       heading: formData.get("heading"),
-      image: "",
     };
-    console.log("Data: ", data);
-
-    // Upload the image into the cloudinary
-    const image = formData.get("image") as unknown as File;
-    const updatedImageUrl: any = await UploadImage(image, "kalaam-images");
 
     // Validate the data
     vine.errorReporter = () => new CustomErrorReporter();
     const validator = vine.compile(postSchema);
     const payload = await validator.validate(data);
+
+    // Check if a new image was provided
+    const imageFile = formData.get("image") as unknown as File;
+    const hasNewImage = imageFile && imageFile instanceof File && imageFile.size > 0;
+
+    let imageUrl = findPost.image;
+    let publicId = findPost.public_id;
+
+    if (hasNewImage) {
+      // Delete the old image from Cloudinary if it exists
+      if (findPost.public_id) {
+        await DeleteImage(findPost.public_id);
+      }
+
+      // Upload the new image to Cloudinary
+      const updatedImageUrl: any = await UploadImage(imageFile, "kalaam-images");
+      imageUrl = updatedImageUrl.secure_url;
+      publicId = updatedImageUrl.public_id;
+    }
 
     // Update the post with the new data
     await prisma.post.update({
@@ -129,8 +136,8 @@ export async function POST(
         content: payload.content,
         heading: payload.heading,
         user_id: userId,
-        image: updatedImageUrl.secure_url,
-        public_id: updatedImageUrl.public_id,
+        image: imageUrl,
+        public_id: publicId,
       },
     });
 

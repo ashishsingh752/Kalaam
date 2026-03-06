@@ -5,7 +5,8 @@ import { HandleNotAdmin } from "../components/buttons/Button";
 
 export default async function Page() {
   const session: CustomSession | null = await getServerSession(authOptions);
-  if (session && session?.user?.role != "Admin") {
+  const allowedRoles = ["Admin", "President"];
+  if (session && !allowedRoles.includes(session?.user?.role ?? "")) {
     return (
       <>
         <HandleNotAdmin />

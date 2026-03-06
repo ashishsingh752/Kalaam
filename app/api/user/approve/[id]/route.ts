@@ -1,11 +1,17 @@
 import prisma from "@/db";
 import { NextRequest, NextResponse } from "next/server";
 import { sendApprovalEmail, sendDenialEmail } from "@/lib/mailer";
+import { checkAdminOrPresident } from "@/lib/authCheck";
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } } // id should be a string, not a number
 ) {
+  const authResult = await checkAdminOrPresident();
+  if (!authResult.authorized) {
+    return authResult.response;
+  }
+
   try {
     const userId = Number(params.id);
 
@@ -51,6 +57,11 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } } // id should be a string, not a number
 ) {
+  const authResult = await checkAdminOrPresident();
+  if (!authResult.authorized) {
+    return authResult.response;
+  }
+
   try {
     const userId = Number(params.id);
 

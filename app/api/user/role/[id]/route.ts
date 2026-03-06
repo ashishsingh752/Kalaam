@@ -1,10 +1,16 @@
 import prisma from "@/db";
 import { NextRequest, NextResponse } from "next/server";
+import { checkAdminOrPresident } from "@/lib/authCheck";
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const authResult = await checkAdminOrPresident();
+  if (!authResult.authorized) {
+    return authResult.response;
+  }
+
   try {
     const userId = Number(params.id);
     const { role } = await request.json();

@@ -57,7 +57,6 @@ export async function POST(req: NextRequest) {
     const data = {
       content: formData.get("content"),
       heading: formData.get("heading"),
-      image: "",
     };
 
     vine.errorReporter = () => new CustomErrorReporter();
