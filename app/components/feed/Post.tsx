@@ -32,7 +32,7 @@ const formatTimestamp = (date?: string | Date) => {
     const now = new Date();
     const postDate = new Date(date);
     const diffInSeconds = Math.floor(
-      (now.getTime() - postDate.getTime()) / 1000
+      (now.getTime() - postDate.getTime()) / 1000,
     );
 
     if (diffInSeconds < 60) return "Just now";
@@ -128,9 +128,9 @@ const Post: React.FC<PostsProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-[2rem] shadow-xl shadow-purple-100/20 border border-gray-100/50 my-10 overflow-hidden hover:shadow-2xl transition-all duration-500 animate-fadeIn group/card">
+    <div className="bg-white dark:bg-slate-800 rounded-[2rem] shadow-xl shadow-purple-100/20 dark:shadow-black/30 border border-gray-100/50 dark:border-slate-700/50 my-10 overflow-hidden hover:shadow-2xl transition-all duration-500 animate-fadeIn group/card">
       {/* Header */}
-      <div className="flex items-center p-6 bg-gradient-to-r from-white to-purple-50/30">
+      <div className="flex items-center p-6 bg-gradient-to-r from-white to-purple-50/30 dark:from-slate-800 dark:to-purple-900/10">
         <div className="relative">
           <div className="absolute -inset-1 bg-gradient-to-tr rounded-full blur opacity-20 group-hover/card:opacity-40 transition duration-500"></div>
           <Image
@@ -138,17 +138,17 @@ const Post: React.FC<PostsProps> = ({
             alt={name}
             width={56}
             height={56}
-            className="relative rounded-full w-14 h-14 object-cover ring-4 ring-white shadow-md"
+            className="relative rounded-full w-14 h-14 object-cover ring-4 ring-white dark:ring-slate-700 shadow-md"
           />
         </div>
 
         <div className="flex-1 ml-4">
-          <h3 className="font-extrabold text-xl text-gray-900 tracking-tight leading-tight">
+          <h3 className="font-extrabold text-xl text-gray-900 dark:text-gray-100 tracking-tight leading-tight">
             {heading}
           </h3>
           <div className="flex items-center gap-2 mt-1">
-            <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-            <span className="text-xs text-gray-400 font-medium">
+            <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+            <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">
               {formatTimestamp(createdAt)}
             </span>
           </div>
@@ -158,8 +158,8 @@ const Post: React.FC<PostsProps> = ({
           onClick={handleRead}
           className={`relative cursor-pointer overflow-hidden flex items-center gap-2 px-6 py-2.5 rounded-2xl font-bold  ${
             postContentOpen
-              ? "bg-gray-100 text-gray-600"
-              : "text-gray-900 hover:bg-gray-100 hover:text-gray-600  hover:shadow-purple-200"
+              ? "bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300"
+              : "text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-slate-700 hover:text-gray-600 dark:hover:text-gray-300  hover:shadow-purple-200"
           }`}
         >
           {postContentOpen ? <>Close</> : <>Read</>}
@@ -173,7 +173,7 @@ const Post: React.FC<PostsProps> = ({
         }`}
       >
         {postContentOpen ? (
-          <div className="min-h-[450px] max-h-[450px] overflow-y-auto px-4 text-center font-serif text-xl sm:text-2xl leading-[2] text-gray-800 italic whitespace-pre-line drop-shadow-sm">
+          <div className="min-h-[450px] max-h-[450px] overflow-y-auto px-4 text-center font-serif text-xl sm:text-2xl leading-[2] text-gray-800 dark:text-gray-200 italic whitespace-pre-line drop-shadow-sm">
             <div dangerouslySetInnerHTML={{ __html: content }} />
             <div className="text-sm flex justify-center items-center gap-2 font-semibold">
               Written By:{" "}
@@ -206,9 +206,9 @@ const Post: React.FC<PostsProps> = ({
         )}
       </div>
 
-      <div className="px-8 py-6 bg-white border-t border-gray-50 flex items-center justify-between">
+      <div className="px-8 py-6 bg-white dark:bg-slate-800 border-t border-gray-50 dark:border-slate-700 flex items-center justify-between">
         {!postContentOpen && (
-          <div className="text-sm flex justify-center items-center gap-2 font-semibold">
+          <div className="text-sm flex justify-center items-center gap-2 font-semibold dark:text-gray-300">
             Written By:{" "}
             {userId ? <ReadUsersPostDashBoard id={userId} name={name} /> : name}
           </div>
@@ -217,7 +217,7 @@ const Post: React.FC<PostsProps> = ({
           {postContentOpen && (
             <button
               onClick={handleCopy}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white border border-gray-100 text-gray-500  hover:border-purple-100 transition-all text-sm font-bold shadow-sm"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white dark:bg-slate-700 border border-gray-100 dark:border-slate-600 text-gray-500 dark:text-gray-300  hover:border-purple-100 dark:hover:border-purple-800 transition-all text-sm font-bold shadow-sm"
             >
               {copied ? (
                 <CheckIcon className="w-4 h-4 text-green-500" />
@@ -232,8 +232,8 @@ const Post: React.FC<PostsProps> = ({
             disabled={loading}
             className={`flex items-center gap-3 px-6 py-2.5 rounded-2xl transition-all duration-300 group ${
               liked
-                ? "bg-red-50 text-red-600"
-                : "bg-gray-50 text-gray-500 hover:bg-red-50 hover:text-red-500"
+                ? "bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400"
+                : "bg-gray-50 dark:bg-slate-700 text-gray-500 dark:text-gray-400 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-500 dark:hover:text-red-400"
             }`}
           >
             {liked ? (
@@ -246,7 +246,7 @@ const Post: React.FC<PostsProps> = ({
           <div className="flex items-center">
             <button
               onClick={handleShare}
-              className="p-2.5 rounded-xl hover:bg-gray-50 text-gray-400 hover:text-blue-500 transition-all"
+              className="p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-700 text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-all"
               aria-label="Share post"
             >
               <ShareIcon className="w-6 h-6" />

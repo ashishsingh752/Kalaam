@@ -32,7 +32,7 @@ const ProfileImageUpload: React.FC<ProfileImageUploadProps> = ({
 
   return (
     <div className="flex flex-col items-center group">
-      <div className="relative w-32 h-32 rounded-full ring-4 ring-white shadow-lg overflow-hidden transition-transform duration-300 transform group-hover:scale-105">
+      <div className="relative w-32 h-32 rounded-full ring-4 ring-white dark:ring-slate-700 shadow-lg overflow-hidden transition-transform duration-300 transform group-hover:scale-105">
         {imagePreview ? (
           <Image
             src={imagePreview}
@@ -42,7 +42,7 @@ const ProfileImageUpload: React.FC<ProfileImageUploadProps> = ({
             className="rounded-full"
           />
         ) : (
-          <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+          <div className="w-full h-full bg-gray-100 dark:bg-slate-600 flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-12 w-12 text-gray-400"

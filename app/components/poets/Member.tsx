@@ -4,7 +4,7 @@ import MembersYearSelection from "./MembersYearSelection";
 
 export default function Member() {
   return (
-    <div className="min-h-screen -mt-24 bg-slate-50">
+    <div className="min-h-screen -mt-24 bg-slate-50 dark:bg-slate-900">
       {/* Hero Section */}
       <div className="relative h-[70vh] flex items-center justify-center overflow-hidden">
         {/* Background Image with Overlay */}
@@ -41,10 +41,10 @@ export default function Member() {
 
       {/* Team Content Section */}
       <div className="relative -mt-10 z-20">
-        <div className="bg-slate-50 rounded-t-[3rem] pt-20 pb-10">
+        <div className="bg-slate-50 dark:bg-slate-900 rounded-t-[3rem] pt-20 pb-10">
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex flex-col items-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-serif font-semibold text-slate-800 mb-4">
+              <h2 className="text-3xl md:text-4xl font-serif font-semibold text-slate-800 dark:text-gray-100 mb-4">
                 Explore Our Generations
               </h2>
               <div className="w-20 h-1 bg-blue-500 rounded-full"></div>

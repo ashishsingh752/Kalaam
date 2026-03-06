@@ -65,14 +65,14 @@ export default function Suggestions() {
 
   if (isLoading) {
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-4 space-y-4">
-        <div className="h-4 bg-slate-100 rounded w-1/3 animate-pulse mb-4"></div>
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 p-4 space-y-4">
+        <div className="h-4 bg-slate-100 dark:bg-slate-700 rounded w-1/3 animate-pulse mb-4"></div>
         {[1, 2, 3].map((i) => (
           <div key={i} className="flex items-center gap-3 animate-pulse">
-            <div className="w-10 h-10 bg-slate-100 rounded-full"></div>
+            <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-full"></div>
             <div className="flex-1 space-y-2">
-              <div className="h-3 bg-slate-100 rounded w-2/3"></div>
-              <div className="h-2 bg-slate-100 rounded w-1/2"></div>
+              <div className="h-3 bg-slate-100 dark:bg-slate-700 rounded w-2/3"></div>
+              <div className="h-2 bg-slate-100 dark:bg-slate-700 rounded w-1/2"></div>
             </div>
           </div>
         ))}
@@ -82,16 +82,20 @@ export default function Suggestions() {
 
   if (users.length === 0) {
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-8 text-center">
-        <p className="text-sm text-slate-500">Sign in to see suggestions</p>
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 p-8 text-center">
+        <p className="text-sm text-slate-500 dark:text-slate-400">
+          Sign in to see suggestions
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
-      <div className="p-4 border-b border-slate-50 bg-slate-50/50">
-        <h3 className="font-semibold text-slate-700 text-sm">Discover Poets</h3>
+    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
+      <div className="p-4 border-b border-slate-50 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50">
+        <h3 className="font-semibold text-slate-700 dark:text-slate-300 text-sm">
+          Discover Poets
+        </h3>
       </div>
 
       <div className="p-2">
@@ -112,10 +116,10 @@ export default function Suggestions() {
         ))}
       </div>
 
-      <div className="px-4 py-3 border-t border-slate-50 bg-slate-50/30 text-center">
+      <div className="px-4 py-3 border-t border-slate-50 dark:border-slate-700 bg-slate-50/30 dark:bg-slate-800/30 text-center">
         <button
           onClick={() => router.push("/poets")}
-          className="text-xs font-medium text-indigo-600 hover:text-indigo-700 transition-colors"
+          className="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
         >
           See all suggestions
         </button>

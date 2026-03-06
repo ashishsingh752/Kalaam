@@ -193,13 +193,13 @@ export default function Profile() {
   console.log(session?.user);
 
   return (
-    <div className="flex justify-center items-center bg-gray-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex justify-center items-center bg-gray-50 dark:bg-slate-900 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <Toaster position="top-center" reverseOrder={false} />
       <div className="max-w-4xl w-full space-y-8">
-        <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 shadow-xl rounded-2xl overflow-hidden">
           <div className="md:flex">
             {/* Left Side - Profile Image & Basic Info */}
-            <div className="md:w-1/3 bg-blue-50 p-8 flex flex-col items-center justify-center border-r border-blue-100">
+            <div className="md:w-1/3 bg-blue-50 dark:bg-slate-700/50 p-8 flex flex-col items-center justify-center border-r border-blue-100 dark:border-slate-600">
               <div className="mb-6">
                 <ProfileImageUpload
                   imageUrl={
@@ -209,10 +209,10 @@ export default function Profile() {
                   onUpload={handleImageUpload}
                 />
               </div>
-              <h2 className="text-xl font-bold text-gray-800 text-center">
+              <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 text-center">
                 {userName || "User Name"}
               </h2>
-              <p className="text-sm text-gray-500 text-center mt-1">
+              <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-1">
                 {userRole || "Role"}
               </p>
             </div>
@@ -220,67 +220,69 @@ export default function Profile() {
             {/* Right Side - Form Details */}
             <div className="md:w-2/3 p-8">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-800">
+                <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
                   Profile Settings
                 </h3>
               </div>
 
               <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-700">
+                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     Full Name
                   </label>
                   <input
                     onChange={(e) => setUserName(e.target.value)}
                     value={userName}
                     placeholder="Your name"
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm"
+                    className="block w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-gray-100 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-700">
+                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     Email Address
                   </label>
                   <input
                     onChange={(e) => setUserEmail(e.target.value)}
                     value={userEmail}
                     placeholder="Your email"
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm"
+                    className="block w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-gray-100 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-700">
+                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     Roll Number
                   </label>
                   <input
                     onChange={(e) => setUserRollNumber(e.target.value)}
                     value={userRollNumber}
                     placeholder="Roll Number"
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm"
+                    className="block w-full px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-gray-100 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-700">
+                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     Contact Number
                   </label>
                   <div className="relative rounded-md shadow-sm">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <span className="text-gray-500 sm:text-sm">+91</span>
+                      <span className="text-gray-500 dark:text-gray-400 sm:text-sm">
+                        +91
+                      </span>
                     </div>
                     <input
                       onChange={(e) => setUserContact(e.target.value)}
                       value={userContact}
                       placeholder="8888888888"
-                      className="block w-full pl-10 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm"
+                      className="block w-full pl-10 px-3 py-2 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm"
                     />
                   </div>
                 </div>
 
                 <div className="sm:col-span-2 space-y-1">
-                  <label className="text-sm font-medium text-gray-700">
+                  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     Year of Study
                   </label>
                   <select
@@ -288,7 +290,7 @@ export default function Profile() {
                     id="yearOfStudy"
                     aria-label="Year of Study"
                     onChange={(e) => setUserYearOfStudy(e.target.value)}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm bg-white"
+                    className="block w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm bg-white dark:bg-slate-700 dark:text-gray-100"
                   >
                     <option value="">Select Year of Study</option>
                     <option value="1">First Year</option>
@@ -300,7 +302,7 @@ export default function Profile() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-6 mt-6 border-t border-gray-100">
+              <div className="flex items-center justify-between pt-6 mt-6 border-t border-gray-100 dark:border-slate-700">
                 <HandleDeleteAccount />
                 <button
                   onClick={handleUpdate}
@@ -341,15 +343,16 @@ export default function Profile() {
         </div>
 
         {/* Change Password Section */}
-        <div className="bg-white shadow-xl rounded-2xl overflow-hidden p-8">
+        <div className="bg-white dark:bg-slate-800 shadow-xl rounded-2xl overflow-hidden p-8">
           <div
-           onClick={() => setShowChangePassword(!showChangePassword)}
-           className="flex cursor-pointer items-center justify-between">
+            onClick={() => setShowChangePassword(!showChangePassword)}
+            className="flex cursor-pointer items-center justify-between"
+          >
             <div>
-              <h3 className="text-xl font-bold text-gray-800">
+              <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">
                 Change Password
               </h3>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                 Update your account password
               </p>
             </div>
@@ -357,11 +360,11 @@ export default function Profile() {
           {showChangePassword && (
             <form
               onSubmit={handleChangePassword}
-              className="space-y-5 max-w-lg mt-6 pt-6 border-t border-gray-100"
+              className="space-y-5 max-w-lg mt-6 pt-6 border-t border-gray-100 dark:border-slate-700"
             >
               {/* Current Password */}
               <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-700">
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Current Password
                 </label>
                 <div className="relative">
@@ -372,13 +375,13 @@ export default function Profile() {
                     placeholder="Enter current password"
                     className={`block w-full px-3 py-2 border ${
                       passwordErrors.currentPassword
-                        ? "border-red-400 bg-red-50"
-                        : "border-gray-300"
-                    } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
+                        ? "border-red-400 bg-red-50 dark:bg-red-900/20"
+                        : "border-gray-300 dark:border-slate-600 dark:bg-slate-700"
+                    } dark:text-gray-100 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
                   />
                   <button
                     type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                     onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                     aria-label="Toggle current password visibility"
                   >
@@ -398,7 +401,7 @@ export default function Profile() {
 
               {/* New Password */}
               <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-700">
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   New Password
                 </label>
                 <div className="relative">
@@ -409,13 +412,13 @@ export default function Profile() {
                     placeholder="Enter new password (min 6 characters)"
                     className={`block w-full px-3 py-2 border ${
                       passwordErrors.newPassword
-                        ? "border-red-400 bg-red-50"
-                        : "border-gray-300"
-                    } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
+                        ? "border-red-400 bg-red-50 dark:bg-red-900/20"
+                        : "border-gray-300 dark:border-slate-600 dark:bg-slate-700"
+                    } dark:text-gray-100 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
                   />
                   <button
                     type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                     onClick={() => setShowNewPassword(!showNewPassword)}
                     aria-label="Toggle new password visibility"
                   >
@@ -435,7 +438,7 @@ export default function Profile() {
 
               {/* Confirm New Password */}
               <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-700">
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Confirm New Password
                 </label>
                 <div className="relative">
@@ -446,13 +449,13 @@ export default function Profile() {
                     placeholder="Confirm new password"
                     className={`block w-full px-3 py-2 border ${
                       passwordErrors.confirmPassword
-                        ? "border-red-400 bg-red-50"
-                        : "border-gray-300"
-                    } rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
+                        ? "border-red-400 bg-red-50 dark:bg-red-900/20"
+                        : "border-gray-300 dark:border-slate-600 dark:bg-slate-700"
+                    } dark:text-gray-100 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out sm:text-sm pr-10`}
                   />
                   <button
                     type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     aria-label="Toggle confirm password visibility"
                   >
@@ -508,10 +511,12 @@ export default function Profile() {
         </div>
 
         {/* Posts Section */}
-        <div className="bg-white shadow-lg rounded-2xl overflow-hidden p-8">
-          <div className="mb-6 flex items-center justify-between border-b pb-4 border-gray-100">
-            <h3 className="text-xl font-bold text-gray-800">Your Posts</h3>
-            <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+        <div className="bg-white dark:bg-slate-800 shadow-lg rounded-2xl overflow-hidden p-8">
+          <div className="mb-6 flex items-center justify-between border-b pb-4 border-gray-100 dark:border-slate-700">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">
+              Your Posts
+            </h3>
+            <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 text-xs font-semibold px-2.5 py-0.5 rounded-full">
               Manage Content
             </span>
           </div>

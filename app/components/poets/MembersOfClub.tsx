@@ -26,13 +26,13 @@ interface PostType {
 const MembersOfClub: FC<MembersOfClubProps> = ({ image, name, role, id }) => {
   return (
     // border border-slate-100 rounded-2xl p-6 flex flex-col items-center transition-all duration-500 hover:shadow-2xl hover:shadow-blue-100 hover:-translate-y-2 overflow-hidden
-    <div className="group relative w-64 h-[320px] flex flex-col items-center overflow-hidden rounded-2xl transition-all duration-500 hover:shadow-2xl hover:shadow-blue-100 hover:-translate-y-2 bg-white shadow-md border border-gray-100">
+    <div className="group relative w-64 h-[320px] flex flex-col items-center overflow-hidden rounded-2xl transition-all duration-500 hover:shadow-2xl hover:shadow-blue-100 dark:hover:shadow-black/30 hover:-translate-y-2 bg-white dark:bg-slate-800 shadow-md border border-gray-100 dark:border-slate-700">
       <div className="h-24 w-full bg-gradient-to-r from-blue-500 to-gray-600 relative">
         <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
       </div>
 
       <div className="relative -mt-16 mb-3">
-        <div className="h-32 w-32 rounded-full border-4 border-white shadow-md overflow-hidden bg-white relative">
+        <div className="h-32 w-32 rounded-full border-4 border-white dark:border-slate-800 shadow-md overflow-hidden bg-white dark:bg-slate-700 relative">
           <Image
             src={
               image ||
@@ -47,15 +47,15 @@ const MembersOfClub: FC<MembersOfClubProps> = ({ image, name, role, id }) => {
 
       <div className="text-center flex-grow flex flex-col justify-between">
         <div>
-          <h4 className="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-300">
+          <h4 className="text-xl font-bold text-slate-800 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
             {name}
           </h4>
-          <p className="text-sm font-medium text-slate-400 mt-1 uppercase tracking-wider">
+          <p className="text-sm font-medium text-slate-400 dark:text-slate-500 mt-1 uppercase tracking-wider">
             {role}
           </p>
-        <div className="mt-5 text-md">
-          <ReadUsersPostButton id={id} />
-        </div>
+          <div className="mt-5 text-md">
+            <ReadUsersPostButton id={id} />
+          </div>
         </div>
       </div>
     </div>

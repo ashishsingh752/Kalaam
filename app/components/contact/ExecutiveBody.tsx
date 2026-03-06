@@ -18,7 +18,7 @@ const ContactCard: FC<ContactCardProps> = ({
   role,
 }) => {
   return (
-    <div className="group relative flex flex-col items-center overflow-hidden rounded-2xl bg-white shadow-md border border-gray-100 transition-shadow hover:shadow-lg">
+    <div className="group relative flex flex-col items-center overflow-hidden rounded-2xl bg-white dark:bg-slate-800 shadow-md border border-gray-100 dark:border-slate-700 transition-shadow hover:shadow-lg">
       {/* Header Pattern/Gradient */}
       <div className="h-24 w-full bg-gradient-to-r from-blue-500 to-gray-600 relative">
         <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
@@ -26,7 +26,7 @@ const ContactCard: FC<ContactCardProps> = ({
 
       {/* Avatar Image */}
       <div className="relative -mt-16 mb-3">
-        <div className="h-32 w-32 rounded-full border-4 border-white shadow-md overflow-hidden bg-white relative">
+        <div className="h-32 w-32 rounded-full border-4 border-white dark:border-slate-800 shadow-md overflow-hidden bg-white dark:bg-slate-700 relative">
           <Image
             src={
               image ||
@@ -42,24 +42,24 @@ const ContactCard: FC<ContactCardProps> = ({
       {/* Content section */}
       <div className="flex flex-1 flex-col p-6 pt-0 text-center w-full">
         <div className="mb-6">
-          <h3 className="text-xl font-bold text-gray-900 leading-tight">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
             {name}
           </h3>
-          <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase mt-1">
+          <p className="text-sm font-semibold tracking-wide text-blue-600 dark:text-blue-400 uppercase mt-1">
             {role}
           </p>
         </div>
 
         <div className="mt-auto space-y-3 flex flex-col items-center justify-start">
-          <div className="flex items-center gap-3 text-sm text-gray-600 transition-colors hover:text-blue-600 group/link w-full justify-center">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600 transition-colors group-hover/link:bg-blue-100">
+          <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 transition-colors hover:text-blue-600 dark:hover:text-blue-400 group/link w-full justify-center">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 transition-colors group-hover/link:bg-blue-100 dark:group-hover/link:bg-blue-900/50">
               <MdEmail className="h-4 w-4" />
             </div>
             <span>{email}</span>
           </div>
 
-          <div className="flex items-center gap-3 text-sm text-gray-600 w-full justify-center">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-50 text-green-600">
+          <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 w-full justify-center">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400">
               <MdPhone className="h-4 w-4" />
             </div>
             <span>{mobile_number || "Not Available"}</span>

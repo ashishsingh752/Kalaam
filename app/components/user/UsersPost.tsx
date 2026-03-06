@@ -80,7 +80,7 @@ const UsersPost = () => {
 
   if (error) {
     return (
-      <div className="text-center py-8 text-red-500 bg-red-50 rounded-lg border border-red-100 p-4">
+      <div className="text-center py-8 text-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-100 dark:border-red-800/30 p-4">
         <p>{error}</p>
       </div>
     );
@@ -88,7 +88,7 @@ const UsersPost = () => {
 
   if (userPost.length === 0) {
     return (
-      <div className="flex flex-col justify-center items-center py-16 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
+      <div className="flex flex-col justify-center items-center py-16 bg-gray-50 dark:bg-slate-800/50 rounded-xl border-2 border-dashed border-gray-200 dark:border-slate-600">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-12 w-12 text-gray-300 mb-3"
@@ -103,7 +103,7 @@ const UsersPost = () => {
             d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
           />
         </svg>
-        <p className="text-gray-500 font-medium">
+        <p className="text-gray-500 dark:text-gray-400 font-medium">
           You haven&apos;t posted anything yet.
         </p>
         <button
@@ -121,24 +121,24 @@ const UsersPost = () => {
       {userPost.map((post: PostType) => (
         <div
           key={post.post_id}
-          className="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col"
+          className="bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col"
         >
           <div className="p-6 flex-grow">
             <h4
-              className="text-lg font-bold text-gray-900 mb-2 truncate"
+              className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 truncate"
               title={post.heading}
             >
               {post.heading}
             </h4>
-            <p className="text-gray-600 text-sm line-clamp-3 leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3 leading-relaxed">
               {truncateText(post.content, 30)}
             </p>
           </div>
 
-          <div className="bg-gray-50 px-6 py-4 flex items-center justify-between border-t border-gray-100 mt-auto">
+          <div className="bg-gray-50 dark:bg-slate-700/50 px-6 py-4 flex items-center justify-between border-t border-gray-100 dark:border-slate-700 mt-auto">
             <button
               onClick={() => router.push(`/updatepost?id=${post.post_id}`)}
-              className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-1"
+              className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors flex items-center gap-1"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

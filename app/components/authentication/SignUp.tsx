@@ -126,12 +126,21 @@ export default function SignUp() {
     }
   };
 
+  const inputClass = (hasError?: string) =>
+    `w-full px-4 py-2.5 text-sm rounded-lg border ${
+      hasError
+        ? "border-red-400 bg-red-50 dark:bg-red-900/20"
+        : "border-gray-300 dark:border-slate-600"
+    } bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-indigo-500 focus:border-transparent transition-all`;
+
   return (
-    <div className="flex min-h-[calc(100vh-5rem)] lg:p-10 items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="flex min-h-[calc(100vh-5rem)] lg:p-10 items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-slate-900 dark:to-slate-800">
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="w-full max-w-md m-3 p-8 bg-white rounded-2xl shadow-xl border border-gray-100">
+      <div className="w-full max-w-md m-3 p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-100 dark:border-slate-700">
         <div className="text-center">
-          <h3 className="text-3xl font-bold text-gray-900">कवितालय</h3>
+          <h3 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            कवितालय
+          </h3>
           <div className="flex justify-center mt-4 items-center">
             <Image
               src="https://res.cloudinary.com/dkm6extdv/image/upload/v1728752557/ii-removebg-preview_jjqgoy.png"
@@ -141,8 +150,10 @@ export default function SignUp() {
               className="object-contain"
             />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mt-4">Register</h2>
-          <p className="text-gray-500 text-sm mt-1">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-4">
+            Register
+          </h2>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
             Create your account to get started
           </p>
         </div>
@@ -156,12 +167,10 @@ export default function SignUp() {
               placeholder="Full Name"
               value={authState.name}
               onChange={handleChange}
-              className={`w-full px-4 py-2.5 text-sm rounded-lg border ${
-                errors.name ? "border-red-400 bg-red-50" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all`}
+              className={inputClass(errors.name)}
             />
             {errors.name && (
-              <div className="flex items-center gap-1 mt-1.5 text-red-600 text-xs">
+              <div className="flex items-center gap-1 mt-1.5 text-red-600 dark:text-red-400 text-xs">
                 <IoAlertCircle size={14} />
                 <span>{errors.name}</span>
               </div>
@@ -176,14 +185,10 @@ export default function SignUp() {
               placeholder="Roll Number"
               value={authState.roll_number}
               onChange={handleChange}
-              className={`w-full px-4 py-2.5 text-sm rounded-lg border ${
-                errors.roll_number
-                  ? "border-red-400 bg-red-50"
-                  : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all`}
+              className={inputClass(errors.roll_number)}
             />
             {errors.roll_number && (
-              <div className="flex items-center gap-1 mt-1.5 text-red-600 text-xs">
+              <div className="flex items-center gap-1 mt-1.5 text-red-600 dark:text-red-400 text-xs">
                 <IoAlertCircle size={14} />
                 <span>{errors.roll_number}</span>
               </div>
@@ -198,12 +203,10 @@ export default function SignUp() {
               placeholder="Email"
               value={authState.email}
               onChange={handleChange}
-              className={`w-full px-4 py-2.5 text-sm rounded-lg border ${
-                errors.email ? "border-red-400 bg-red-50" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all`}
+              className={inputClass(errors.email)}
             />
             {errors.email && (
-              <div className="flex items-center gap-1 mt-1.5 text-red-600 text-xs">
+              <div className="flex items-center gap-1 mt-1.5 text-red-600 dark:text-red-400 text-xs">
                 <IoAlertCircle size={14} />
                 <span>{errors.email}</span>
               </div>
@@ -213,7 +216,7 @@ export default function SignUp() {
           {/* Year of Study */}
           <div>
             <select
-              className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all bg-white"
+              className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-indigo-500 focus:border-transparent transition-all"
               name="yearOfStudy"
               id="yearOfStudy"
               value={authState.yearOfStudy}
@@ -237,22 +240,18 @@ export default function SignUp() {
                 placeholder="Password (min. 6 characters)"
                 value={authState.password}
                 onChange={handleChange}
-                className={`w-full px-4 py-2.5 text-sm rounded-lg border ${
-                  errors.password
-                    ? "border-red-400 bg-red-50"
-                    : "border-gray-300"
-                } focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all pr-10`}
+                className={`${inputClass(errors.password)} pr-10`}
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                 onClick={() => setIsOpen(!isOpen)}
               >
                 {isOpen ? <FaRegEye size={18} /> : <FaEyeSlash size={18} />}
               </button>
             </div>
             {errors.password && (
-              <div className="flex items-center gap-1 mt-1.5 text-red-600 text-xs">
+              <div className="flex items-center gap-1 mt-1.5 text-red-600 dark:text-red-400 text-xs">
                 <IoAlertCircle size={14} />
                 <span>{errors.password}</span>
               </div>
@@ -271,15 +270,11 @@ export default function SignUp() {
                   setConfirmPassword(e.target.value);
                   validateField("confirm_password", e.target.value);
                 }}
-                className={`w-full px-4 py-2.5 text-sm rounded-lg border ${
-                  errors.confirm_password
-                    ? "border-red-400 bg-red-50"
-                    : "border-gray-300"
-                } focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all pr-10`}
+                className={`${inputClass(errors.confirm_password)} pr-10`}
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                 onClick={() => setIsOpenConfirm(!isOpenConfirm)}
               >
                 {isOpenConfirm ? (
@@ -290,7 +285,7 @@ export default function SignUp() {
               </button>
             </div>
             {errors.confirm_password && (
-              <div className="flex items-center gap-1 mt-1.5 text-red-600 text-xs">
+              <div className="flex items-center gap-1 mt-1.5 text-red-600 dark:text-red-400 text-xs">
                 <IoAlertCircle size={14} />
                 <span>{errors.confirm_password}</span>
               </div>
@@ -300,7 +295,7 @@ export default function SignUp() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="mt-2 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            className="mt-2 py-2.5 text-white bg-black dark:bg-indigo-600 rounded-lg hover:bg-gray-800 dark:hover:bg-indigo-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={loading}
           >
             {loading ? (
@@ -329,11 +324,11 @@ export default function SignUp() {
           </button>
         </form>
 
-        <div className="mt-6 text-sm text-center text-gray-600">
+        <div className="mt-6 text-sm text-center text-gray-600 dark:text-gray-400">
           Already have an account?{" "}
           <Link
             href="/signin"
-            className="text-black font-semibold hover:underline"
+            className="text-black dark:text-indigo-400 font-semibold hover:underline"
           >
             Sign in
           </Link>

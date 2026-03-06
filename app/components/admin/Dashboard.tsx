@@ -64,8 +64,8 @@ export default function Dashboard() {
                   ...user,
                   approved: true,
                 }
-              : user
-          )
+              : user,
+          ),
         );
       } else {
         console.error("Failed to approve user");
@@ -77,7 +77,7 @@ export default function Dashboard() {
 
   const handleDelete = async (userId: number) => {
     const isConfirmed = confirm(
-      "Are you sure you want to delete user account?"
+      "Are you sure you want to delete user account?",
     );
     if (!isConfirmed) {
       return;
@@ -105,8 +105,8 @@ export default function Dashboard() {
                   ...user,
                   role: role,
                 }
-              : user
-          )
+              : user,
+          ),
         );
       } else {
         console.error("Failed to change role");
@@ -131,29 +131,29 @@ export default function Dashboard() {
   });
 
   return (
-    <div className="h-[calc(100vh-80px)] bg-gray-50 py-8 overflow-hidden flex flex-col">
+    <div className="h-[calc(100vh-80px)] bg-gray-50 dark:bg-slate-900 py-8 overflow-hidden flex flex-col">
       <Container classNames="h-full flex flex-col">
         <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 flex-shrink-0">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
               Admin Dashboard
             </h1>
-            <p className="text-gray-500 mt-1">
+            <p className="text-gray-500 dark:text-gray-400 mt-1">
               Manage users, roles, and approvals.
             </p>
           </div>
-          <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm">
-            <span className="text-sm font-medium text-gray-500">
+          <div className="flex items-center gap-2 bg-white dark:bg-slate-800 px-4 py-2 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm">
+            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
               Total Users:
             </span>
-            <span className="text-lg font-bold text-gray-900">
+            <span className="text-lg font-bold text-gray-900 dark:text-gray-100">
               {users.length}
             </span>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col flex-1 min-h-0">
-          <div className="p-4 border-b border-gray-200 bg-white flex flex-col md:flex-row gap-4 justify-between items-center flex-shrink-0">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden flex flex-col flex-1 min-h-0">
+          <div className="p-4 border-b border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex flex-col md:flex-row gap-4 justify-between items-center flex-shrink-0">
             {/* Search */}
             <div className="relative w-full md:w-96">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -162,7 +162,7 @@ export default function Dashboard() {
               <input
                 type="text"
                 placeholder="Search by name, email, or roll number..."
-                className="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm py-2"
+                className="pl-10 block w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-gray-100 shadow-sm focus:border-black dark:focus:border-indigo-500 focus:ring-black dark:focus:ring-indigo-500 sm:text-sm py-2"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -176,8 +176,8 @@ export default function Dashboard() {
                   onClick={() => setFilter(f)}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                     filter === f
-                      ? "bg-black text-white"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                      ? "bg-black dark:bg-indigo-600 text-white"
+                      : "bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-600"
                   }`}
                 >
                   {f}
@@ -195,7 +195,7 @@ export default function Dashboard() {
             />
           </div>
           {filteredUsers.length === 0 && (
-            <div className="p-8 text-center text-gray-500 flex-shrink-0">
+            <div className="p-8 text-center text-gray-500 dark:text-gray-400 flex-shrink-0">
               No users found matching your search.
             </div>
           )}

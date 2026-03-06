@@ -10,7 +10,7 @@ export default function PostSkeleton({ count = 1 }: PostSkeletonProps) {
       {Array.from({ length: count }).map((_, index) => (
         <div
           key={index}
-          className="bg-white rounded-xl shadow-md p-5 animate-fadeIn"
+          className="bg-white dark:bg-slate-800 rounded-xl shadow-md p-5 animate-fadeIn"
         >
           {/* Header Skeleton */}
           <div className="flex items-center mb-4">
@@ -39,7 +39,7 @@ export default function PostSkeleton({ count = 1 }: PostSkeletonProps) {
 // Form Skeleton for Create/Update Posts
 export function FormSkeleton() {
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 animate-fadeIn">
+    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6 animate-fadeIn">
       <div className="skeleton skeleton-title w-full mb-4"></div>
       <div className="skeleton w-full h-80 mb-4"></div>
       <div className="flex gap-2 justify-between">

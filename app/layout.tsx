@@ -21,9 +21,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('kalaam-theme');
+                  if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
-        className={`${inter.className} bg-premium-gradient bg-fixed min-h-screen`}
+        className={`${inter.className} bg-premium-gradient dark:bg-dark-gradient bg-fixed min-h-screen transition-colors duration-300`}
       >
         <Providers>
           <Header />

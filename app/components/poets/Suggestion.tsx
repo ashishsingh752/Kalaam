@@ -34,9 +34,9 @@ const Suggestion: React.FC<SuggestionProps> = ({
   userId,
 }) => {
   return (
-    <div className="flex items-center justify-between p-3 rounded-xl hover:bg-white hover:shadow-md hover:shadow-slate-100 transition-all duration-300 group border border-transparent hover:border-slate-100">
+    <div className="flex items-center justify-between p-3 rounded-xl hover:bg-white dark:hover:bg-slate-700 hover:shadow-md hover:shadow-slate-100 dark:hover:shadow-black/20 transition-all duration-300 group border border-transparent hover:border-slate-100 dark:hover:border-slate-600">
       <div className="flex items-center gap-4">
-        <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-slate-100 group-hover:border-blue-200 transition-all duration-300">
+        <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-slate-100 dark:border-slate-600 group-hover:border-blue-200 dark:group-hover:border-blue-800 transition-all duration-300">
           <Image
             src={
               image ||
@@ -49,10 +49,10 @@ const Suggestion: React.FC<SuggestionProps> = ({
         </div>
 
         <div className="flex flex-col">
-          <div className="text-sm font-medium text-gray-900">
+          <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
             <ReadUsersPostDashBoard id={userId} name={name} />
           </div>
-          <h3 className="text-slate-400 text-xs font-medium uppercase tracking-tight mt-0.5">
+          <h3 className="text-slate-400 dark:text-slate-500 text-xs font-medium uppercase tracking-tight mt-0.5">
             {role}
           </h3>
         </div>

@@ -32,8 +32,8 @@ export default function MembersYearSelection() {
                 whitespace-nowrap px-6 py-2.5 rounded-full text-sm md:text-base font-medium transition-all duration-300
                 ${
                   isActive
-                    ? "bg-blue-600 text-white shadow-lg shadow-blue-200 scale-105"
-                    : "bg-white text-slate-600 hover:bg-blue-50 hover:text-blue-600 border border-slate-200"
+                    ? "bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-blue-900/30 scale-105"
+                    : "bg-white dark:bg-slate-800 text-slate-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 border border-slate-200 dark:border-slate-600"
                 }
               `}
             >
@@ -51,7 +51,7 @@ export default function MembersYearSelection() {
               <span className="text-blue-500 font-semibold text-sm tracking-widest uppercase mb-2 block">
                 Directory
               </span>
-              <h3 className="text-3xl font-serif font-bold text-slate-800">
+              <h3 className="text-3xl font-serif font-bold text-slate-800 dark:text-gray-100">
                 {selectedYear}
               </h3>
             </div>

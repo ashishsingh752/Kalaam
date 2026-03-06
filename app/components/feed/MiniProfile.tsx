@@ -10,23 +10,23 @@ export default function MiniProfile() {
     "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=";
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex flex-col gap-4">
+    <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col gap-4">
       <div className="flex items-center gap-4">
         <div className="relative group cursor-pointer">
-          <div className="absolute -inset-0.5 bg-gradient-to-br from-slate-200 to-slate-300 rounded-full opacity-0 group-hover:opacity-100 transition duration-500 blur-[1px]"></div>
+          <div className="absolute -inset-0.5 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-600 dark:to-slate-700 rounded-full opacity-0 group-hover:opacity-100 transition duration-500 blur-[1px]"></div>
           {session && session.user ? (
             <Image
               src={session?.user?.image || defaultImageUrl}
               alt="User Profile"
               width={56}
               height={56}
-              className="relative rounded-full w-14 h-14 object-cover border-[3px] border-slate-50 shadow-sm"
+              className="relative rounded-full w-14 h-14 object-cover border-[3px] border-slate-50 dark:border-slate-700 shadow-sm"
             />
           ) : (
             <Image
               src={defaultImageUrl}
               alt="Default Profile"
-              className="relative rounded-full w-14 h-14 object-cover border-2 border-white"
+              className="relative rounded-full w-14 h-14 object-cover border-2 border-white dark:border-slate-700"
               width={56}
               height={56}
             />
@@ -36,15 +36,21 @@ export default function MiniProfile() {
         <div className="flex-1 min-w-0">
           {session ? (
             <>
-              <h2 className="font-bold text-slate-800 truncate">
+              <h2 className="font-bold text-slate-800 dark:text-slate-200 truncate">
                 {session?.user?.name}
               </h2>
-              <p className="text-slate-500 text-sm">Welcome to Kalaam</p>
+              <p className="text-slate-500 dark:text-slate-400 text-sm">
+                Welcome to Kalaam
+              </p>
             </>
           ) : (
             <>
-              <h2 className="font-bold text-slate-800">Guest User</h2>
-              <p className="text-slate-500 text-sm">Please log in</p>
+              <h2 className="font-bold text-slate-800 dark:text-slate-200">
+                Guest User
+              </h2>
+              <p className="text-slate-500 dark:text-slate-400 text-sm">
+                Please log in
+              </p>
             </>
           )}
         </div>
@@ -53,10 +59,10 @@ export default function MiniProfile() {
       {session && (
         <button
           onClick={() => signOut()}
-          className="w-full mt-2 py-2 px-4 border border-slate-200 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-red-500 hover:border-red-100 transition-all duration-200 flex items-center justify-center gap-2 group"
+          className="w-full mt-2 py-2 px-4 border border-slate-200 dark:border-slate-600 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-red-500 dark:hover:text-red-400 hover:border-red-100 dark:hover:border-red-900 transition-all duration-200 flex items-center justify-center gap-2 group"
         >
           <svg
-            className="w-4 h-4 group-hover:text-red-500 transition-colors"
+            className="w-4 h-4 group-hover:text-red-500 dark:group-hover:text-red-400 transition-colors"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

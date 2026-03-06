@@ -137,7 +137,9 @@ export default function CreateNewPost() {
           <h1 className="text-4xl font-bold gradient-text mb-2">
             Create Your Post
           </h1>
-          <p className="text-gray-600">Share your thoughts with the world ✨</p>
+          <p className="text-gray-600 dark:text-gray-400">
+            Share your thoughts with the world ✨
+          </p>
         </div>
 
         {/* Main Form Card */}
@@ -146,7 +148,7 @@ export default function CreateNewPost() {
           <div className="mb-6">
             <label
               htmlFor="title"
-              className="block text-sm font-semibold text-gray-700 mb-2"
+              className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
             >
               Post Title
             </label>
@@ -160,7 +162,7 @@ export default function CreateNewPost() {
               maxLength={maxTitleLength}
             />
             <div className="flex justify-between items-center mt-1">
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 Make it catchy and descriptive
               </p>
               <p
@@ -179,7 +181,7 @@ export default function CreateNewPost() {
           <div className="mb-6">
             <label
               htmlFor="content"
-              className="block text-sm font-semibold text-gray-700 mb-2"
+              className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
             >
               Content
             </label>
@@ -193,12 +195,14 @@ export default function CreateNewPost() {
               maxLength={maxContentLength}
             />
             <div className="flex justify-between items-center mt-1">
-              <p className="text-xs text-gray-500">Express yourself freely</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                Express yourself freely
+              </p>
               <p
                 className={`text-xs font-medium ${
                   content.length >= maxContentLength
                     ? "text-red-500"
-                    : "text-gray-400"
+                    : "text-gray-400 dark:text-gray-500"
                 }`}
               >
                 {content.length}/{maxContentLength}
@@ -208,7 +212,7 @@ export default function CreateNewPost() {
 
           {/* Image Upload Section */}
           <div className="mb-6">
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
               Cover Image
             </label>
 
@@ -216,8 +220,8 @@ export default function CreateNewPost() {
             <div
               className={`relative border-2 border-dashed rounded-xl p-8 transition-all duration-300 ${
                 dragActive
-                  ? "border-purple-500 bg-purple-50"
-                  : "border-gray-300 bg-gray-50"
+                  ? "border-purple-500 bg-purple-50 dark:bg-purple-900/20"
+                  : "border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800"
               } ${image ? "hidden" : "block"}`}
               onDragEnter={handleDrag}
               onDragLeave={handleDrag}
@@ -225,11 +229,13 @@ export default function CreateNewPost() {
               onDrop={handleDrop}
             >
               <div className="text-center">
-                <PhotoIcon className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-                <p className="text-gray-600 font-medium mb-2">
+                <PhotoIcon className="w-12 h-12 mx-auto text-gray-400 dark:text-gray-500 mb-4" />
+                <p className="text-gray-600 dark:text-gray-400 font-medium mb-2">
                   Drag and drop your image here
                 </p>
-                <p className="text-sm text-gray-500 mb-4">or</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  or
+                </p>
                 <button
                   type="button"
                   onClick={() => imgeRef.current?.click()}
@@ -237,7 +243,7 @@ export default function CreateNewPost() {
                 >
                   Browse Files
                 </button>
-                <p className="text-xs text-gray-400 mt-3">
+                <p className="text-xs text-gray-400 dark:text-gray-500 mt-3">
                   PNG, JPG, GIF up to 5MB
                 </p>
               </div>

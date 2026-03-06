@@ -98,10 +98,10 @@ export default function SignIn() {
 
   if (loading && session?.data) {
     return (
-      <div className="flex h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="flex h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-slate-900 dark:to-slate-800">
         <div className="flex flex-col items-center gap-3">
           <svg
-            className="animate-spin h-10 w-10 text-black"
+            className="animate-spin h-10 w-10 text-black dark:text-white"
             viewBox="0 0 24 24"
           >
             <circle
@@ -119,7 +119,7 @@ export default function SignIn() {
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
             />
           </svg>
-          <p className="text-gray-600">Loading...</p>
+          <p className="text-gray-600 dark:text-gray-400">Loading...</p>
         </div>
       </div>
     );
@@ -130,11 +130,13 @@ export default function SignIn() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-5rem)] bg-gradient-to-br from-gray-50 to-gray-100 items-center justify-center">
+    <div className="flex min-h-[calc(100vh-5rem)] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-slate-900 dark:to-slate-800 items-center justify-center">
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="w-full max-w-md m-3 p-8 bg-white rounded-2xl shadow-xl border border-gray-100">
+      <div className="w-full max-w-md m-3 p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-100 dark:border-slate-700">
         <div className="text-center">
-          <h3 className="text-3xl font-bold text-gray-900">कवितालय</h3>
+          <h3 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            कवितालय
+          </h3>
           <div className="flex justify-center mt-4 items-center">
             <Image
               src="https://res.cloudinary.com/dkm6extdv/image/upload/v1728752557/ii-removebg-preview_jjqgoy.png"
@@ -144,8 +146,10 @@ export default function SignIn() {
               className="object-contain"
             />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mt-4">Sign In</h2>
-          <p className="text-gray-500 text-sm mt-1">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-4">
+            Sign In
+          </h2>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
             Welcome back! Please sign in to continue
           </p>
         </div>
@@ -161,12 +165,12 @@ export default function SignIn() {
               onChange={handleChange}
               className={`w-full px-4 py-2.5 text-sm rounded-lg border ${
                 errors.roll_number
-                  ? "border-red-400 bg-red-50"
-                  : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all`}
+                  ? "border-red-400 bg-red-50 dark:bg-red-900/20"
+                  : "border-gray-300 dark:border-slate-600"
+              } bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-indigo-500 focus:border-transparent transition-all`}
             />
             {errors.roll_number && (
-              <div className="flex items-center gap-1 mt-1.5 text-red-600 text-xs">
+              <div className="flex items-center gap-1 mt-1.5 text-red-600 dark:text-red-400 text-xs">
                 <IoAlertCircle size={14} />
                 <span>{errors.roll_number}</span>
               </div>
@@ -184,20 +188,20 @@ export default function SignIn() {
                 onChange={handleChange}
                 className={`w-full px-4 py-2.5 text-sm rounded-lg border ${
                   errors.password
-                    ? "border-red-400 bg-red-50"
-                    : "border-gray-300"
-                } focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all pr-10`}
+                    ? "border-red-400 bg-red-50 dark:bg-red-900/20"
+                    : "border-gray-300 dark:border-slate-600"
+                } bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-indigo-500 focus:border-transparent transition-all pr-10`}
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                 onClick={() => setIsOpen(!isOpen)}
               >
                 {isOpen ? <FaRegEye size={18} /> : <FaEyeSlash size={18} />}
               </button>
             </div>
             {errors.password && (
-              <div className="flex items-center gap-1 mt-1.5 text-red-600 text-xs">
+              <div className="flex items-center gap-1 mt-1.5 text-red-600 dark:text-red-400 text-xs">
                 <IoAlertCircle size={14} />
                 <span>{errors.password}</span>
               </div>
@@ -211,7 +215,7 @@ export default function SignIn() {
                   setForgotSent(false);
                   setForgotRollNumber("");
                 }}
-                className="text-xs text-gray-500 hover:text-black hover:underline transition-colors"
+                className="text-xs text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white hover:underline transition-colors"
               >
                 Forgot Password?
               </button>
@@ -221,7 +225,7 @@ export default function SignIn() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="mt-2 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            className="mt-2 py-2.5 text-white bg-black dark:bg-indigo-600 rounded-lg hover:bg-gray-800 dark:hover:bg-indigo-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={loading}
           >
             {loading ? (
@@ -250,11 +254,11 @@ export default function SignIn() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-600">
+        <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
           Don&apos;t have an account?{" "}
           <Link
             href="/signup"
-            className="text-black font-semibold hover:underline"
+            className="text-black dark:text-indigo-400 font-semibold hover:underline"
           >
             Sign up
           </Link>
@@ -264,11 +268,11 @@ export default function SignIn() {
       {/* Forgot Password Modal */}
       {showForgotModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="w-full max-w-md m-4 p-8 bg-white rounded-2xl shadow-2xl border border-gray-100 relative animate-in fade-in">
+          <div className="w-full max-w-md m-4 p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-slate-700 relative animate-in fade-in">
             {/* Close button */}
             <button
               onClick={() => setShowForgotModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors"
+              className="absolute top-4 right-4 text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
               aria-label="Close forgot password modal"
             >
               <svg
@@ -289,9 +293,9 @@ export default function SignIn() {
             {!forgotSent ? (
               <>
                 <div className="text-center mb-6">
-                  <div className="mx-auto w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                  <div className="mx-auto w-14 h-14 bg-gray-100 dark:bg-slate-700 rounded-full flex items-center justify-center mb-4">
                     <svg
-                      className="w-7 h-7 text-gray-600"
+                      className="w-7 h-7 text-gray-600 dark:text-gray-300"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -304,10 +308,10 @@ export default function SignIn() {
                       />
                     </svg>
                   </div>
-                  <h2 className="text-xl font-bold text-gray-900">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
                     Forgot Password?
                   </h2>
-                  <p className="text-gray-500 text-sm mt-1">
+                  <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
                     Enter your roll number and we&apos;ll send a reset link to
                     your registered email.
                   </p>
@@ -321,13 +325,13 @@ export default function SignIn() {
                     placeholder="Institute Roll Number"
                     value={forgotRollNumber}
                     onChange={(e) => setForgotRollNumber(e.target.value)}
-                    className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+                    className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-indigo-500 focus:border-transparent transition-all"
                     autoFocus
                   />
                   <button
                     type="submit"
                     disabled={forgotLoading}
-                    className="py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="py-2.5 text-white bg-black dark:bg-indigo-600 rounded-lg hover:bg-gray-800 dark:hover:bg-indigo-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {forgotLoading ? (
                       <span className="flex items-center justify-center gap-2">
@@ -360,9 +364,9 @@ export default function SignIn() {
               </>
             ) : (
               <div className="text-center">
-                <div className="mx-auto w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                <div className="mx-auto w-14 h-14 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
                   <svg
-                    className="w-7 h-7 text-green-600"
+                    className="w-7 h-7 text-green-600 dark:text-green-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -375,16 +379,16 @@ export default function SignIn() {
                     />
                   </svg>
                 </div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                   Check Your Email
                 </h2>
-                <p className="text-gray-500 text-sm mb-6">
+                <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
                   If an account exists with that roll number, we&apos;ve sent a
                   password reset link to your registered email address.
                 </p>
                 <button
                   onClick={() => setShowForgotModal(false)}
-                  className="py-2.5 px-6 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium"
+                  className="py-2.5 px-6 text-white bg-black dark:bg-indigo-600 rounded-lg hover:bg-gray-800 dark:hover:bg-indigo-700 transition-colors font-medium"
                 >
                   Got it
                 </button>

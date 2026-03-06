@@ -196,7 +196,9 @@ export default function UpdatePost() {
           <h1 className="text-4xl font-bold gradient-text mb-2">
             Update Your Post
           </h1>
-          <p className="text-gray-600">Make your post even better ✨</p>
+          <p className="text-gray-600 dark:text-gray-400">
+            Make your post even better ✨
+          </p>
         </div>
 
         {userPost.map((post: PostType) => (
@@ -207,7 +209,7 @@ export default function UpdatePost() {
               <div className="mb-6">
                 <label
                   htmlFor="title"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
+                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
                 >
                   Post Title
                 </label>
@@ -254,7 +256,7 @@ export default function UpdatePost() {
                   maxLength={maxContentLength}
                 />
                 <div className="flex justify-between items-center mt-1">
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
                     Express yourself freely
                   </p>
                   <p
@@ -271,7 +273,7 @@ export default function UpdatePost() {
 
               {/* Image Upload Section */}
               <div className="mb-6">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                   Cover Image {!image && "(Update optional)"}
                 </label>
 

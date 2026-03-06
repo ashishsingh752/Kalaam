@@ -70,27 +70,27 @@ export default function NotificationManager() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative rounded-full p-2 text-gray-600 transition-all hover:bg-gray-100 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        className="relative rounded-full p-2 text-gray-600 dark:text-gray-400 transition-all hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
       >
         <BellIcon className="h-6 w-6" />
         {unreadCount > 0 && (
-          <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-white">
+          <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-white dark:ring-slate-900">
             {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         )}
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-3 w-80 origin-top-right rounded-2xl border border-gray-200 bg-white shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none z-[100] overflow-hidden backdrop-blur-sm bg-white/95">
-          <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50/50 px-4 py-3">
-            <h3 className="text-sm font-semibold text-gray-900">
+        <div className="absolute right-0 mt-3 w-80 origin-top-right rounded-2xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none z-[100] overflow-hidden backdrop-blur-sm bg-white/95 dark:bg-slate-800/95">
+          <div className="flex items-center justify-between border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50 px-4 py-3">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
               Notifications
             </h3>
             {notifications.length > 0 && (
               <button
                 onClick={clearNotifications}
                 disabled={loading}
-                className="text-xs font-medium text-indigo-600 hover:text-indigo-500 disabled:opacity-50"
+                className="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 disabled:opacity-50"
               >
                 Clear all
               </button>
@@ -100,10 +100,12 @@ export default function NotificationManager() {
           <div className="max-h-96 overflow-y-auto overflow-x-hidden p-2 space-y-1">
             {notifications.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-8 px-4 text-center">
-                <div className="rounded-full bg-gray-50 p-3 mb-2">
+                <div className="rounded-full bg-gray-50 dark:bg-slate-700 p-3 mb-2">
                   <BellIcon className="h-6 w-6 text-gray-300" />
                 </div>
-                <p className="text-sm text-gray-500">No new notifications</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  No new notifications
+                </p>
               </div>
             ) : (
               notifications.map((notification, index) => (
@@ -111,7 +113,7 @@ export default function NotificationManager() {
                   key={index}
                   href={`/post/${notification.post_id}`}
                   onClick={() => setIsOpen(false)}
-                  className="group relative flex flex-col rounded-xl p-3 transition-all hover:bg-gray-50/80 active:scale-[0.98]"
+                  className="group relative flex flex-col rounded-xl p-3 transition-all hover:bg-gray-50/80 dark:hover:bg-slate-700/80 active:scale-[0.98]"
                 >
                   <div className="flex items-start gap-4">
                     <div
@@ -126,7 +128,7 @@ export default function NotificationManager() {
                       </span>
                     </div>
                     <div className="flex flex-col gap-0.5 pr-2">
-                      <p className="text-sm text-gray-900">
+                      <p className="text-sm text-gray-900 dark:text-gray-200">
                         <span className="font-semibold">
                           {notification.sender_name}
                         </span>{" "}
@@ -134,13 +136,13 @@ export default function NotificationManager() {
                           ? "liked your post:"
                           : "published a new post:"}
                       </p>
-                      <p className="line-clamp-1 text-sm font-medium text-indigo-600">
+                      <p className="line-clamp-1 text-sm font-medium text-indigo-600 dark:text-indigo-400">
                         &quot;{notification.post_heading}&quot;
                       </p>
-                      <span className="text-[11px] text-gray-400">
+                      <span className="text-[11px] text-gray-400 dark:text-gray-500">
                         {new Date(notification.created_at).toLocaleTimeString(
                           [],
-                          { hour: "2-digit", minute: "2-digit" }
+                          { hour: "2-digit", minute: "2-digit" },
                         )}
                       </span>
                     </div>
