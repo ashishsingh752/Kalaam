@@ -173,14 +173,14 @@ const Post: React.FC<PostsProps> = ({
         }`}
       >
         {postContentOpen ? (
-          <div className="min-h-[450px] max-h-[450px] overflow-y-auto px-4 text-center font-serif text-xl sm:text-2xl leading-[2] text-gray-800 dark:text-gray-200 italic whitespace-pre-line drop-shadow-sm">
+          <div className="min-h-[450px] max-h-[450px] overflow-y-auto px-4 text-center font-serif text-xl sm:text-2xl leading-[2] text-gray-800 dark:text-white italic whitespace-pre-line drop-shadow-sm">
             <div dangerouslySetInnerHTML={{ __html: content }} />
             <div className="text-sm flex justify-center items-center gap-2 font-semibold">
               Written By:{" "}
               {userId ? (
                 <ReadUsersPostDashBoard id={userId} name={name} />
               ) : (
-                name
+                <span className="text-gray-900 dark:text-gray-100">{name}</span>
               )}
             </div>
           </div>

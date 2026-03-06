@@ -168,7 +168,7 @@ const ReadUsersPostDashBoard: React.FC<ReadUsersPostDashBoardProps> = ({
       className="relative font-medium text-gray-800 cursor-pointer transition duration-200 ease-in-out hover:text-blue-600"
       onClick={readPost}
     >
-      <span className="underline-grow">{name}</span>
+      <span className="underline-grow dark:text-white">{name}</span>
       <span className="absolute left-1/2 bottom-0 w-0 h-[2px] bg-blue-600 transition-all duration-200 ease-in-out transform -translate-x-1/2 hover:w-full"></span>
     </div>
   );

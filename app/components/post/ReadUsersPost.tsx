@@ -78,7 +78,7 @@ export default function ReadUsersPost() {
               create_at: post.create_at,
               initialLikeCount: post._count?.likes || 0,
               initialLiked: post.liked,
-            })
+            }),
           );
           setUserPosts(transformedPosts);
           setTotalLikes(userPostsResponse.totalLikes || 0);
@@ -122,7 +122,7 @@ export default function ReadUsersPost() {
     return (
       <div className="min-h-screen bg-gradient-page flex justify-center items-center px-4">
         <div className="card-elevated p-8 text-center max-w-md animate-fadeIn">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg
               className="w-8 h-8 text-red-500"
               fill="none"
@@ -137,8 +137,10 @@ export default function ReadUsersPost() {
               />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Error!</h2>
-          <p className="text-gray-600 mb-6">{error}</p>
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">
+            Error!
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">{error}</p>
           <BackToHome />
         </div>
       </div>
@@ -147,7 +149,7 @@ export default function ReadUsersPost() {
 
   if (userPosts.length === 0 || !userPosts) {
     return (
-      <div className="min-h-screen -mt-24 bg-[#fcfdff] flex flex-col items-center px-4 py-12">
+      <div className="min-h-screen -mt-24 bg-[#fcfdff] dark:bg-slate-900 flex flex-col items-center px-4 py-12">
         <div className="w-full max-w-4xl mb-12 animate-fadeIn">
           <div className="flex justify-start mb-8">
             <BackToHome />
@@ -157,23 +159,23 @@ export default function ReadUsersPost() {
         <div className="flex-1 flex items-center justify-center w-full">
           <div className="relative group max-w-md w-full">
             {/* Background Glow */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-purple-100 to-indigo-100 rounded-[3rem] blur-2xl opacity-50 group-hover:opacity-75 transition duration-1000"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 rounded-[3rem] blur-2xl opacity-50 group-hover:opacity-75 transition duration-1000"></div>
 
-            <div className="relative bg-white/70 backdrop-blur-2xl p-12 text-center rounded-[3rem] border border-white shadow-[0_20px_50px_rgba(0,0,0,0.03)] animate-fadeIn">
+            <div className="relative bg-white/70 dark:bg-slate-800/70 backdrop-blur-2xl p-12 text-center rounded-[3rem] border border-white dark:border-slate-700 shadow-[0_20px_50px_rgba(0,0,0,0.03)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.2)] animate-fadeIn">
               <div className="relative mb-10">
-                <div className="w-24 h-24 bg-gradient-to-tr from-purple-50 to-indigo-50 rounded-[2rem] flex items-center justify-center mx-auto shadow-inner relative z-10">
+                <div className="w-24 h-24 bg-gradient-to-tr from-purple-50 to-indigo-50 dark:from-purple-900/30 dark:to-indigo-900/30 rounded-[2rem] flex items-center justify-center mx-auto shadow-inner relative z-10">
                   <DocumentTextIcon className="w-12 h-12 text-indigo-400/80" />
                 </div>
                 {/* Decorative Elements */}
-                <div className="absolute top-0 right-1/4 w-4 h-4 bg-purple-100 rounded-full animate-pulse"></div>
-                <div className="absolute bottom-0 left-1/4 w-3 h-3 bg-indigo-100 rounded-full animate-bounce delay-300"></div>
+                <div className="absolute top-0 right-1/4 w-4 h-4 bg-purple-100 dark:bg-purple-800/50 rounded-full animate-pulse"></div>
+                <div className="absolute bottom-0 left-1/4 w-3 h-3 bg-indigo-100 dark:bg-indigo-800/50 rounded-full animate-bounce delay-300"></div>
               </div>
 
-              <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">
+              <h2 className="text-4xl font-black text-slate-900 dark:text-gray-100 mb-4 tracking-tight">
                 Silent Sanctuary
               </h2>
 
-              <p className="text-slate-500 text-lg mb-10 leading-relaxed font-serif italic">
+              <p className="text-slate-500 dark:text-slate-400 text-lg mb-10 leading-relaxed font-serif italic">
                 &ldquo;Words are the small seeds from which great empires are
                 built.&rdquo; <br />
                 {userName || "This user"} hasn&apos;t planted any seeds yet.
@@ -182,7 +184,7 @@ export default function ReadUsersPost() {
               <div className="space-y-4">
                 <button
                   onClick={() => (window.location.href = "/")}
-                  className="w-full py-5 bg-slate-900 text-white rounded-3xl font-bold text-lg hover:bg-black hover:shadow-2xl hover:shadow-indigo-100 transition-all active:scale-95 flex items-center justify-center gap-3"
+                  className="w-full py-5 bg-slate-900 dark:bg-indigo-600 text-white rounded-3xl font-bold text-lg hover:bg-black dark:hover:bg-indigo-700 hover:shadow-2xl hover:shadow-indigo-100 dark:hover:shadow-indigo-900/30 transition-all active:scale-95 flex items-center justify-center gap-3"
                 >
                   <HomeIcon className="w-6 h-6 text-indigo-400" />
                   Explore Others
@@ -196,17 +198,17 @@ export default function ReadUsersPost() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fcfdff] flex flex-col items-center px-4 py-8">
+    <div className="min-h-screen bg-[#fcfdff] dark:bg-slate-900 flex flex-col items-center px-4 py-8">
       <div className="w-full max-w-4xl mb-12 animate-fadeIn">
         <div className="flex justify-start mb-8">
           <BackToHome />
         </div>
 
         <div className="relative group">
-          <div className="relative bg-white/80 backdrop-blur-xl rounded-[3rem] border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.05)] overflow-hidden">
+          <div className="relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-[3rem] border border-white/20 dark:border-slate-700/50 shadow-[0_20px_50px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.2)] overflow-hidden">
             <div className="flex flex-col md:flex-row items-center p-8 md:p-12 gap-10">
               <div className="relative">
-                <div className="p-1.5 rounded-full bg-gradient-to-tr from-gray-100 to-gray-200 shadow-inner">
+                <div className="p-1.5 rounded-full bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-slate-600 dark:to-slate-700 shadow-inner">
                   <Image
                     src={
                       userImage ||
@@ -215,49 +217,49 @@ export default function ReadUsersPost() {
                     width={160}
                     height={160}
                     alt={userName}
-                    className="w-32 h-32 md:w-44 md:h-44 rounded-full object-cover shadow-2xl border-4 border-white"
+                    className="w-32 h-32 md:w-44 md:h-44 rounded-full object-cover shadow-2xl border-4 border-white dark:border-slate-700"
                   />
                 </div>
               </div>
 
               <div className="flex-1 text-center md:text-left space-y-4">
-                <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight">
+                <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-gray-100 tracking-tight">
                   {userName}
                 </h1>
 
                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-6 pt-2">
                   <div className="flex items-center gap-3">
-                    <div className="h-12 w-12 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 shadow-sm">
+                    <div className="h-12 w-12 rounded-2xl bg-slate-50 dark:bg-slate-700 flex items-center justify-center border border-slate-100 dark:border-slate-600 shadow-sm">
                       <DocumentTextIcon className="w-6 h-6 text-indigo-500" />
                     </div>
                     <div>
-                      <p className="text-xl font-bold text-slate-900 leading-none">
+                      <p className="text-xl font-bold text-slate-900 dark:text-gray-100 leading-none">
                         {userPosts.length}
                       </p>
-                      <p className="text-xs font-medium text-slate-400 uppercase tracking-tighter">
+                      <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-tighter">
                         Publications
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="h-12 w-12 rounded-2xl bg-red-50 flex items-center justify-center border border-red-100 shadow-sm">
+                    <div className="h-12 w-12 rounded-2xl bg-red-50 dark:bg-red-900/30 flex items-center justify-center border border-red-100 dark:border-red-800/30 shadow-sm">
                       <HeartIconSolid className="w-6 h-6 text-red-500" />
                     </div>
                     <div>
-                      <p className="text-xl font-bold text-slate-900 leading-none">
+                      <p className="text-xl font-bold text-slate-900 dark:text-gray-100 leading-none">
                         {totalLikes}
                       </p>
-                      <p className="text-xs font-medium text-slate-400 uppercase tracking-tighter">
+                      <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-tighter">
                         Total Likes
                       </p>
                     </div>
                   </div>
 
-                  <div className="hidden md:block h-10 w-px bg-slate-200"></div>
+                  <div className="hidden md:block h-10 w-px bg-slate-200 dark:bg-slate-600"></div>
 
                   <div className="flex items-center gap-2">
-                    <p className="text-sm font-semibold text-slate-500">
+                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
                       {userRole}
                     </p>
                   </div>
@@ -297,12 +299,12 @@ export default function ReadUsersPost() {
       </div>
 
       <div className="mt-20 mb-12 text-center">
-        <div className="inline-flex items-center gap-3 text-gray-300">
-          <div className="h-px w-8 bg-gray-200"></div>
+        <div className="inline-flex items-center gap-3 text-gray-300 dark:text-gray-600">
+          <div className="h-px w-8 bg-gray-200 dark:bg-gray-700"></div>
           <p className="text-sm font-medium italic font-serif">
             You&apos;ve reached the beginning of the journey
           </p>
-          <div className="h-px w-8 bg-gray-200"></div>
+          <div className="h-px w-8 bg-gray-200 dark:bg-gray-700"></div>
         </div>
       </div>
     </div>
