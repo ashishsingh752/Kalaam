@@ -11,7 +11,7 @@ export default function UserProfile() {
   const menuRef = useRef(null);
 
   const defaultImageUrl =
-    "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=";
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR_bwZrOyCQJhPMvpxqrv-xmqEBzAJAKJtT-VpWkSQ-4AppODnHxANcPsX-RTiIYlcrXE&usqp=CAU";
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function UserProfile() {
         {session && session.user ? (
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 rounded-full "
+            className="focus:outline-none flex items-center justify-center focus:ring-2 focus:ring-black focus:ring-offset-2 rounded-full "
           >
             <Image
               src={session?.user?.image || defaultImageUrl}

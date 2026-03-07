@@ -8,6 +8,7 @@ import Image from "next/image";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
 import { IoAlertCircle } from "react-icons/io5";
+import { useTheme } from "../ThemeProvider";
 
 interface AuthErrorType {
   roll_number?: string;
@@ -129,6 +130,13 @@ export default function SignIn() {
     redirect("/");
   }
 
+  const { theme } = useTheme();
+  const logoSrc =
+    theme === "dark"
+      ? "https://res.cloudinary.com/dkm6extdv/image/upload/v1772826185/kalaam-logo-light_tk0dg6.png"
+      : "https://res.cloudinary.com/dkm6extdv/image/upload/v1772826431/kalaam-logo_chdofs.png";
+
+
   return (
     <div className="flex min-h-[calc(100vh-5rem)] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-slate-900 dark:to-slate-800 items-center justify-center">
       <Toaster position="top-center" reverseOrder={false} />
@@ -139,11 +147,11 @@ export default function SignIn() {
           </h3>
           <div className="flex justify-center mt-4 items-center">
             <Image
-              src="https://res.cloudinary.com/dkm6extdv/image/upload/v1728752557/ii-removebg-preview_jjqgoy.png"
+              src={logoSrc}
               alt="Kalaam Logo"
               width={80}
               height={80}
-              className="object-contain"
+              className="object-contain rounded-full"
             />
           </div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-4">

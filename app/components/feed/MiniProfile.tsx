@@ -7,8 +7,7 @@ import Image from "next/image";
 export default function MiniProfile() {
   const { data: session } = useSession();
   const defaultImageUrl =
-    "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=";
-
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR_bwZrOyCQJhPMvpxqrv-xmqEBzAJAKJtT-VpWkSQ-4AppODnHxANcPsX-RTiIYlcrXE&usqp=CAU"
   return (
     <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col gap-4">
       <div className="flex items-center gap-4">
@@ -27,8 +26,8 @@ export default function MiniProfile() {
               src={defaultImageUrl}
               alt="Default Profile"
               className="relative rounded-full w-14 h-14 object-cover border-2 border-white dark:border-slate-700"
-              width={56}
-              height={56}
+              width={100}
+              height={100}
             />
           )}
         </div>
