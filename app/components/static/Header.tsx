@@ -19,6 +19,7 @@ export default async function Header() {
     { name: "Home", href: "/" },
     { name: "Team", href: "/poets" },
     { name: "Contact", href: "/contact" },
+    { name: "About", href: "/about" },
     { name: "Post", href: "/newpost" },
   ];
 
