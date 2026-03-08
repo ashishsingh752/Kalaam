@@ -10,6 +10,8 @@ export async function POST(req: NextRequest) {
         message: "Please provide a search term",
       });
     }
+
+    // Search users by name (wildcard, case-insensitive)
     const users = await prisma.user.findMany({
       where: {
         name: {
@@ -18,9 +20,38 @@ export async function POST(req: NextRequest) {
         },
       },
     });
+
+    // Search posts by heading (wildcard, case-insensitive)
+    const posts = await prisma.post.findMany({
+      where: {
+        heading: {
+          contains: searchTerm,
+          mode: "insensitive",
+        },
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+            image: true,
+            userId: true,
+          },
+        },
+        _count: {
+          select: { likes: true },
+        },
+      },
+      orderBy: {
+        create_at: "desc",
+      },
+    });
+
     return NextResponse.json({
       status: 200,
-      data: users,
+      data: {
+        users,
+        posts,
+      },
     });
   } catch (error) {
     console.error(error);

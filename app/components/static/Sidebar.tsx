@@ -14,6 +14,7 @@ import {
 import { AiOutlineClose } from "react-icons/ai";
 import { useRouter, usePathname } from "next/navigation";
 import AccountOrSighIn from "./AccountOrSighIn";
+import SearchBox from "../search/SearchBox";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -83,8 +84,13 @@ const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       <div className="flex flex-col h-[calc(100vh-72px)] overflow-y-auto custom-scrollbar">
+        {/* Search */}
+        <div className="px-4 pt-5 pb-2">
+          <SearchBox />
+        </div>
+
         {/* Navigation Items */}
-        <div className="px-3 pt-6 pb-4">
+        <div className="px-3 pt-3 pb-4">
           <p className="px-4 text-[10px] font-semibold text-gray-400 dark:text-gray-500 tracking-[0.15em] uppercase mb-3">
             Navigation
           </p>

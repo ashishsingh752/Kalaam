@@ -180,7 +180,7 @@ const BackToHome: React.FC = () => {
   return (
     <button
       onClick={() => router.back()}
-      className="group flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-100 rounded-2xl text-gray-600 font-bold hover:shadow-lg hover:border-purple-200 transition-all active:scale-95"
+      className="group flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-100 dark:border-slate-700 dark:bg-slate-800/80 rounded-2xl text-gray-600 dark:text-gray-100 font-bold hover:shadow-lg hover:border-purple-200 transition-all active:scale-95"
     >
       <svg
         className="w-5 h-5 group-hover:-translate-x-1 transition-transform"
