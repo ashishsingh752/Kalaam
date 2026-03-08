@@ -8,12 +8,16 @@ import {
   EyeIcon,
   EyeSlashIcon,
   PaperAirplaneIcon,
+  LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import { toast } from "react-hot-toast";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 // ! Create new post component - Enhanced with premium UI/UX
 
 export default function CreateNewPost() {
+  const { data: session, status } = useSession();
   const imgeRef = useRef<HTMLInputElement | null>(null);
   const [preView, setPreView] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
@@ -23,6 +27,7 @@ export default function CreateNewPost() {
   const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
+  const [bannerDismissed, setBannerDismissed] = useState(false);
   const router = useRouter();
 
   const maxTitleLength = 100;
@@ -36,6 +41,8 @@ export default function CreateNewPost() {
       }
     };
   }, [preView]);
+
+  const isNotLoggedIn = status !== "loading" && !session;
 
   // function to select the image for the user device
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -131,6 +138,65 @@ export default function CreateNewPost() {
 
   return (
     <div className="min-h-screen pb-10 bg-gradient-page flex flex-col justify-center items-center px-4">
+      {/* Scrolling notification banner for non-logged-in users */}
+      {isNotLoggedIn && !bannerDismissed && (
+        <div className="fixed top-[88px] left-0 right-0 z-40 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 dark:from-yellow-800 dark:via-yellow-700 dark:to-yellow-800 shadow-lg overflow-hidden">
+          <div className="flex items-center">
+            <div className="flex-1 overflow-hidden py-2.5">
+              <div className="flex animate-marquee whitespace-nowrap">
+                {[1, 2, 3].map((i) => (
+                  <span
+                    key={i}
+                    className="mx-8 text-sm font-medium text-white flex items-center gap-2"
+                  >
+                    <LockClosedIcon className="w-4 h-4 inline" />
+                    You are not logged in — You can&apos;t create a post.
+                    <span className="opacity-75">
+                      Please sign in to publish your poetry.
+                    </span>
+                    <span className="mx-4 opacity-40">✦</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center gap-2 pr-3 shrink-0">
+              <button
+                onClick={() => setBannerDismissed(true)}
+                className="p-1 rounded-full hover:bg-white/20 text-white/70 hover:text-white transition-all"
+                title="Dismiss"
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <style jsx>{`
+            @keyframes marquee {
+              0% {
+                transform: translateX(0);
+              }
+              100% {
+                transform: translateX(-33.33%);
+              }
+            }
+            .animate-marquee {
+              animation: marquee 15s linear infinite;
+            }
+          `}</style>
+        </div>
+      )}
+
       <div className="w-full max-w-4xl mt-8">
         {/* Header */}
         <div className="text-center mb-8 animate-fadeIn">
