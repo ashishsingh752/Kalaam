@@ -13,8 +13,6 @@ export const metadata: Metadata = {
     "This website is made for the Kalaam club of NIT Rourkela by Ashish Singh.",
 };
 
-export const runtime = "nodejs";
-
 export default function RootLayout({
   children,
 }: {
