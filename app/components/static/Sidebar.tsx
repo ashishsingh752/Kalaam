@@ -10,6 +10,7 @@ import {
   FaInstagram,
   FaTwitter,
   FaInfoCircle,
+  FaHeart,
 } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { useRouter, usePathname } from "next/navigation";
@@ -43,6 +44,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     { label: "Post Content", icon: <FaPen />, route: "/newpost" },
     { label: "Contact", icon: <FaUsers />, route: "/contact" },
     { label: "About", icon: <FaInfoCircle />, route: "/about" },
+    { label: "Support Us", icon: <FaHeart />, route: "/support" },
   ];
 
   const handleNavigation = (route: string) => {

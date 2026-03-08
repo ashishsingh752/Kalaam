@@ -126,7 +126,14 @@ export default function AboutPage() {
             share their voice, discover fellow wordsmiths, and engage in
             meaningful artistic expression.
           </p>
-          <div className="flex items-center justify-center gap-4 pt-2">
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <Link
+              href="/support"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium text-sm shadow-lg shadow-pink-500/25 hover:shadow-xl hover:shadow-pink-500/40 hover:-translate-y-0.5 transition-all duration-300"
+            >
+              <FaHeart className="text-sm" />
+              Support Us
+            </Link>
             <a
               href="https://github.com/ashishsingh752/Kalaam"
               target="_blank"
@@ -240,15 +247,9 @@ export default function AboutPage() {
                   </p>
                   <h3 className="text-2xl font-bold">Ashish Singh</h3>
                   <div className="text-gray-400 text-sm mt-1">
-                    <p>
-                      Software Engineer - Dassault Systèmes
-                    </p>
-                    <p>
-                      Electrical Engineering
-                    </p>
-                    <p>
-                      2021-2025 · NIT Rourkela
-                    </p>
+                    <p>Software Engineer - Dassault Systèmes</p>
+                    <p>Electrical Engineering</p>
+                    <p>2021-2025 · NIT Rourkela</p>
                   </div>
                 </div>
                 <p className="text-gray-400 text-sm leading-relaxed max-w-lg">

@@ -61,7 +61,12 @@ const UserDropdown: React.FC<UserProps> = () => {
           <span>Account</span>
         </button>
 
-        <button className="flex items-center gap-3 text-gray-700 dark:text-gray-300 text-sm font-medium hover:bg-gray-50 dark:hover:bg-slate-700 p-3 rounded-lg transition-colors cursor-pointer w-full text-left">
+        <button
+          onClick={() => {
+            router.push("/support");
+          }}
+          className="flex items-center gap-3 text-gray-700 dark:text-gray-300 text-sm font-medium hover:bg-gray-50 dark:hover:bg-slate-700 p-3 rounded-lg transition-colors cursor-pointer w-full text-left"
+        >
           <IoHelpCircleOutline
             size={20}
             className="text-gray-500 dark:text-gray-400"
