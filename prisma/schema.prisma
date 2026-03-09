@@ -32,6 +32,7 @@ model User {
   Post          Post[]
   likes         Like[]
   passwordResetTokens PasswordResetToken[]
+  Donations     Donation[]
 }
 
 // 
@@ -69,3 +70,15 @@ model PasswordResetToken {
   used      Boolean  @default(false)
   createdAt DateTime @default(now())
 }
+
+model Donation {
+  id                Int      @id @default(autoincrement())
+  razorpayOrderId   String   @unique
+  razorpayPaymentId String   @unique
+  amount            Float    
+  tier              String   
+  user_id           Int?     
+  user              User?    @relation(fields: [user_id], references: [id], onDelete: SetNull)
+  createdAt         DateTime @default(now())
+}
+

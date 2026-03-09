@@ -10,6 +10,7 @@ import {
   FaTimesCircle,
 } from "react-icons/fa";
 import { IoSparkles } from "react-icons/io5";
+import { useSession } from "next-auth/react";
 
 declare global {
   interface Window {
@@ -52,6 +53,7 @@ const tiers = [
 ];
 
 export default function SupportPage() {
+  const { data: session } = useSession();
   const [loadingTier, setLoadingTier] = useState<string | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
   const searchParams = useSearchParams();
@@ -103,6 +105,11 @@ export default function SupportPage() {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_signature: response.razorpay_signature,
+                amount: amount,
+                tierName: tierName,
+                userId: (session?.user as any)?.id
+                  ? Number((session?.user as any).id)
+                  : null,
               }),
             });
             const verifyData = await verifyRes.json();
@@ -321,7 +328,7 @@ export default function SupportPage() {
                 d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
               />
             </svg>
-            Payments are securely processed by Stripe
+            Payments are securely processed by Razorpay
           </div>
           <p className="text-xs text-gray-300 dark:text-gray-600">
             All donations go towards maintaining Kalaam and supporting poetry
