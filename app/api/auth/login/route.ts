@@ -19,8 +19,13 @@ export async function POST(request: NextRequest) {
     const validator = vine.compile(loginSchema);
     const payload = await validator.validate(data);
 
-    const user = await prisma.user.findUnique({
-      where: { roll_number: payload.roll_number },
+    const user = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { roll_number: payload.identifier },
+          { email: payload.identifier }
+        ]
+      },
     });
 
     if (!user) {

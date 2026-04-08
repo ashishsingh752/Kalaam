@@ -30,12 +30,13 @@ export default function SignUp() {
   const [isOpenConfirm, setIsOpenConfirm] = useState(false);
   const [errors, setErrors] = useState<AuthErrorType>({});
   const [loading, setLoading] = useState(false);
+  const [isNitrStudent, setIsNitrStudent] = useState(false);
   const [authState, setAuthState] = useState<RegistrationProps>({
     name: "",
     email: "",
     password: "",
     roll_number: "",
-    yearOfStudy: "",
+    yearOfStudy: "5",
   });
   const [confirmPassword, setConfirmPassword] = useState("");
   const router = useRouter();
@@ -72,7 +73,7 @@ export default function SignUp() {
         break;
 
       case "roll_number":
-        if (!value) errorMsg = "Roll number is required.";
+        if (isNitrStudent && !value) errorMsg = "Roll number is required.";
         break;
 
       case "confirm_password":
@@ -96,6 +97,10 @@ export default function SignUp() {
     const formErrors = Object.values(errors).filter(Boolean);
     if (formErrors.length > 0) {
       toast.error("Please fix the errors in the form before submitting.");
+      return;
+    }
+    if (isNitrStudent && !authState.roll_number) {
+      toast.error("Roll number is required for NITR students.");
       return;
     }
 
@@ -166,6 +171,42 @@ export default function SignUp() {
         </div>
 
         <form onSubmit={handleFormSubmit} className="flex flex-col gap-4 mt-8">
+          {/* NITR Student Toggle */}
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Are you an NIT Rourkela student?
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-gray-500">No</span>
+              <button
+                type="button"
+                aria-label="Toggle NITR Student"
+                onClick={() => {
+                  const newValue = !isNitrStudent;
+                  setIsNitrStudent(newValue);
+                  if (!newValue) {
+                    setAuthState((prev) => ({ ...prev, roll_number: "" }));
+                    setErrors((prev) => ({ ...prev, roll_number: "" }));
+                  }
+                }}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  isNitrStudent
+                    ? "bg-black dark:bg-indigo-600"
+                    : "bg-gray-200 dark:bg-gray-700"
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    isNitrStudent ? "translate-x-6" : "translate-x-1"
+                  }`}
+                />
+              </button>
+              <span className="text-sm font-medium text-gray-900 dark:text-white">
+                Yes
+              </span>
+            </div>
+          </div>
+
           {/* Name */}
           <div>
             <input
@@ -185,22 +226,24 @@ export default function SignUp() {
           </div>
 
           {/* Roll Number */}
-          <div>
-            <input
-              id="roll_number"
-              type="text"
-              placeholder="Roll Number"
-              value={authState.roll_number}
-              onChange={handleChange}
-              className={inputClass(errors.roll_number)}
-            />
-            {errors.roll_number && (
-              <div className="flex items-center gap-1 mt-1.5 text-red-600 dark:text-red-400 text-xs">
-                <IoAlertCircle size={14} />
-                <span>{errors.roll_number}</span>
-              </div>
-            )}
-          </div>
+          {isNitrStudent && (
+            <div>
+              <input
+                id="roll_number"
+                type="text"
+                placeholder="Roll Number"
+                value={authState.roll_number}
+                onChange={handleChange}
+                className={inputClass(errors.roll_number)}
+              />
+              {errors.roll_number && (
+                <div className="flex items-center gap-1 mt-1.5 text-red-600 dark:text-red-400 text-xs">
+                  <IoAlertCircle size={14} />
+                  <span>{errors.roll_number}</span>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Email */}
           <div>
@@ -221,6 +264,7 @@ export default function SignUp() {
           </div>
 
           {/* Year of Study */}
+          {isNitrStudent && (
           <div>
             <select
               className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-indigo-500 focus:border-transparent transition-all"
@@ -237,6 +281,7 @@ export default function SignUp() {
               <option value="5">Alumni</option>
             </select>
           </div>
+          )}
 
           {/* Password */}
           <div>

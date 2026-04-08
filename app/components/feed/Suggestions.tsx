@@ -30,7 +30,7 @@ interface PostType {
 // ! fetch members to show the suggestion for the logged-in user only
 const fetchMembers = async () => {
   try {
-    const res = await axios.get("/api/user", {
+    const res = await axios.get("/api/user/profile", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -80,15 +80,6 @@ export default function Suggestions() {
     );
   }
 
-  if (users.length === 0) {
-    return (
-      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 p-8 text-center">
-        <p className="text-sm text-slate-500 dark:text-slate-400">
-          Sign in to see suggestions
-        </p>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">

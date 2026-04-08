@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Kalaam: The Poetry Club",
   description:
-    "This website is made for the Kalaam club of NIT Rourkela by Ashish Singh.",
+    "This website is made for posting poetry by Ashish Singh.",
 };
 
 export default function RootLayout({

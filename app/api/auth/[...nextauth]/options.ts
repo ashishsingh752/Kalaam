@@ -59,12 +59,18 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        roll_number: { label: "Roll Number", type: "text" },
+        identifier: { label: "Email or Roll Number", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const user = await prisma.user.findUnique({
-          where: { roll_number: credentials?.roll_number },
+        if (!credentials?.identifier) return null;
+        const user = await prisma.user.findFirst({
+          where: { 
+            OR: [
+              { roll_number: credentials.identifier },
+              { email: credentials.identifier }
+            ]
+          },
           select: {
             id: true,
             name: true,

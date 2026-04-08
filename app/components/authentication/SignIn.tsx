@@ -11,7 +11,7 @@ import { IoAlertCircle } from "react-icons/io5";
 import { useTheme } from "../ThemeProvider";
 
 interface AuthErrorType {
-  roll_number?: string;
+  identifier?: string;
   password?: string;
 }
 
@@ -21,7 +21,7 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false);
   const session = useSession();
   const [authState, setAuthState] = useState({
-    roll_number: "",
+    identifier: "",
     password: "",
   });
 
@@ -53,20 +53,47 @@ export default function SignIn() {
       const response = res.data;
       if (response.status === 200) {
         toast.success("Login successful! Redirecting...");
+        setErrors({});
         signIn("credentials", {
-          roll_number: authState.roll_number,
+          identifier: authState.identifier,
           password: authState.password,
           callbackUrl: "/",
           redirect: true,
         });
-      } else if (response.status === 404 || response.status === 403) {
-        setErrors(response.error);
+      } else if (response.status === 400) {
+        setErrors(response.error?.messages || response.error || {});
+        toast.error("Please check the form for errors.");
+      } else if (
+        response.status === 404 ||
+        response.status === 403 ||
+        response.status === 401
+      ) {
+        setErrors({});
         toast.error(
           response.message || "Login failed. Please check your credentials.",
         );
+      } else {
+        setErrors({});
+        toast.error(
+          response.message ||
+            "An unexpected error occurred. Please try again later.",
+        );
       }
-    } catch (error) {
-      toast.error("An unexpected error occurred. Please try again later.");
+    } catch (error: any) {
+      if (error.response?.data?.status === 400) {
+        setErrors(
+          error.response.data.error?.messages ||
+            error.response.data.error ||
+            {},
+        );
+        toast.error("Please check the form for errors.");
+      } else {
+        setErrors({});
+        toast.error(
+          error.response?.data?.message ||
+            "An unexpected error occurred. Please try again later.",
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -96,6 +123,8 @@ export default function SignIn() {
       setForgotLoading(false);
     }
   };
+
+  const { theme } = useTheme();
 
   if (loading && session?.data) {
     return (
@@ -130,12 +159,10 @@ export default function SignIn() {
     redirect("/");
   }
 
-  const { theme } = useTheme();
   const logoSrc =
     theme === "dark"
       ? "https://res.cloudinary.com/dkm6extdv/image/upload/v1772826185/kalaam-logo-light_tk0dg6.png"
       : "https://res.cloudinary.com/dkm6extdv/image/upload/v1772826431/kalaam-logo_chdofs.png";
-
 
   return (
     <div className="flex min-h-[calc(100vh-5rem)] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-slate-900 dark:to-slate-800 items-center justify-center">
@@ -163,24 +190,24 @@ export default function SignIn() {
         </div>
 
         <form onSubmit={handleFormSubmit} className="flex flex-col gap-4 mt-8">
-          {/* Roll Number */}
+          {/* Identifier */}
           <div>
             <input
-              id="roll_number"
+              id="identifier"
               type="text"
-              placeholder="Institute Roll Number"
-              value={authState.roll_number}
+              placeholder="Email or Roll Number"
+              value={authState.identifier}
               onChange={handleChange}
               className={`w-full px-4 py-2.5 text-sm rounded-lg border ${
-                errors.roll_number
+                errors.identifier
                   ? "border-red-400 bg-red-50 dark:bg-red-900/20"
                   : "border-gray-300 dark:border-slate-600"
               } bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-indigo-500 focus:border-transparent transition-all`}
             />
-            {errors.roll_number && (
+            {errors.identifier && (
               <div className="flex items-center gap-1 mt-1.5 text-red-600 dark:text-red-400 text-xs">
                 <IoAlertCircle size={14} />
-                <span>{errors.roll_number}</span>
+                <span>{errors.identifier}</span>
               </div>
             )}
           </div>

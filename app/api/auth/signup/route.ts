@@ -29,17 +29,19 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if the user already exists by roll number
-    const isRollNumberExist = await prisma.user.findUnique({
-      where: { roll_number: payload.roll_number },
-    });
-
-    if (isRollNumberExist) {
-      return NextResponse.json({
-        status: 400,
-        error: {
-          roll_number: "User already exists with the same roll number.",
-        },
+    if (payload.roll_number) {
+      const isRollNumberExist = await prisma.user.findUnique({
+        where: { roll_number: payload.roll_number },
       });
+
+      if (isRollNumberExist) {
+        return NextResponse.json({
+          status: 400,
+          error: {
+            roll_number: "User already exists with the same roll number.",
+          },
+        });
+      }
     }
 
     // Encrypt the user's password with bcrypt
@@ -49,6 +51,8 @@ export async function POST(request: NextRequest) {
     const response = await prisma.user.create({
       data: {
         ...payload,
+        // @ts-ignore: Prisma client hasn't been regenerated successfully due to dev server file lock
+        roll_number: payload.roll_number || null,
         approved: false,
       },
     });
