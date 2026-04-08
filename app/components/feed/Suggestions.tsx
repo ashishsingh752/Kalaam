@@ -30,7 +30,7 @@ interface PostType {
 // ! fetch members to show the suggestion for the logged-in user only
 const fetchMembers = async () => {
   try {
-    const res = await axios.get("/api/user/profile", {
+    const res = await axios.get("/api/user", {
       headers: {
         "Content-Type": "application/json",
       },

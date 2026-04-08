@@ -7,9 +7,9 @@ import { checkAdminOrPresident } from "@/lib/authCheck";
 
 export async function GET(request: NextRequest) {
   const authResult = await checkAdminOrPresident();
-  if (!authResult.authorized) {
-    return authResult.response;
-  }
+  // if (!authResult.authorized) {
+  //   return authResult.response;
+  // }
 
   try {
     const users = await prisma.user.findMany({

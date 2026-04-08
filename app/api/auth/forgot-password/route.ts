@@ -5,17 +5,22 @@ import crypto from "crypto";
 
 export async function POST(request: NextRequest) {
   try {
-    const { roll_number } = await request.json();
+    const { identifier } = await request.json();
 
-    if (!roll_number || typeof roll_number !== "string") {
+    if (!identifier || typeof identifier !== "string") {
       return NextResponse.json({
         status: 400,
-        message: "Roll number is required.",
+        message: "Email or roll number is required.",
       });
     }
 
-    const user = await prisma.user.findUnique({
-      where: { roll_number: roll_number.trim() },
+    const user = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { roll_number: identifier.trim() },
+          { email: identifier.trim() },
+        ],
+      },
       select: { id: true, email: true, name: true },
     });
 
@@ -24,7 +29,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         status: 200,
         message:
-          "If an account with that roll number exists, a password reset link has been sent to the registered email.",
+          "If an account with that identifier exists, a password reset link has been sent to the registered email.",
       });
     }
 
@@ -57,7 +62,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       status: 200,
       message:
-        "If an account with that roll number exists, a password reset link has been sent to the registered email.",
+        "If an account with that identifier exists, a password reset link has been sent to the registered email.",
     });
   } catch (error: any) {
     console.error("[Forgot Password Error]", error);

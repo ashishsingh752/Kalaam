@@ -147,56 +147,6 @@ export default function ReadUsersPost() {
     );
   }
 
-  if (userPosts.length === 0 || !userPosts) {
-    return (
-      <div className="min-h-screen -mt-24 bg-[#fcfdff] dark:bg-slate-900 flex flex-col items-center px-4 py-12">
-        <div className="w-full max-w-4xl mb-12 animate-fadeIn">
-          <div className="flex justify-start mb-8">
-            <BackToHome />
-          </div>
-        </div>
-
-        <div className="flex-1 flex items-center justify-center w-full">
-          <div className="relative group max-w-md w-full">
-            {/* Background Glow */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 rounded-[3rem] blur-2xl opacity-50 group-hover:opacity-75 transition duration-1000"></div>
-
-            <div className="relative bg-white/70 dark:bg-slate-800/70 backdrop-blur-2xl p-12 text-center rounded-[3rem] border border-white dark:border-slate-700 shadow-[0_20px_50px_rgba(0,0,0,0.03)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.2)] animate-fadeIn">
-              <div className="relative mb-10">
-                <div className="w-24 h-24 bg-gradient-to-tr from-purple-50 to-indigo-50 dark:from-purple-900/30 dark:to-indigo-900/30 rounded-[2rem] flex items-center justify-center mx-auto shadow-inner relative z-10">
-                  <DocumentTextIcon className="w-12 h-12 text-indigo-400/80" />
-                </div>
-                {/* Decorative Elements */}
-                <div className="absolute top-0 right-1/4 w-4 h-4 bg-purple-100 dark:bg-purple-800/50 rounded-full animate-pulse"></div>
-                <div className="absolute bottom-0 left-1/4 w-3 h-3 bg-indigo-100 dark:bg-indigo-800/50 rounded-full animate-bounce delay-300"></div>
-              </div>
-
-              <h2 className="text-4xl font-black text-slate-900 dark:text-gray-100 mb-4 tracking-tight">
-                Silent Sanctuary
-              </h2>
-
-              <p className="text-slate-500 dark:text-slate-400 text-lg mb-10 leading-relaxed font-serif italic">
-                &ldquo;Words are the small seeds from which great empires are
-                built.&rdquo; <br />
-                {userName || "This user"} hasn&apos;t planted any seeds yet.
-              </p>
-
-              <div className="space-y-4">
-                <button
-                  onClick={() => (window.location.href = "/")}
-                  className="w-full py-5 bg-slate-900 dark:bg-indigo-600 text-white rounded-3xl font-bold text-lg hover:bg-black dark:hover:bg-indigo-700 hover:shadow-2xl hover:shadow-indigo-100 dark:hover:shadow-indigo-900/30 transition-all active:scale-95 flex items-center justify-center gap-3"
-                >
-                  <HomeIcon className="w-6 h-6 text-indigo-400" />
-                  Explore Others
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-[#fcfdff] dark:bg-slate-900 flex flex-col items-center px-4 py-8">
       <div className="w-full max-w-4xl mb-12 animate-fadeIn">
@@ -272,6 +222,48 @@ export default function ReadUsersPost() {
         </div>
       </div>
 
+      {userPosts.length === 0 || !userPosts ? (
+      <div className="min-h-screen -mt-24 bg-[#fcfdff] dark:bg-slate-900 flex flex-col items-center px-4 py-12">
+        <div className="flex-1 flex items-center justify-center w-full">
+          <div className="relative group max-w-md w-full">
+            {/* Background Glow */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 rounded-[3rem] blur-2xl opacity-50 group-hover:opacity-75 transition duration-1000"></div>
+
+            <div className="relative bg-white/70 dark:bg-slate-800/70 backdrop-blur-2xl p-12 text-center rounded-[3rem] border border-white dark:border-slate-700 shadow-[0_20px_50px_rgba(0,0,0,0.03)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.2)] animate-fadeIn">
+              <div className="relative mb-10">
+                <div className="w-24 h-24 bg-gradient-to-tr from-purple-50 to-indigo-50 dark:from-purple-900/30 dark:to-indigo-900/30 rounded-[2rem] flex items-center justify-center mx-auto shadow-inner relative z-10">
+                  <DocumentTextIcon className="w-12 h-12 text-indigo-400/80" />
+                </div>
+                {/* Decorative Elements */}
+                <div className="absolute top-0 right-1/4 w-4 h-4 bg-purple-100 dark:bg-purple-800/50 rounded-full animate-pulse"></div>
+                <div className="absolute bottom-0 left-1/4 w-3 h-3 bg-indigo-100 dark:bg-indigo-800/50 rounded-full animate-bounce delay-300"></div>
+              </div>
+
+              <h2 className="text-4xl font-black text-slate-900 dark:text-gray-100 mb-4 tracking-tight">
+                Silent Sanctuary
+              </h2>
+
+              <p className="text-slate-500 dark:text-slate-400 text-lg mb-10 leading-relaxed font-serif italic">
+                &ldquo;Words are the small seeds from which great empires are
+                built.&rdquo; <br />
+                {userName || "This user"} hasn&apos;t planted any seeds yet.
+              </p>
+
+              <div className="space-y-4">
+                <button
+                  onClick={() => (window.location.href = "/")}
+                  className="w-full py-5 bg-slate-900 dark:bg-indigo-600 text-white rounded-3xl font-bold text-lg hover:bg-black dark:hover:bg-indigo-700 hover:shadow-2xl hover:shadow-indigo-100 dark:hover:shadow-indigo-900/30 transition-all active:scale-95 flex items-center justify-center gap-3"
+                >
+                  <HomeIcon className="w-6 h-6 text-indigo-400" />
+                  Explore Others
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      ) : (
+        <>
       <div className="w-full max-w-4xl space-y-4">
         {userPosts.map((post, index) => (
           <div
@@ -307,6 +299,10 @@ export default function ReadUsersPost() {
           <div className="h-px w-8 bg-gray-200 dark:bg-gray-700"></div>
         </div>
       </div>
+        
+        </>
+      )}
+
     </div>
   );
 }

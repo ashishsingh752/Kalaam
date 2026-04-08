@@ -57,7 +57,7 @@ const Suggestion: React.FC<SuggestionProps> = ({
           </h3>
         </div>
       </div>
-
+      
       <div className="opacity-80 text-sm group-hover:opacity-100 transition-opacity">
         <ReadUsersPostButton id={userId} />
       </div>

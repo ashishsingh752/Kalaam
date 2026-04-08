@@ -27,7 +27,7 @@ export default function SignIn() {
 
   // Forgot password modal state
   const [showForgotModal, setShowForgotModal] = useState(false);
-  const [forgotRollNumber, setForgotRollNumber] = useState("");
+  const [forgotIdentifier, setForgotIdentifier] = useState("");
   const [forgotLoading, setForgotLoading] = useState(false);
   const [forgotSent, setForgotSent] = useState(false);
 
@@ -101,14 +101,14 @@ export default function SignIn() {
 
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!forgotRollNumber.trim()) {
-      toast.error("Please enter your roll number.");
+    if (!forgotIdentifier.trim()) {
+      toast.error("Please enter your email or roll number.");
       return;
     }
     setForgotLoading(true);
     try {
       const res = await axios.post("/api/auth/forgot-password", {
-        roll_number: forgotRollNumber.trim(),
+        identifier: forgotIdentifier.trim(),
       });
       const data = res.data;
       if (data.status === 200) {
@@ -248,7 +248,7 @@ export default function SignIn() {
                 onClick={() => {
                   setShowForgotModal(true);
                   setForgotSent(false);
-                  setForgotRollNumber("");
+                  setForgotIdentifier("");
                 }}
                 className="text-xs text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white hover:underline transition-colors"
               >
@@ -347,8 +347,8 @@ export default function SignIn() {
                     Forgot Password?
                   </h2>
                   <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
-                    Enter your roll number and we&apos;ll send a reset link to
-                    your registered email.
+                    Enter your email or roll number and we&apos;ll send a reset
+                    link to your registered email.
                   </p>
                 </div>
                 <form
@@ -357,9 +357,9 @@ export default function SignIn() {
                 >
                   <input
                     type="text"
-                    placeholder="Institute Roll Number"
-                    value={forgotRollNumber}
-                    onChange={(e) => setForgotRollNumber(e.target.value)}
+                    placeholder="Email or Roll Number"
+                    value={forgotIdentifier}
+                    onChange={(e) => setForgotIdentifier(e.target.value)}
                     className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-indigo-500 focus:border-transparent transition-all"
                     autoFocus
                   />
@@ -418,7 +418,7 @@ export default function SignIn() {
                   Check Your Email
                 </h2>
                 <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
-                  If an account exists with that roll number, we&apos;ve sent a
+                  If an account exists with that identifier, we&apos;ve sent a
                   password reset link to your registered email address.
                 </p>
                 <button
