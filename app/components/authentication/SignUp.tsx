@@ -225,6 +225,24 @@ export default function SignUp() {
             )}
           </div>
 
+          {/* Email */}
+          <div>
+            <input
+              id="email"
+              type="email"
+              placeholder="Email"
+              value={authState.email}
+              onChange={handleChange}
+              className={inputClass(errors.email)}
+            />
+            {errors.email && (
+              <div className="flex items-center gap-1 mt-1.5 text-red-600 dark:text-red-400 text-xs">
+                <IoAlertCircle size={14} />
+                <span>{errors.email}</span>
+              </div>
+            )}
+          </div>
+
           {/* Roll Number */}
           {isNitrStudent && (
             <div>
@@ -244,24 +262,6 @@ export default function SignUp() {
               )}
             </div>
           )}
-
-          {/* Email */}
-          <div>
-            <input
-              id="email"
-              type="email"
-              placeholder="Email"
-              value={authState.email}
-              onChange={handleChange}
-              className={inputClass(errors.email)}
-            />
-            {errors.email && (
-              <div className="flex items-center gap-1 mt-1.5 text-red-600 dark:text-red-400 text-xs">
-                <IoAlertCircle size={14} />
-                <span>{errors.email}</span>
-              </div>
-            )}
-          </div>
 
           {/* Year of Study */}
           {isNitrStudent && (
